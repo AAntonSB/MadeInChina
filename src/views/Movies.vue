@@ -4,11 +4,11 @@
         {{$store.state.movies.Joker}}
         {{movies.image}} -->
 
- <section 
+ <section
       v-for="movie in movies [$route.params.movie]"
       v-bind:key="movie.title"
-      v-bind:style="{ backgroundImage: 'url(' + movie.image + ')', backgroundRepeat: 'no-repeat'}">
-      <img :src="movie.image" alt="poster">
+      >
+     <img :src="movie.image" alt="poster">
  </section>
 
     </div>

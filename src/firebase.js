@@ -2,18 +2,16 @@ import firebase from 'firebase'
 import 'firebase/firestore'
 
 
-// Använda vår egen iD,Key etc sålänge vi har rätt firebase koder.
-
 // Initialize Firebase
 let config = {
-  apiKey: "AIzaSyCHDfNli3DKUJCDqOwkT0dPrk3yN3raw-I",
-  authDomain: "receptia.firebaseapp.com",
-  databaseURL: "https://receptia.firebaseio.com",
-  projectId: "receptia-2451f",
-  storageBucket: "receptia.appspot.com",
-  messagingSenderId: "211648703151"
+  apiKey: "AIzaSyC9Wdtu3A7b21IkSd96l_7z83Fi534oBwE",
+  authDomain: "madeinchina-9bc04.firebaseapp.com",
+  databaseURL: "https://madeinchina-9bc04.firebaseio.com",
+  projectId: "madeinchina-9bc04",
+  storageBucket: "madeinchina-9bc04.appspot.com",
+  messagingSenderId: "574199508551",
+  appId: "1:574199508551:web:39216c202cd910aab38b62"
 };
-
 
 // Firebase app
 let myFirebase = firebase.initializeApp(config);

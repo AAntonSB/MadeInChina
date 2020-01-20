@@ -2,8 +2,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/movies/Joker">Home</router-link> |
-      <router-link to="/movies/Frozen2">About</router-link>
+      <router-link to="/movies/Joker">Joker</router-link> |
+      <router-link to="/movies/Frozen2">Frozen2</router-link>
+      <router-link to="/movies/BadBoys4Life">Bad Boys For Life</router-link>
+      <router-link to="/movies/Cats">Cats</router-link>
+      <router-link to="/movies/EnDelAvMittHjarta">En del av Mitt Hjärta</router-link>
     </div>
     <router-view/>
   </div>

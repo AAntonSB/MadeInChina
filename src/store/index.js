@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-//import {db} from '@/firebase' // @ = src.
+import {db} from '@/firebase' // @ = src.
 
 Vue.use(Vuex)
 
@@ -47,8 +47,25 @@ export default new Vuex.Store({
    // }
   //},
   mutations: {
+    // Använd egna metoder till actions nedanför, se receptia för mer info.
+    setBurgers(state, data){
+      state.foods.burgers = data
+     },
+     publishedFoods(state){
+       state.publishedFoods = true
+     }
   },
   actions: {
+      // Bind till våra egna metoder 
+        //Get data from firebase
+        async getBurgers({commit}){   // async = möjlighet att vänta på svar.
+          let querySnapshot = await db.collection("burgers").get()
+          let data = []
+          querySnapshot.forEach((document) => {
+          data.push(document.data())
+      })
+        commit('setBurgers', data)
+        },
   },
   modules: {
   }

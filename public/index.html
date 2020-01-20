@@ -38,6 +38,9 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+
+  const db = firebase.firsestore();
+  db.settings({timestampsInSnapshots: true});
 </script>
 
     <div id="app"></div>

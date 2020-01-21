@@ -7,12 +7,12 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/home/:movie',
     name: 'home',
     component: Home
   },
   {
-    path: '/movies/:movie',
+    path: '/movies',
     name: 'movies',
     component: Movies
   }

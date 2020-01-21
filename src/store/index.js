@@ -11,7 +11,7 @@ export default new Vuex.Store({
     movies:{
       Frozen2:[
         {
-          title: "hejsan",
+          title: "Frozen 2",
           image: "https://m.media-amazon.com/images/M/MV5BMjA0YjYyZGMtN2U0Ni00YmY4LWJkZTItYTMyMjY3NGYyMTJkXkEyXkFqcGdeQXVyNDg4NjY5OTQ@._V1_UX182_CR0,0,182,268_AL_.jpg",
       }
       ],
@@ -48,24 +48,33 @@ export default new Vuex.Store({
   //},
   mutations: {
     // Använd egna metoder till actions nedanför, se receptia för mer info.
-    setBurgers(state, data){
-      state.foods.burgers = data
+    setMovies(state, data){
+      state.movies.movie = data      // ändra till movie och ha filmnamn som titel istället. + lägga till i json.
      },
-     publishedFoods(state){
-       state.publishedFoods = true
+     publishedMovies(state){
+       state.publishedMovies = true
      }
   },
   actions: {
       // Bind till våra egna metoder 
         //Get data from firebase
-        async getBurgers({commit}){   // async = möjlighet att vänta på svar.
-          let querySnapshot = await db.collection("burgers").get()
+        async getMovies({commit}){   // async = möjlighet att vänta på svar.
+          let querySnapshot = await db.collection("movies").get()
           let data = []
           querySnapshot.forEach((document) => {
           data.push(document.data())
       })
-        commit('setBurgers', data)
+        commit('setMovies', data)
         },
+           // publicera till firebase
+   // async publishFoods({commit}){
+   //   let documents = require('@/data/movies.json')
+   //   for(let document of documents){
+   //     await db.collection('movies').add(document)
+   //   }
+   //   commit('publishedMovies')  
+   // }
+
   },
   modules: {
   }

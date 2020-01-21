@@ -5,7 +5,7 @@
         {{movies.image}} -->
 
  <section
-      v-for="movie in movies [$route.params.movie]"
+      v-for="movie in movies"
       v-bind:key="movie.title"
       >
      <img :src="movie.image" alt="poster">
@@ -26,10 +26,14 @@ export default {
         movies(){
         return this.$store.state.movies
         }
+    },
+    created(){
+        this.$store.dispatch("getMovies")
+    },
+    methods:{
+        publishMovies(){
+            this.$store.dispatch("publishMovies")
+        }
     }
-    
-    
-
-  
 }
 </script>

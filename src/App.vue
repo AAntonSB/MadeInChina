@@ -34,7 +34,45 @@
     
     <router-view/>
     </div>
-    <footer></footer>
+    <footer>
+       <div class="">
+            <div class="row">
+              <div class="col l4">
+                <h5 class="white-text">Om oss</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!">Kontakta oss</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Jobba hos oss</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Vår historia</a></li>
+                 
+                </ul>
+              </div>
+              <div class="col l4">
+                <h5 class="white-text">Sociala medier</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Instagram</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Twitter</a></li>
+                  
+                </ul>
+              </div>
+              <div class="col l4">
+                <h5 class="white-text">Medlemsskap</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!">Logga in</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Bli medlem</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Medlemsförmåner</a></li>
+                  
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2018 Copyright Text
+           
+            </div>
+          </div>
+    </footer>
   </div>
 </template>
 
@@ -136,7 +174,13 @@ nav{
 footer{
     background-color:#C02215;
     color: #fff;
-    height: 50px;
+}
+.row .col{
+  width: 33%;
+}
+@media only screen and (min-width: 993px)
+.row .col.offset-l2 {
+    margin-left: 5px;
 }
 .hooper{
   margin: 15px;

@@ -215,12 +215,12 @@ button:focus{background-color:transparent;}
      float: left;
      height: 50px;
      display: flex;
+     margin-left: 3%;
      background-color: #C02215;
      border: none;
   } 
   .material-icons{
     color: white;
-    
   }
 }
 

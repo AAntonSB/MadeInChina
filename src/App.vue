@@ -2,6 +2,17 @@
 <template>
   <div id="app">
     <header>
+      <nav>
+    <div class="nav-wrapper">
+      <button id="menu-button"><i class="material-icons">menu</i></button>
+      <a href="#" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+    </div>
+  </nav>
     </header>
     <div class="container">
 
@@ -51,10 +62,17 @@ body{
 header{    
     background-color:#C02215;
     color: #fff;
-    height: 50px;
+    height: 49px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    
+}
+nav{
+  background-color:#C02215;
 }
 #nav {
   padding: 30px;
@@ -68,10 +86,12 @@ header{
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
 .container{
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  margin-top: 50px;
 }
 
 .box{    
@@ -137,7 +157,29 @@ footer{
   height: 30px;
   fill: red;
 }
+ #menu-button{
+    visibility: hidden;
+  } 
 button:focus{background-color:transparent;}
+
+@media only screen and (max-width: 992px){
+  .hide-on-med-and-down {
+    display: none !important;
+  } 
+   #menu-button{
+     visibility:visible;
+     float: left;
+     height: 50px;
+     display: flex;
+     background-color: #C02215;
+     border: none;
+  } 
+  .material-icons{
+    color: white;
+    
+  }
+}
+
 </style>
 
 

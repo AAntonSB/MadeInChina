@@ -2,6 +2,7 @@
 <template>
   <div id="app">
     <header>
+<<<<<<< Updated upstream
       <nav>
     <div class="nav-wrapper">
       <button id="menu-button"><i class="material-icons">menu</i></button>
@@ -13,6 +14,24 @@
       </ul>
     </div>
   </nav>
+=======
+      <nav> <!-- navbar content here  --> </nav>
+      <ul id="slide-out" class="sidenav">
+        <li><div class="user-view">
+          <div class="background">
+            <img src="images/office.jpg">
+          </div>
+          <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
+          <a href="#name"><span class="white-text name">user name</span></a>
+          <a href="#email"><span class="white-text email">email adress</span></a>
+        </div></li>
+        <li><a href="#!">Second Link</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+      </ul>
+      <a href="#" data-target="slide-out" class="sidenav-trigger" v-on:click="sideNavLoad()"><i class="material-icons">menu</i></a>
+>>>>>>> Stashed changes
     </header>
     <div class="container">
 
@@ -112,6 +131,7 @@ header{
 nav{
   background-color:#C02215;
 }
+
 #nav {
   padding: 30px;
 }
@@ -139,17 +159,8 @@ nav{
     text-align: center;
     margin-top: 15px;
 }
-#gallery {
-    display: flex;
-    overflow-x: auto;
-    width: 96%;
-    height: 305px;
-}
-#gallery:hover{
-    overflow-x: auto; 
-}
-#gallery::-webkit-scrollbar {    
-    display: none;
+.hooper-next, .hooper-prev {
+  padding: 1em 0em !important;
 }
 .imgholder{
     max-height: 300px;
@@ -248,11 +259,9 @@ export default {
           publishMovies(){
               this.$store.dispatch("publishMovies")
           },
-          nextImg: function(){
-            document.getElementById('gallery').scrollLeft += 200;
-          },
-          prevImg: function(){
-            document.getElementById('gallery').scrollLeft -= 200;
+          sideNavLoad: function (){
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems, options);
           }
       },
       components: {

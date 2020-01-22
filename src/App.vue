@@ -323,8 +323,7 @@ export default {
       document.getElementById("show-menu-button").style.display = "block";
     }
   },
-  components: {
-    Hooper,
+  components: { Hooper,
     Slide,
     HooperNavigation,
     HooperPagination

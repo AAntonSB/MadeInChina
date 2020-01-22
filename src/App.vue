@@ -4,8 +4,11 @@
     <header>
       <nav>
         <div class="nav-wrapper">
-          <button id="menu-button">
-            <i class="material-icons">menu</i>
+          <button id="show-menu-button" v-on:click="showNavMenu()">
+            <i id="navMenuIcon" class="material-icons">menu</i>
+          </button>
+          <button id="close-menu-button" v-on:click="closeNavMenu()">
+            <i id="navMenuIcon" class="material-icons">close</i>
           </button>
           <a href="#" class="brand-logo">Logo</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -16,9 +19,15 @@
               <a href="badges.html">Components</a>
             </li>
             <li>
-              <a href="collapsible.html">JavaScript</a>
+              <a href="collapsible.html">Logga in</a>
             </li>
           </ul>
+        </div>
+        <div id="mySidenav" class="sidenavmenu">
+          <a href="#"><i class="material-icons account-icon">account_circle</i></a>
+          <a href="#">About</a>
+          <a href="#">Filmer</a>
+          <a href="#">Medlem</a>
         </div>
       </nav>
     </header>
@@ -119,9 +128,8 @@ body {
 }
 
 header {
-  background-color: #c02215;
   color: #fff;
-  height: 49px;
+  height: 10%;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -149,7 +157,7 @@ nav {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 65px;
 }
 
 .box {
@@ -159,18 +167,7 @@ nav {
   text-align: center;
   margin-top: 15px;
 }
-#gallery {
-  display: flex;
-  overflow-x: auto;
-  width: 96%;
-  height: 305px;
-}
-#gallery:hover {
-  overflow-x: auto;
-}
-#gallery::-webkit-scrollbar {
-  display: none;
-}
+
 .imgholder {
   max-height: 300px;
   width: fit-content;
@@ -199,12 +196,6 @@ footer {
 .row .col {
   width: 33%;
 }
-@media only screen and (min-width: 993px) {
-  .row .col.offset-l2 {
-    margin-left: 5px;
-  }
-}
-
 .hooper {
   margin: 15px;
 }
@@ -218,13 +209,18 @@ footer {
 .hooper img {
   height: 100%;
 }
-
+.hooper-next, .hooper-prev {
+  padding: 1em 0em !important;
+}
+.hooper-pagination{
+  padding: 0px !important;
+}
 .icon {
   width: 30px;
   height: 30px;
   fill: red;
 }
-#menu-button {
+#show-menu-button, #close-menu-button {
   visibility: hidden;
 }
 button:focus {
@@ -235,19 +231,62 @@ button:focus {
   .hide-on-med-and-down {
     display: none !important;
   }
-  #menu-button {
+  
+  #show-menu-button{
     visibility: visible;
-    float: left;
-    height: 50px;
-    display: flex;
-    margin-left: 3%;
-    background-color: #c02215;
-    border: none;
-  }
-  .material-icons {
-    color: white;
   }
 }
+#show-menu-button, #close-menu-button {
+  float: left;
+  height: 50px;
+  display: flex;
+  background-color: #c02215;
+  border: none;    
+  margin-left: 3%;
+}
+
+.material-icons {
+    color: white;
+}
+
+.sidenavmenu {
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #c02215;
+  overflow-x: hidden;
+  transition: 0.5s;
+  color: #fff;
+  margin-top: 55px;
+}
+
+.sidenavmenu a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #fff;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenavmenu a:hover {
+  background-color: #9f2727;
+}
+
+.sidenavmenu .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.account-icon{
+  font-size: 40px !important;
+}
+
 </style>
 
 
@@ -273,11 +312,15 @@ export default {
     publishMovies() {
       this.$store.dispatch("publishMovies");
     },
-    nextImg: function() {
-      document.getElementById("gallery").scrollLeft += 200;
+    showNavMenu: function(){
+      document.getElementById("mySidenav").style.width = "200px";      
+      document.getElementById("close-menu-button").style.visibility = "visible";
+      document.getElementById("show-menu-button").style.display = "none";
     },
-    prevImg: function() {
-      document.getElementById("gallery").scrollLeft -= 200;
+    closeNavMenu: function(){
+      document.getElementById("mySidenav").style.width = "0px";
+      document.getElementById("close-menu-button").style.visibility = "hidden";
+      document.getElementById("show-menu-button").style.display = "block";
     }
   },
   components: {

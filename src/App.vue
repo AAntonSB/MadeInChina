@@ -3,24 +3,16 @@
   <div id="app">
     <header>
       <nav>
-        <div class="nav-wrapper">
-          <button id="menu-button">
-            <i class="material-icons">menu</i>
-          </button>
-          <a href="#" class="brand-logo">Logo</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li>
-              <a href="sass.html">Sass</a>
-            </li>
-            <li>
-              <a href="badges.html">Components</a>
-            </li>
-            <li>
-              <a href="collapsible.html">JavaScript</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+    <div class="nav-wrapper">
+      <button id="menu-button" v-on:click="showMenu"><i class="material-icons">menu</i></button>
+      <a href="#" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+    </div>
+  </nav>
     </header>
     <div class="container">
       <hooper :infiniteScroll="true" :itemsToShow="4" style="min-height: 300px;">
@@ -199,13 +191,7 @@ footer {
 .row .col {
   width: 33%;
 }
-@media only screen and (min-width: 993px) {
-  .row .col.offset-l2 {
-    margin-left: 5px;
-  }
-}
-
-.hooper {
+.hooper{
   margin: 15px;
 }
 
@@ -234,17 +220,18 @@ button:focus {
 @media only screen and (max-width: 992px) {
   .hide-on-med-and-down {
     display: none !important;
-  }
-  #menu-button {
-    visibility: visible;
-    float: left;
-    height: 50px;
-    display: flex;
-    margin-left: 3%;
-    background-color: #c02215;
-    border: none;
-  }
-  .material-icons {
+  } 
+  
+   #menu-button{
+     visibility:visible;
+     float: left;
+     height: 50px;
+     display: flex;
+     margin-left: 3%;
+     background-color: #C02215;
+     border: none;
+  } 
+  .material-icons{
     color: white;
   }
 }
@@ -252,39 +239,42 @@ button:focus {
 
 
 <script>
-import {
-  Hooper,
-  Slide,
-  Navigation as HooperNavigation,
-  Pagination as HooperPagination
-} from "hooper";
-import "hooper/dist/hooper.css";
+import { Hooper, 
+        Slide,
+        Navigation as HooperNavigation,
+        Pagination as HooperPagination 
+} from 'hooper';
+import 'hooper/dist/hooper.css';
+//import func from '../vue-temp/vue-editor-bridge';
 
 export default {
-  computed: {
-    movies() {
-      return this.$store.state.movies;
-    }
-  },
-  created() {
-    this.$store.dispatch("getMovies");
-  },
-  methods: {
-    publishMovies() {
-      this.$store.dispatch("publishMovies");
-    },
-    nextImg: function() {
-      document.getElementById("gallery").scrollLeft += 200;
-    },
-    prevImg: function() {
-      document.getElementById("gallery").scrollLeft -= 200;
-    }
-  },
-  components: {
-    Hooper,
-    Slide,
-    HooperNavigation,
-    HooperPagination
-  }
-};
+    computed: {
+        movies(){
+        return this.$store.state.movies
+        }
+      },
+    created(){
+          this.$store.dispatch("getMovies")
+      },
+    methods:{
+          publishMovies(){
+              this.$store.dispatch("publishMovies")
+          },
+          nextImg: function(){
+            document.getElementById('gallery').scrollLeft += 200;
+          },
+          prevImg: function(){
+            document.getElementById('gallery').scrollLeft -= 200;
+          },
+          showMenu: function (){
+          console.log("click works!")
+         },
+      },
+      components: {
+        Hooper,
+        Slide,
+        HooperNavigation,
+        HooperPagination
+      }
+}
 </script>

@@ -291,13 +291,13 @@ button:focus {
 
 
 <script>
-import {
-  Hooper,
-  Slide,
-  Navigation as HooperNavigation,
-  Pagination as HooperPagination
-} from "hooper";
-import "hooper/dist/hooper.css";
+import { Hooper, 
+        Slide,
+        Navigation as HooperNavigation,
+        Pagination as HooperPagination 
+} from 'hooper';
+import 'hooper/dist/hooper.css';
+//import func from '../vue-temp/vue-editor-bridge';
 
 export default {
   computed: {

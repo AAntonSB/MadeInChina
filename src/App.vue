@@ -208,6 +208,7 @@ footer {
 }
 .hooper img {
   height: 100%;
+  border-radius: 5px;
 }
 .hooper-next, .hooper-prev {
   padding: 1em 0em !important;

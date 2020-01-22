@@ -1,7 +1,7 @@
 <template>
     <div class="movie-bg-image valign-wrapper center-align">
         <i class="material-icons large icon-white valign-wrapper center-align btn-flat">play_circle_filled</i>
-        <img class="img-bg" src="https://images3.alphacoders.com/975/975999.png">
+        <img class="img-bg" src="http://trumpwallpapers.com/wp-content/uploads/Joker-2019-Wallpaper-01-2560-x-1440.jpg">
     </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
 
 <style>
 .img-bg{
-    max-width: 100%;
+    width: 100%;
     max-height: 100vh;
 }
 
@@ -23,7 +23,7 @@ export default {
 }
 
 .material-icons{
-    position: relative;
+    position: absolute;
     left: 50%;
     transform: translate(-50%);
 }

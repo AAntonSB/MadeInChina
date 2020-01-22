@@ -7,14 +7,14 @@
 
       <hooper :infiniteScroll="true" :itemsToShow="4" style="min-height: 300px;">      
           <slide v-for="movie in movies" :key="movie.document">
-            <router-link :to="{ name: 'movie', params: { movieId: movie.id }}">
             <div>
               <div class="hooper-img">
-                <img :src="movie.image">
+                <router-link :to="{ name: 'movie', params: { movieId: movie.id }}">
+                  <img :src="movie.image">
+                </router-link>
               </div>  
               <div><span>{{movie.title}}</span></div>
-            </div>          
-            </router-link>
+            </div>         
           </slide>
           <router-view/>
         <hooper-navigation slot="hooper-addons"></hooper-navigation>

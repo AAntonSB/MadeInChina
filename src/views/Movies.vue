@@ -17,8 +17,21 @@
     </div>
 
         <div class="poster-info">
-            <img src="https://catalog.cinema-api.com/images/ncg-images/c1957ea282b246e88b076f7d2b37b7b0.jpg?width=240&version=A62BB796D46DA2A542F4C5E373BAC4F4&format=webp">
+            <embed src="https://ebillet.dk/liveposter/Joker-OK.mp4" autostart="true" height="220" width="144"/>
+            <h4>Joker</h4>
+            <p>Action, Komedi<p>
+            <p class="time-and-age">2tim 4min | 15år</p>
+            <a class="waves-effect waves-light btn red">Boka</a>
         </div>
+    
+
+    <div class="main-info">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet incidunt veritatis, vitae obcaecati odit eligendi magni possimus quam laborum, placeat unde quasi provident voluptatibus? Possimus voluptas molestiae tempora quidem expedita?</p>
+        <p>director:</p>
+        <p>Actor:</p>
+        <p>Language:</p>
+
+    </div>
 
   </div>
 </template>
@@ -94,5 +107,12 @@ i.icon-white {
     position: absolute;
     left: 10%;
     transform: translateY(80%);
+    color: white;
+}
+.time-and-age{
+    color: gray;
+}
+.main-info{
+    color: white;
 }
 </style>

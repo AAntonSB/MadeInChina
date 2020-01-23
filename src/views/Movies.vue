@@ -16,6 +16,10 @@
         </div>
     </div>
 
+        <div class="poster-info">
+            <img src="https://catalog.cinema-api.com/images/ncg-images/c1957ea282b246e88b076f7d2b37b7b0.jpg?width=240&version=A62BB796D46DA2A542F4C5E373BAC4F4&format=webp">
+        </div>
+
   </div>
 </template>
 
@@ -86,7 +90,9 @@ i.icon-white {
   width: 920px;
   height: 517.5px;
 }
-.hej {
-  position: absolute;
+.poster-info{
+    position: absolute;
+    left: 10%;
+    transform: translateY(80%);
 }
 </style>

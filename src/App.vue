@@ -7,6 +7,8 @@
 
 <style>
 *{
+  font-family: 'Montserrat', sans-serif;
+
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;

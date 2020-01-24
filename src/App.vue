@@ -36,11 +36,6 @@
 
       <router-view />
 
-
-      <hooper  :progress="true" :autoPlay="true" :playSpeed="3000" style="width: 100%; height:100%;">
-        <slide v-for="movie in movies" :key="movie.id">
-          <div><img :src="movie.videoImage"></div>
-
       <hooper :progress="true" :autoPlay="true" :playSpeed="3000" style="width: 100%; height:100%;">
         <slide v-for="movie in movies" :key="movie.id">
           <div>
@@ -52,22 +47,6 @@
         <hooper-pagination slot="hooper-addons"></hooper-pagination>
       </hooper>
 
-      <hooper :infiniteScroll="true" :itemsToShow="4" style="min-height: 300px;">
-        <slide v-for="movie in movies" :key="movie.document">
-          <div>
-            <div class="hooper-img">
-              <router-link :to="{ name: 'movie', params: { movieId: movie.id }}">
-                <img :src="movie.image" />
-              </router-link>
-            </div>
-            <div>
-              <span>{{movie.title}}</span>
-            </div>
-          </div>
-        </slide>
-        <hooper-navigation slot="hooper-addons"></hooper-navigation>
-        <hooper-pagination slot="hooper-addons"></hooper-pagination>
-      </hooper>
       <br>
 
     </div>

@@ -32,25 +32,20 @@
       </nav>
     </header>
     <div class="container">
-      <hooper :infiniteScroll="true" :itemsToShow="4" style="min-height: 300px;">
-        <slide v-for="movie in movies" :key="movie.document">
-          <div>
-            <div class="hooper-img">
-              <router-link :to="{ name: 'movie', params: { movieId: movie.id }}">
-                <img :src="movie.image" />
-              </router-link>
-            </div>
-            <div>
-              <span>{{movie.title}}</span>
-            </div>
-          </div>
+      <HooperSlider msg="Text"/>
+
+      <router-view />
+
+
+      <hooper  :progress="true" :autoPlay="true" :playSpeed="3000" style="width: 100%; height:100%;">
+        <slide v-for="movie in movies" :key="movie.id">
+          <div><img :src="movie.videoImage"></div>
         </slide>
-        <router-view />
         <hooper-navigation slot="hooper-addons"></hooper-navigation>
         <hooper-pagination slot="hooper-addons"></hooper-pagination>
       </hooper>
+      <br>
 
-      <router-view />
     </div>
     <footer>
       <div class>
@@ -160,14 +155,6 @@ nav {
   margin-top: 65px;
 }
 
-.box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-top: 15px;
-}
-
 .imgholder {
   max-height: 300px;
   width: fit-content;
@@ -213,9 +200,7 @@ footer {
 .hooper-next, .hooper-prev {
   padding: 1em 0em !important;
 }
-.hooper-pagination{
-  padding: 0px !important;
-}
+
 .icon {
   width: 30px;
   height: 30px;
@@ -296,8 +281,9 @@ import { Hooper,
         Slide,
         Navigation as HooperNavigation,
         Pagination as HooperPagination 
-} from 'hooper';
-import 'hooper/dist/hooper.css';
+} from 'hooper'
+import 'hooper/dist/hooper.css'
+import HooperSlider from '@/components/HooperSlider.vue'
 //import func from '../vue-temp/vue-editor-bridge';
 
 export default {
@@ -327,7 +313,8 @@ export default {
   components: { Hooper,
     Slide,
     HooperNavigation,
-    HooperPagination
+    HooperPagination,
+    HooperSlider
   }
 };
 </script>

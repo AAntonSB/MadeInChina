@@ -158,6 +158,8 @@ export default {
     created(){
           this.$store.dispatch("getMovies")
       },
+
+      
     methods:{
           publishMovies(){
               this.$store.dispatch("publishMovies")

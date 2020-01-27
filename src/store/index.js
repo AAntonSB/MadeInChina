@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {db} from '@/firebase' // @ = src.
+import { placeholdermovies } from './placeholdermovies.js'
+import { placeholderscreenings } from './placeholderscreenings.js'
+import { placeholderbookings } from './placeholderbookings.js'
 
 Vue.use(Vuex)
 
@@ -8,7 +11,17 @@ export default new Vuex.Store({
   state: {
 
     //image: "https://m.media-amazon.com/images/M/MV5BNDhhY2ViYjQtNjNiZC00ZTE0LTkyOWEtZWUzODhkYTVlYTFkXkEyXkFqcGdeQXVyODc2NTcxODU@._V1_UY268_CR242,0,182,268_AL_.jpg",
-      movies:[]
+      movies:[],
+      hello: "hello world",
+      placeholdermovies: placeholdermovies,
+      placeholderscreenings: placeholderscreenings,
+      placeholderbookings: placeholderbookings,
+
+
+      auditoriumStoraSize: 80,
+      auditoriumLillaSize: 40,
+      
+
   },
   //getters: {
    // getMovieImage: state => {

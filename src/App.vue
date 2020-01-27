@@ -39,7 +39,7 @@
       <hooper :progress="true" :autoPlay="true" :playSpeed="3000" style="width: 100%; height:100%;">
         <slide v-for="movie in movies" :key="movie.id">
           <div>
-            <img :src="movie.videoImage" />
+            <img :src="movie.imageOfCarousel" />
             
           </div>
         </slide>

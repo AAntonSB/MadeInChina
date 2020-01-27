@@ -1,17 +1,23 @@
 <template>
 
   <div class="movie-bg-image valign-wrapper">
+    <section
+          v-for="movi in movie"
+          v-bind:key="movi.id"
+          >
+          <div class="img-bg">
     <img
-      class="img-bg"
-      src="https://trumpwallpapers.com/wp-content/uploads/Joker-2019-Wallpaper-01-2560-x-1440.jpg"
+    class="img-bg"
+      :src="movi.videoImage"
     />
+    </div>
     <i @click="toggleTrailer()" class="material-icons large icon-white valign-wrapper center-align btn-flat">play_circle_filled</i>
 
-    <div @click="toggleTrailer()" class="overlay" v-if="this.trailerVisible === true">
+    <div @click="toggleTrailer()" class="overlay" v-if="trailerVisible === true">
         <div class="video-player overlay-content">
             <div class="video-frame">
                 <a class="button btn-flat btn-large waves-effect transparent"><i class="material-icons">close</i></a>
-                <iframe width="920" height="517.5" src="https://www.youtube.com/embed/zAGVQLHvwOY/D6Ac5JpCHmI?&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>    
+                <iframe width="920" height="517.5" src="movi.trailer" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>    
             </div>
         </div>
     </div>
@@ -33,7 +39,7 @@
         <p>Actor:</p>
         <p>Language:</p>
     </div>
-
+    </section>
   </div>
 </template>
 
@@ -44,7 +50,16 @@ export default {
       trailerVisible: false
     };
   },
+  computed: {
+      movie(){
+        return this.$store.state.movie
+      }
+  },
   methods: {
+              publishMovie(){
+          this.$store.dispatch("publishMovie")
+        },
+        
     toggleTrailer() {
       this.trailerVisible = !this.trailerVisible;
     },
@@ -56,6 +71,7 @@ export default {
   },
     created() {
         window.addEventListener('keydown', this.handleKeyPress)
+        this.$store.dispatch("getMovie")
     },
     destroyed(){
         window.removeEventListener('keydown', this.handleKeyPress)
@@ -65,9 +81,9 @@ export default {
 </script>
 
 <style>
-.img-bg {
-  width: 100%;
-  max-height: 100vh;
+.img-bg img{
+    width: 100%;
+    max-height:100%;
   -webkit-mask-image: -webkit-gradient(
     linear,
     left top,
@@ -75,6 +91,11 @@ export default {
     from(rgba(0, 0, 0, 1)),
     to(rgba(0, 0, 0, 0)));
     mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.2));
+}
+
+.img-bg div{
+  width: 100vh;
+  max-height: 100vh;
 }
 
 .movie-bg-image {

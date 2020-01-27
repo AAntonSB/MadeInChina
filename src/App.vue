@@ -32,21 +32,8 @@
       </nav>
     </header>
     <div class="container">
-      <HooperSlider msg="Text"/>
-
+      <div id="movies"></div>
       <router-view :key="$route.fullPath"></router-view>
-
-      <hooper :progress="true" :autoPlay="true" :playSpeed="3000" style="width: 100%; height:100%;">
-        <slide v-for="movie in movies" :key="movie.id">
-          <div>
-            <img :src="movie.imageOfCarousel" />
-            
-          </div>
-        </slide>
-        <hooper-navigation slot="hooper-addons"></hooper-navigation>
-        <hooper-pagination slot="hooper-addons"></hooper-pagination>
-      </hooper>
-
       <br>
 
     </div>
@@ -156,6 +143,12 @@ nav {
   display: flex;
   flex-direction: column;
   margin-top: 65px;
+}
+
+.flexdirectioncolumn {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0px;
 }
 
 .imgholder {
@@ -282,14 +275,7 @@ button:focus {
 
 
 <script>
-import { Hooper, 
-        Slide,
-        Navigation as HooperNavigation,
-        Pagination as HooperPagination 
-} from 'hooper'
-import 'hooper/dist/hooper.css'
-import HooperSlider from '@/components/HooperSlider.vue'
-//import func from '../vue-temp/vue-editor-bridge';
+
 
 export default {
   computed: {
@@ -315,11 +301,7 @@ export default {
       document.getElementById("show-menu-button").style.display = "block";
     }
   },
-  components: { Hooper,
-    Slide,
-    HooperNavigation,
-    HooperPagination,
-    HooperSlider
+  components: {
   }
 };
 </script>

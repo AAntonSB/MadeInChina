@@ -33,10 +33,7 @@
     </header>
 
     <div class="containerapp">
-      <div id="movies"></div>
       <router-view :key="$route.fullPath"></router-view>
-      <br>
-
     </div>
 
     <footer>

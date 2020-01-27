@@ -4,18 +4,15 @@
            
             <!-- Hooper -->
             <div class="flexcenter">
-                <HooperSlider style=" width:70%;" msg="Text"/>
+                <HooperSlider style=" width:70vw;" msg="Text"/>
             </div>
 
             <div class="flexcenter">
                 <div class="carousel">
                     <!-- Carousel -->
-                    <hooper :progress="true" :autoPlay="true" :playSpeed="3000" style="width: 100%; height:100%;">
+                    <hooper :progress="true" :autoPlay="true" :playSpeed="3000">
                         <slide v-for="movie in movies" :key="movie.id">
-                        <div>
                             <img :src="movie.imageOfCarousel" />
-                            
-                        </div>
                         </slide>
                         <hooper-navigation slot="hooper-addons"></hooper-navigation>
                         <hooper-pagination slot="hooper-addons"></hooper-pagination>
@@ -28,12 +25,43 @@
 <style>
 .carousel{
     width: 70%;
-    height: 650px;
+    height: 100%;
+    padding-bottom: 30px;
 }
 .img-bg{
     width:100vw;
     height: 70vh;
 }
+.carousel .hooper{
+    height: 78vh!important;
+    object-fit: contain;
+}
+@media only screen and (max-width: 1300px)  {
+  .carousel .hooper{
+    height: 70vh!important;
+    }  
+}
+@media only screen and (max-width: 1000px)  {
+  .carousel .hooper{
+    height: 50vh!important;
+    }  
+}
+@media only screen and (max-width: 750px)  {
+  .carousel .hooper{
+    height: 45vh!important;
+    }  
+}
+@media only screen and (max-width: 600px)  {
+  .carousel .hooper{
+    height: 40vh!important;
+    }  
+}
+@media only screen and (max-width: 400px)  {
+  .carousel .hooper{
+    height: 30vh!important;
+    }  
+}
+
 </style>
 
 <script>

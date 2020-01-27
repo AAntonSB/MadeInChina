@@ -31,12 +31,14 @@
         </div>
       </nav>
     </header>
-    <div class="container">
+
+    <div class="containerapp">
       <div id="movies"></div>
       <router-view :key="$route.fullPath"></router-view>
       <br>
 
     </div>
+
     <footer>
       <div class>
         <div class="row">
@@ -138,7 +140,7 @@ nav {
   color: #42b983;
 }
 
-.container {
+.containerapp {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -148,7 +150,11 @@ nav {
 .flexdirectioncolumn {
   display: flex;
   flex-direction: column;
-  margin: 5px 0px;
+}
+
+.flexcenter{
+  display: flex; 
+  justify-content: center;
 }
 
 .imgholder {

@@ -34,7 +34,7 @@
     <div class="container">
       <HooperSlider msg="Text"/>
 
-      <router-view />
+      <router-view :key="$route.fullPath"></router-view>
 
       <hooper :progress="true" :autoPlay="true" :playSpeed="3000" style="width: 100%; height:100%;">
         <slide v-for="movie in movies" :key="movie.id">

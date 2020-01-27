@@ -3,7 +3,7 @@
         <slide v-for="movie in movies" :key="movie.document">
           <div>
             <div class="hooper-img">
-              <router-link :to="{ name: 'movie', params: { movieId: movie.id }}">
+              <router-link :to="{ path: '/movie', query: { movieId: movie.id }}">
                 <img :src="movie.image" />
               </router-link>
             </div>
@@ -12,7 +12,6 @@
             </div>
           </div>
         </slide>
-        <router-view />
         <hooper-navigation slot="hooper-addons"></hooper-navigation>
         <hooper-pagination slot="hooper-addons"></hooper-pagination>
       </hooper>

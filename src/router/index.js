@@ -12,10 +12,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/movies/:movieid',
-    name: 'movies',
-    component: Movies
-  },
+    path: '/movies',
+    component: Movies,
+    props(route) {
+      return {  movieid: route.query.movieid }
+    }
+  }
 ]
 
 const router = new VueRouter({

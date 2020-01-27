@@ -53,7 +53,7 @@ export default new Vuex.Store({
             data.push(document.data())
           })
           commit('setMovie', data)
-        },
+        }
   },
   modules: {
   }

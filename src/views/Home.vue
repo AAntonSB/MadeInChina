@@ -21,9 +21,6 @@ export default {
         movies(){
         return this.$store.state.movies
         },
-        movieID(){
-          return console.log(this.$store.state.moveID)
-        },
         movie(){
         return this.$store.state.movie
         }
@@ -34,7 +31,7 @@ export default {
     },
     methods:{
         movieRoute(id){
-          this.$router.push(`/movies/${id}`)
+          this.$router.push({ path: '/movies/', query: { movieId: id }})
         },
         
         publishMovies(){

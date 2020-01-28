@@ -31,7 +31,7 @@ export default {
     },
     methods:{
         movieRoute(id){
-          this.$router.push({ path: '/movies/', query: { movieId: id }})
+          this.$router.push({ path: '/moviepage/', query: { movieId: id }})
         },
         
         publishMovies(){

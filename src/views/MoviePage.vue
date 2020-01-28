@@ -35,16 +35,16 @@
 
       <div class="main-info">
         <p @click="consoleLog(movi.trailer)">{{movi.plot}}</p>
-        <p>Regi: {{movi.director}}</p>
+        <p>Regi:{{movi.director.toString()}}</p>
         <p>Skådespelare: {{movi.actors.toString()}}</p>
         <p>Språk: {{movi.language}}</p>
       </div>
       <div class="Booking collection">
           <li class="collection-header"><h4>Visningar v.47</h4></li>
-          <a href="#!" class="collection-item black"><p class="white-font">Hej</p></a>
+          <a href="#!" class="collection-item black"><p class="white-font">Film tid</p></a>
           <a href="#!" class="collection-item black white-font"><p class="white-font">Sal 2 17:00</p> <p class="reddd">68 av 68 platser kvar</p></a>
-          <a href="#!" class="collection-item black white-font"><p class="white-font">Alvin</p></a>
-          <a href="#!" class="collection-item black white-font"><p class="white-font">Alvin</p></a>
+          <a href="#!" class="collection-item black white-font"><p class="white-font">Film tid</p></a>
+          <a href="#!" class="collection-item black white-font"><p class="white-font">Film tid</p></a>
       </div>
     </section>
   </div>

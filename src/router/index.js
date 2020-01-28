@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
-import Movies from '@/views/Movies.vue'
+import MoviePage from '@/views/MoviePage.vue'
 
 Vue.use(VueRouter)
 
@@ -12,8 +12,8 @@ const routes = [
     component: Home
   },
   {
-    path: '/movies',
-    component: Movies,
+    path: '/moviePage',
+    component: MoviePage,
     props(route) {
       return {  movieid: route.query.movieid }
     }

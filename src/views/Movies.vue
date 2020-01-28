@@ -8,7 +8,6 @@
         @click="toggleTrailer()"
         class="material-icons large icon-white valign-wrapper center-align btn-flat"
       >play_circle_filled</i>
-
       <div @click="toggleTrailer()" class="overlay" v-if="trailerVisible === true">
         <div class="video-player overlay-content">
           <div class="video-frame">
@@ -18,7 +17,7 @@
             <iframe
               width="920"
               height="517.5"
-              src="movi.trailer"
+              :src="'https://www.youtube.com/embed/' + movi.trailer + '?autoplay=1&cc_load_policy=1'"
               frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
@@ -35,7 +34,7 @@
       </div>
 
       <div class="main-info">
-        <p>{{movi.plot}}</p>
+        <p @click="consoleLog(movi.trailer)">{{movi.plot}}</p>
         <p>Regi: {{movi.director}}</p>
         <p>Skådespelare: {{movi.actors.toString()}}</p>
         <p>Språk: {{movi.language}}</p>
@@ -64,6 +63,9 @@ export default {
     }
   },
   methods: {
+    consoleLog(trailer){
+      console.log(trailer.toString());
+    },
     publishMovie() {
       this.$store.dispatch("publishMovie");
     },
@@ -157,7 +159,6 @@ i.icon-white {
 }
 .box {
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 10;
   width: 20%;
   padding: 30px;
 }

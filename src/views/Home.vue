@@ -1,47 +1,28 @@
 <template>
-    <div>
-      <div class="white">
-    {{movieID}}
-    </div>
-    <section
-          v-for="movie in movies"
-          v-bind:key="movie.id"
-          >
-          <div class="white">
-        <img :src="movie.image" alt="poster" class="poster" @click="movieRoute(movie.id)">
-        </div>
-    </section>
+  <div>
 
-    </div>
+    <section v-for="movie in movies" v-bind:key="movie.title">
+      <img :src="movie.image" alt="poster" />
+    </section>
+  </div>
 </template>
 
 <script>
 export default {
-      computed: {
-        movies(){
-        return this.$store.state.movies
-        },
-        movie(){
-        return this.$store.state.movie
-        }
-    },
-    created(){
-        this.$store.dispatch("getMovies")
-        this.$store.dispatch("getMovie")
-    },
-    methods:{
-        movieRoute(id){
-          this.$router.push({ path: '/moviepage/', query: { movieId: id }})
-        },
-        
-        publishMovies(){
-            this.$store.dispatch("publishMovies")
-        },
-        publishMovie(){
-          this.$store.dispatch("publishMovie")
-        }
+  computed: {
+    movies() {
+      return this.$store.state.movies;
     }
-}
+  },
+  created() {
+    this.$store.dispatch("getMovies");
+  },
+  methods: {
+    publishMovies() {
+      this.$store.dispatch("publishMovies");
+    }
+  }
+};
 </script>
 
 

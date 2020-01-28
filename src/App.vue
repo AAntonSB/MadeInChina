@@ -278,8 +278,6 @@ button:focus {
 
 
 <script>
-
-
 export default {
     computed: {
         movies(){
@@ -300,24 +298,22 @@ export default {
           },
           prevImg: function(){
             document.getElementById('gallery').scrollLeft -= 200;
-          }
-      },
-      components: {
-        Hooper,
-        Slide,
-        HooperNavigation,
-        HooperPagination
-      }
-}
-    showNavMenu: function(){
+          },
+              showNavMenu: function(){
       document.getElementById("close-menu-button").style.visibility = "visible";
       document.getElementById("mySidenav").style.width = "200px";      
       document.getElementById("show-menu-button").style.display = "none";
+              },
     closeNavMenu: function(){
-    },
+    
       document.getElementById("mySidenav").style.width = "0px";
       document.getElementById("show-menu-button").style.display = "block";
       document.getElementById("close-menu-button").style.visibility = "hidden";
+      
     }
-  },
+      },
+      
+}
+
+  
 </script>

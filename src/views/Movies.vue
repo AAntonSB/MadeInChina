@@ -1,7 +1,6 @@
 <template>
         <div class="flexdirectioncolumn">
             <!-- Big picture with search -->
-           
             <!-- Hooper -->
             <div class="flexcenter">
                 <HooperSlider style=" width:70vw;" msg="Text"/>

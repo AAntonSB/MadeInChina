@@ -12,7 +12,9 @@
                     <!-- Carousel -->
                     <hooper :progress="true" :autoPlay="true" :playSpeed="3000">
                         <slide v-for="movie in movies" :key="movie.id">
-                            <img :src="movie.imageOfCarousel" />
+                            <router-link :to="{ path: '/movie', query: { movieId: movie.id }}">
+                                <img :src="movie.imageOfCarousel" />
+                            </router-link>
                         </slide>
                         <hooper-navigation slot="hooper-addons"></hooper-navigation>
                         <hooper-pagination slot="hooper-addons"></hooper-pagination>

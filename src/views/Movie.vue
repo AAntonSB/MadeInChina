@@ -38,10 +38,37 @@
 </style>
 <script>
 export default {
+
+    data(){
+        return {
+
+            today: Date(),
+            someDay: new Date(2020, 2, 1, 20, 0)
+            //id: null,
+            //id: this.$router.params.movieId,
+            
+            //dude: this.$route.params.movieId
+            //film: this.$router,
+            //film2: this.$router.currentRoute,
+        }
+    },
+    computed: {
+        movies(){
+        return this.$store.state.movies
+        },
+        // use this
+        film(){
+            return this.$route.params.movieId
+        },
+        /*
+        //unreactive, why?
+        film(){
+            return this.$router.currentRoute.params.movieId
     computed: {
         movie(){
             return this.$store.state.movie
         }
+        */
     },
     created(){
         this.$store.dispatch("getMovie",this.$route.query.movieId)

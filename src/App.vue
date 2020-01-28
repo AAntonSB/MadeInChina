@@ -281,30 +281,43 @@ button:focus {
 
 
 export default {
-  computed: {
-    movies() {
-      return this.$store.state.movies;
-    }
-  },
-  created() {
-    this.$store.dispatch("getMovies");
-  },
-  methods: {
-    publishMovies() {
-      this.$store.dispatch("publishMovies");
-    },
+    computed: {
+        movies(){
+        return this.$store.state.movies
+        }
+      },
+    created(){
+          this.$store.dispatch("getMovies")
+      },
+
+      
+    methods:{
+          publishMovies(){
+              this.$store.dispatch("publishMovies")
+          },
+          nextImg: function(){
+            document.getElementById('gallery').scrollLeft += 200;
+          },
+          prevImg: function(){
+            document.getElementById('gallery').scrollLeft -= 200;
+          }
+      },
+      components: {
+        Hooper,
+        Slide,
+        HooperNavigation,
+        HooperPagination
+      }
+}
     showNavMenu: function(){
-      document.getElementById("mySidenav").style.width = "200px";      
       document.getElementById("close-menu-button").style.visibility = "visible";
+      document.getElementById("mySidenav").style.width = "200px";      
       document.getElementById("show-menu-button").style.display = "none";
-    },
     closeNavMenu: function(){
+    },
       document.getElementById("mySidenav").style.width = "0px";
-      document.getElementById("close-menu-button").style.visibility = "hidden";
       document.getElementById("show-menu-button").style.display = "block";
+      document.getElementById("close-menu-button").style.visibility = "hidden";
     }
   },
-  components: {
-  }
-};
 </script>

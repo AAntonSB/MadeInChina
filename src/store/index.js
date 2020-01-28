@@ -12,6 +12,7 @@ export default new Vuex.Store({
 
     //image: "https://m.media-amazon.com/images/M/MV5BNDhhY2ViYjQtNjNiZC00ZTE0LTkyOWEtZWUzODhkYTVlYTFkXkEyXkFqcGdeQXVyODc2NTcxODU@._V1_UY268_CR242,0,182,268_AL_.jpg",
       movies:[],
+      movie:[]
 
       //the placeholders are currently referencing to the other placeholders, not to the movies collection in firebase
       placeholdermovies: placeholdermovies,
@@ -64,8 +65,14 @@ export default new Vuex.Store({
     setMovies(state, data){
       state.movies = data
      },
+     setMovie(state, data){
+      state.movie = data
+     },
      publishedMovies(state){
        state.publishedMovies = true
+     },
+     publishedMovie(state){
+       state.publishedMovie = true
      }
   },
   actions: {
@@ -78,6 +85,14 @@ export default new Vuex.Store({
           data.push(document.data())
       })
         commit('setMovies', data)
+        },
+        async getMovie({commit},movieId){   // async = möjlighet att vänta på svar.
+          let querySnapshot = await db.collection("movies").where("id","==",movieId).get()
+          let data = []
+          querySnapshot.forEach((document) => {
+          data.push(document.data())
+      })
+        commit('setMovie', data)
         },
   },
   modules: {

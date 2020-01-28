@@ -8,6 +8,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    name: 'start',
+    component: Movies
+  },
+  {
     path: '/home/:movie',
     name: 'home',
     component: Home
@@ -18,9 +23,11 @@ const routes = [
     component: Movies
   },
   {
-    path: '/movie/:movieId',
-    name: 'movie',
-    component: Movie
+    path: '/movie',
+    component: Movie,
+    props(route) {
+      return {  movieId: route.query.movieId }
+    }
   }
 ]
 

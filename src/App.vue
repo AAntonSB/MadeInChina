@@ -7,33 +7,67 @@
           <button id="show-menu-button" v-on:click="showNavMenu()">
             <i id="navMenuIcon" class="material-icons">menu</i>
           </button>
+
           <button id="close-menu-button" v-on:click="closeNavMenu()">
             <i id="navMenuIcon" class="material-icons">close</i>
           </button>
-          <a href="#" class="brand-logo">Logo</a>
+
+          <!--nav stor meny början -->
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-              <a href="sass.html">Sass</a>
+              <a href="sass.html">About</a>
             </li>
             <li>
-              <a href="badges.html">Components</a>
+              <a href="badges.html">Filmer</a>
             </li>
             <li>
-              <a href="collapsible.html">Logga in</a>
+              <a href="collapsible.html">Medlem</a>
             </li>
           </ul>
-        </div>
-        <div id="mySidenav" class="sidenavmenu">
-          <a href="#"><i class="material-icons account-icon">account_circle</i></a>
-          <a href="#">About</a>
-          <a href="#">Filmer</a>
-          <a href="#">Medlem</a>
+
+            <!--vänster sök menyn början-->
+          <div class="nav-search">
+            <div class="search-box">
+              <input type="text" class="search-input" placeholder="Search" />
+            </div>
+            <div class="btn">
+              <i class="material-icons search-icon">search</i>
+            </div>
+          </div>
+          <!--search-box slut-->
+          <a href="#">
+            <i class="material-icons account-icon">account_circle</i>
+          </a>
         </div>
       </nav>
+
+      <div id="mySidenav" class="sidenavmenu">
+        <a href="#">
+          <i class="material-icons account-icon">account_circle</i>
+        </a>
+        <a href="#">About</a>
+        <a href="#">Filmer</a>
+        <a href="#">Medlem</a>
+      </div>
     </header>
+
+    <div class="container">
+      <HooperSlider msg="Text" />
 
     <div class="containerapp">
       <router-view :key="$route.fullPath"></router-view>
+
+      <hooper :progress="true" :autoPlay="true" :playSpeed="3000" style="width: 100%; height:100%;">
+        <slide v-for="movie in movies" :key="movie.id">
+          <div>
+            <img :src="movie.imageOfCarousel" />
+          </div>
+        </slide>
+        <hooper-navigation slot="hooper-addons"></hooper-navigation>
+        <hooper-pagination slot="hooper-addons"></hooper-pagination>
+      </hooper>
+
+      <br />
     </div>
 
     <footer>
@@ -137,6 +171,28 @@ nav {
   color: #42b983;
 }
 
+.nav-search {
+  position:absolute;
+  align-self: center;
+  box-sizing: border-box;
+}
+.search-box {
+  position: relative;
+  display: inline-block;
+  height: 50px;
+}
+.btn{
+  align-self: center;
+  border-radius: 50%;
+  width: 36px;
+  
+}
+.search-icon{
+  height: 36px !important; 
+  width: 20px;
+  text-align: center;
+ line-height: 50%;
+}
 .containerapp {
   flex-grow: 1;
   display: flex;
@@ -160,9 +216,8 @@ nav {
   display: inline-block;
   margin-right: 15px;
 }
-.brand-logo {
-  text-align: center;
-}
+
+
 .arrowbtn,
 .abtn {
   text-decoration: none;
@@ -198,7 +253,8 @@ footer {
   height: 100%;
   border-radius: 5px;
 }
-.hooper-next, .hooper-prev {
+.hooper-next,
+.hooper-prev {
   padding: 1em 0em !important;
 }
 
@@ -207,7 +263,8 @@ footer {
   height: 30px;
   fill: red;
 }
-#show-menu-button, #close-menu-button {
+#show-menu-button,
+#close-menu-button {
   visibility: hidden;
 }
 button:focus {
@@ -218,22 +275,27 @@ button:focus {
   .hide-on-med-and-down {
     display: none !important;
   }
-  
-  #show-menu-button{
+
+  #show-menu-button {
     visibility: visible;
   }
 }
-#show-menu-button, #close-menu-button {
+#show-menu-button,
+#close-menu-button {
   float: left;
   height: 50px;
   display: flex;
   background-color: #c02215;
-  border: none;    
+  border: none;
   margin-left: 3%;
 }
 
+#autocomplete-input {
+  display: inline-block;
+}
+
 .material-icons {
-    color: white;
+  color: white;
 }
 
 .sidenavmenu {
@@ -270,14 +332,22 @@ button:focus {
   margin-left: 50px;
 }
 
-.account-icon{
+.account-icon {
   font-size: 40px !important;
 }
-
 </style>
 
 
 <script>
+import {
+  Hooper,
+  Slide,
+  Navigation as HooperNavigation,
+  Pagination as HooperPagination
+} from "hooper";
+import "hooper/dist/hooper.css";
+import HooperSlider from "@/components/HooperSlider.vue";
+//import func from '../vue-temp/vue-editor-bridge';
 
 
 export default {
@@ -293,18 +363,23 @@ export default {
     publishMovies() {
       this.$store.dispatch("publishMovies");
     },
-    showNavMenu: function(){
-      document.getElementById("mySidenav").style.width = "200px";      
+    showNavMenu: function() {
+      document.getElementById("mySidenav").style.width = "200px";
       document.getElementById("close-menu-button").style.visibility = "visible";
       document.getElementById("show-menu-button").style.display = "none";
     },
-    closeNavMenu: function(){
+    closeNavMenu: function() {
       document.getElementById("mySidenav").style.width = "0px";
       document.getElementById("close-menu-button").style.visibility = "hidden";
       document.getElementById("show-menu-button").style.display = "block";
     }
   },
   components: {
+    Hooper,
+    Slide,
+    HooperNavigation,
+    HooperPagination,
+    HooperSlider
   }
 };
 </script>

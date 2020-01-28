@@ -24,11 +24,41 @@ export default new Vuex.Store({
       
 
   },
-  //getters: {
-   // getMovieImage: state => {
-   //   return state.movies.Frozen2.image
-   // }
-  //},
+  getters: {
+
+    getBookings: state => {
+        return state.placeholderbookings
+    },
+
+    getMovies: state => {
+        return state.placeholdermovies
+    },
+
+    getBookingsByID: state => (id) => {
+        return state.placeholderbookings.filter(booking => booking.screeningID == id)
+    },
+
+    getSeatsByID: state => (id) => {
+        return state.placeholderbookings.filter(booking => booking.screeningID == id).map(item => item.seats).reduce((prev, next) => prev + next)
+    },
+
+    getSeatsLeftByID: state => (id) => {
+
+        switch(state.placeholderscreenings.find(screening => screening.screeningID === id).auditoriumName) {
+            case "Stora":
+                return state.auditoriumStoraSize - state.placeholderbookings.filter(booking => booking.screeningID == id).map(item => item.seats).reduce((prev, next) => prev + next)
+                //break;
+            case "Lilla":
+                return state.auditoriumLillaSize - state.placeholderbookings.filter(booking => booking.screeningID == id).map(item => item.seats).reduce((prev, next) => prev + next)
+                //break;
+            default:
+                return "Error"
+          }             
+    },
+    getMovieByID: state => (id) => {
+        return state.placeholdermovies.find(product => product.ID === id)
+        } 
+  },
   mutations: {
     // Använd egna metoder till actions nedanför, se receptia för mer info.
     setMovies(state, data){

@@ -10,18 +10,32 @@
           <button id="close-menu-button" v-on:click="closeNavMenu()">
             <i id="navMenuIcon" class="material-icons menu-button">close</i>
           </button>
-          <a href="#" class="brand-logo">Logo</a>
+          
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-              <a href="sass.html">Sass</a>
+              <a href="sass.html">About</a>
             </li>
             <li>
-              <a href="badges.html">Components</a>
+              <a href="badges.html">Filmer</a>
             </li>
             <li>
-              <a href="collapsible.html">Logga in</a>
+              <a href="collapsible.html">Medlem</a>
             </li>
           </ul>
+
+          <div class="nav-search">
+             <div class="btn">
+              <i class="material-icons search-icon">search</i>
+            </div>
+            <div class="search-box">
+              <input type="text" class="search-input" placeholder="Search" />
+            </div>
+           
+          </div>
+
+          <a href="#">
+            <i class="material-icons account-icon">account_circle</i>
+          </a>
         </div>
         <div id="mySidenav" class="sidenavmenu">
           <a href="#">
@@ -32,6 +46,15 @@
           <a href="#">Medlem</a>
         </div>
       </nav>
+
+      <div id="mySidenav" class="sidenavmenu">
+        <a href="#">
+          <i class="material-icons account-icon">account_circle</i>
+        </a>
+        <a href="#">About</a>
+        <a href="#">Filmer</a>
+        <a href="#">Medlem</a>
+      </div>
     </header>
 
     <div class="containerapp">
@@ -143,6 +166,43 @@ nav {
   color: #42b983;
 }
 
+.nav-search {
+  position:absolute;
+  align-self: center;
+  box-sizing: border-box;
+  left: 10px;
+}
+.search-box {
+  position: relative;
+  display: inline-block;
+  height: 50px; 
+  left:10px; 
+}
+.btn{
+  align-self: center;
+  border-radius: 50%;
+  width: 36px;
+  background: rgba(255, 255, 255, 0.2); 
+  padding: 0px;
+  
+}
+.btn:hover
+{
+background-image:none;
+background-color:rgba(255, 254, 254, 0.4); 
+}
+
+.search-icon{
+  position:absolute;
+  bottom:40%;
+  display: flex; 
+  height: 36px !important; 
+  width: 36px;
+  position:relative;
+  display: flex;
+  justify-content: center;
+}
+
 .containerapp {
   flex-grow: 1;
   display: flex;
@@ -221,6 +281,9 @@ button:focus {
 }
 
 @media only screen and (max-width: 992px) {
+  .nav-search{
+    display: none;
+  }
   .hide-on-med-and-down {
     display: none !important;
   }
@@ -284,7 +347,7 @@ button:focus {
   height: 100%;
   width: 100%;
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 50; /* Sit on top */
   left: 0px;
   top: 0px;
   background-color: rgb(0,0,0); /* Black fallback color */

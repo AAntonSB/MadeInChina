@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/Home.vue'
-import MoviePage from '@/views/MoviePage.vue'
+import Movies from '@/views/Movies.vue'
+import Movie from '@/views/Movie.vue'
 
 Vue.use(VueRouter)
 
@@ -12,16 +12,6 @@ const routes = [
     component: Movies
   },
   {
-    path: '/home/:movie',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/moviePage',
-    component: MoviePage,
-    props(route) {
-      return {  movieid: route.query.movieid }
-    }
     path: '/movies',
     name: 'movies',
     component: Movies
@@ -36,9 +26,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes,
-  mode: "history",
-  base: process.env.BASE_URL
+  routes
 })
 
 export default router

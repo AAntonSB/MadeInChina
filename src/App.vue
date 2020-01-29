@@ -24,7 +24,9 @@
           </ul>
         </div>
         <div id="mySidenav" class="sidenavmenu">
-          <a href="#"><i class="material-icons account-icon">account_circle</i></a>
+          <a href="#">
+            <i class="material-icons account-icon">account_circle</i>
+          </a>
           <a href="#">About</a>
           <a href="#">Filmer</a>
           <a href="#">Medlem</a>
@@ -91,8 +93,6 @@
 </template>
 
 <style>
-*{
-  font-family: 'Montserrat', sans-serif;
 body {
   background-color: #000;
   font-family: sans-serif;
@@ -102,9 +102,6 @@ body {
   min-height: 100vh;
 }
 
-  box-sizing: border-box;
-  margin-left: auto;
-  margin-right: auto;
 #app {
   flex-grow: 1;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -148,17 +145,6 @@ nav {
   flex-direction: column;
   margin-top: 65px;
 }
-.overlay{
-  height: 100%;
-  width: 100%;
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0px;
-  top: 0px;
-  background-color: rgb(0,0,0); /* Black fallback color */
-  background-color: rgba(0,0,0, 0.75); /* Black w/opacity */
-  overflow-x: hidden; /* Disable horizontal scroll */
-  transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 
 .flexdirectioncolumn {
   display: flex;
@@ -168,12 +154,6 @@ nav {
 .flexcenter{
   display: flex; 
   justify-content: center;
-.overlay-content {
-  position: relative;
-  top: 25%; /* 25% from the top */
-  width: 100%; /* 100% width */
-  text-align: center; /* Centered text/links */
-  margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
 }
 
 .imgholder {
@@ -199,24 +179,12 @@ nav {
   border-radius: 50%;
 }
 
-/* The navigation links inside the overlay */
-.overlay a {
-  padding: 8px;
-  text-decoration: none;
-  font-size: 36px;
-  color: #818181;
-  display: block; /* Display block instead of inline */
-  transition: 0.3s; /* Transition effects on hover (color) */
 footer {
   background-color: #c02215;
   color: #fff;
 }
 .row .col {
   width: 33%;
-
-/* When you mouse over the navigation links, change their color */
-.overlay a:hover, .overlay a:focus {
-  color: #f1f1f1;
 }
 .hooper {
   margin: 15px;
@@ -227,12 +195,6 @@ footer {
   font-size: 14px;
   margin-bottom: 5px;
   max-width: 160px;
-/* Position the close button (top right corner) */
-.overlay .closebtn {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
 }
 .hooper img {
   height: 100%;
@@ -242,14 +204,10 @@ footer {
   padding: 1em 0em !important;
 }
 
-/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
-@media screen and (max-height: 450px) {
-  .overlay a {font-size: 20px}
-  .overlay .closebtn {
-    font-size: 40px;
-    top: 15px;
-    right: 35px;
-  }
+.icon {
+  width: 30px;
+  height: 30px;
+  fill: red;
 }
 #show-menu-button, #close-menu-button {
   visibility: hidden;
@@ -318,6 +276,48 @@ button:focus {
   font-size: 40px !important;
 }
 
+.overlay{
+  height: 100%;
+  width: 100%;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0px;
+  top: 0px;
+  background-color: rgb(0,0,0); /* Black fallback color */
+  background-color: rgba(0,0,0, 0.75); /* Black w/opacity */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+.overlay-content {
+  position: relative;
+  top: 25%; /* 25% from the top */
+  width: 100%; /* 100% width */
+  text-align: center; /* Centered text/links */
+  margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+/* The navigation links inside the overlay */
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block; /* Display block instead of inline */
+  transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+/* When you mouse over the navigation links, change their color */
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+/* Position the close button (top right corner) */
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
 </style>
 
 
@@ -344,24 +344,18 @@ export default {
           },
           prevImg: function(){
             document.getElementById('gallery').scrollLeft -= 200;
-          }
-      },
-      components: {
-        Hooper,
-        Slide,
-        HooperNavigation,
-        HooperPagination
-      }
-}
-    showNavMenu: function(){
+          },
+              showNavMenu: function(){
       document.getElementById("close-menu-button").style.visibility = "visible";
       document.getElementById("mySidenav").style.width = "200px";      
       document.getElementById("show-menu-button").style.display = "none";
+      },
     closeNavMenu: function(){
-    },
+    
       document.getElementById("mySidenav").style.width = "0px";
       document.getElementById("show-menu-button").style.display = "block";
       document.getElementById("close-menu-button").style.visibility = "hidden";
     }
-  },
+      },
+}
 </script>

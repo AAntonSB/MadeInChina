@@ -1,5 +1,5 @@
 <template>
-    <hooper :infiniteScroll="true" :itemsToShow="4" style="min-height: 300px; padding-bottom: 30px;">
+    <hooper :infiniteScroll="true" :itemsToShow="4" style="height: 30%; padding-bottom: 30px;">
         <slide v-for="movie in movies" :key="movie.document">
           <div class="hooper-img">
             <div  style="position: relative; display: inline-block;">
@@ -8,10 +8,10 @@
                 <span class="hooperimgage">
                   {{movie.age}}
                 </span>
-                <span class="hooperimgtext">
+                <div class="hooperimgtext">
                   {{movie.title}}<br>
-                  <span style="font-size: 11px; color: #ccc;">{{movie.time}}</span>
-                </span>
+                  <span class="hooperimgtime">{{movie.time}}</span>
+                </div>
               </router-link>              
               <span style="position: absolute; left: 0; width: 100%; ">
                 <div v-for="onegenre in movie.genre" :key="onegenre.value">{{onegenre.value}}</div>
@@ -28,11 +28,17 @@
     object-fit: contain;
     width: 100%;
 }
+.hooperimgtime{
+  color: #ccc;
+  font-size: 11px;
+}
 
 .hooperimgtext{
   position: absolute; 
   left: 0;  
   width: 100%; 
+  font-size: 13px;
+  font-weight: bold;
   bottom: 1px; 
   color: white;
   background: rgba(0, 0, 0, 0.7); 
@@ -40,6 +46,43 @@
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
+
+@media (max-width: 780px) {
+    .hooperimgtext {
+        font-size: 11px;
+    }
+    .hooperimgtime{
+      font-size: 10px;
+    }
+}
+
+@media (max-width: 702px) {
+    .hooperimgtext {
+        font-size: 10px;
+    }
+    .hooperimgtime{
+      font-size: 9px;
+    }
+}
+
+@media (max-width: 724px) {
+    .hooperimgtext {
+        font-size: 9px;
+    }
+    .hooperimgtime{
+      font-size: 8px;
+    }
+}
+
+@media (max-width: 623px) {
+    .hooperimgtext {
+        font-size: 8px;
+    }
+    .hooperimgtime{
+      font-size: 7px;
+    }
+}
+
 .hooperimgage{
   position: absolute; 
   left: 83%;  

@@ -171,6 +171,14 @@ footer {
   background-color: #c02215;
   color: #fff;
 }
+footer h5, footer{
+  font-size: 12px!important;
+}
+@media  (min-width: 1000px) {
+  footer h5, footer{
+    font-size: 18px!important;
+  }
+}
 .row .col {
   width: 33%;
 }

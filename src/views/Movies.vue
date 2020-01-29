@@ -37,37 +37,10 @@
     justify-content: center;
 }
 .carousel .hooper{
-    height: 600px;
+    height: 50%;
     object-fit: contain;
 }
-@media only screen and (max-width: 1300px)  {
-  .carousel .hooper{
-    height: 70vh!important;
-    }  
-}
-@media only screen and (max-width: 1000px)  {
-    .carousel .hooper{
-        height: 50vh!important;
-    }
-    .hooper{
-        width: 95%!important;
-    }
-}
-@media only screen and (max-width: 750px)  {
-  .carousel .hooper{
-    height: 45vh!important;
-    }  
-}
-@media only screen and (max-width: 600px)  {
-  .carousel .hooper{
-    height: 40vh!important;
-    }  
-}
-@media only screen and (max-width: 400px)  {
-  .carousel .hooper{
-    height: 30vh!important;
-    }  
-}
+
 .bigimgmovies{
     background-color: #000;
     height: 550px;

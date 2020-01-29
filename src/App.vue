@@ -10,26 +10,44 @@
           <button id="close-menu-button" v-on:click="closeNavMenu()">
             <i id="navMenuIcon" class="material-icons">close</i>
           </button>
-          <a href="#" class="brand-logo">Logo</a>
+          
+          <!--nav stor meny början -->
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-              <a href="sass.html">Sass</a>
+              <a href="sass.html">About</a>
             </li>
             <li>
-              <a href="badges.html">Components</a>
+              <a href="badges.html">Filmer</a>
             </li>
             <li>
-              <a href="collapsible.html">Logga in</a>
+              <a href="collapsible.html">Medlem</a>
             </li>
           </ul>
-        </div>
-        <div id="mySidenav" class="sidenavmenu">
-          <a href="#"><i class="material-icons account-icon">account_circle</i></a>
-          <a href="#">About</a>
-          <a href="#">Filmer</a>
-          <a href="#">Medlem</a>
+
+            <!--vänster sök menyn början-->
+          <div class="nav-search">
+            <div class="search-box">
+              <input type="text" class="search-input" placeholder="Search" />
+            </div>
+            <div class="btn">
+              <i class="material-icons search-icon">search</i>
+            </div>
+          </div>
+          <!--search-box slut-->
+          <a href="#">
+            <i class="material-icons account-icon">account_circle</i>
+          </a>
         </div>
       </nav>
+
+      <div id="mySidenav" class="sidenavmenu">
+        <a href="#">
+          <i class="material-icons account-icon">account_circle</i>
+        </a>
+        <a href="#">About</a>
+        <a href="#">Filmer</a>
+        <a href="#">Medlem</a>
+      </div>
     </header>
 
     <div class="containerapp">
@@ -135,6 +153,39 @@ nav {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.nav-search {
+  position:absolute;
+  align-self: center;
+  box-sizing: border-box;
+}
+.search-box {
+  position: relative;
+  display: inline-block;
+  height: 50px;
+}
+.btn{
+  align-self: center;
+  border-radius: 50%;
+  width: 36px;
+  background: rgba(255, 255, 255, 0.2); 
+  padding: 0px;
+  
+}
+.btn:hover
+{
+background-image:none;
+background-color:rgba(255, 254, 254, 0.4); 
+}
+
+.search-icon{
+  display: flex; 
+  height: 36px !important; 
+  width: 36px;
+  position:relative;
+  display: flex;
+  justify-content: center;
 }
 
 .containerapp {

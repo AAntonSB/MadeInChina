@@ -32,11 +32,13 @@
         <p class="time-and-age">{{movi.time}} | {{movi.age}} år</p>
         <a class="waves-effect waves-light btn-large red book-button">Boka</a>
       </div>
+      <div style="width:100%;padding: 10px 50px;">
       <div class="main-info">
         <p @click="consoleLog(movi.trailer)">{{movi.plot}}</p>
         <p>Regi:{{movi.director.toString()}}</p>
         <p>Skådespelare: {{movi.actors.toString()}}</p>
         <p>Språk: {{movi.language}}</p>
+      </div>
       </div>
       <!-- <div class="Booking collection">
           <li class="collection-header"><h4>Visningar v.47</h4></li>
@@ -93,8 +95,8 @@ export default {
 <style>
 .img-bg img {
   justify-content: flex-start;
-  width: 100%;
-  max-height: 100%;
+  width: 100vw;
+  height: 100vh;
   -webkit-mask-image: -webkit-gradient(
     linear,
     left top,
@@ -109,7 +111,6 @@ export default {
   width: 100vh;
   max-height: 100vh;
 }
-
 .movie-bg-image {
   padding: 0;
   margin: 0;
@@ -152,6 +153,7 @@ i.icon-white {
   color: gray;
 }
 .main-info {
+  position: relative;
   color: white;
   display: flex;
   flex-direction: column;
@@ -160,6 +162,7 @@ i.icon-white {
   word-wrap: break-all;
   text-align: left;
   max-width: 50%;
+  
 }
 .book-button {
   border-radius: 6.35%;

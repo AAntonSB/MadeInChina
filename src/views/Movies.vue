@@ -29,7 +29,7 @@
 }
 .img-bg{
     width:100vw;
-    height: 70vh;
+    
 }
 .carousel .hooper{
     height: 78vh!important;

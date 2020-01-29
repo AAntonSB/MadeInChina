@@ -9,7 +9,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-
+    movieID: "1",
     //image: "https://m.media-amazon.com/images/M/MV5BNDhhY2ViYjQtNjNiZC00ZTE0LTkyOWEtZWUzODhkYTVlYTFkXkEyXkFqcGdeQXVyODc2NTcxODU@._V1_UY268_CR242,0,182,268_AL_.jpg",
       movies:[],
       movie:[],
@@ -61,6 +61,9 @@ export default new Vuex.Store({
         } 
   },
   mutations: {
+    setMovieID(){
+
+    },
     // Använd egna metoder till actions nedanför, se receptia för mer info.
     setMovies(state, data){
       state.movies = data

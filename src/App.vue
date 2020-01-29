@@ -5,10 +5,10 @@
       <nav>
         <div class="nav-wrapper">
           <button id="show-menu-button" v-on:click="showNavMenu()">
-            <i id="navMenuIcon" class="material-icons">menu</i>
+            <i id="navMenuIcon" class="material-icons menu-button">menu</i>
           </button>
           <button id="close-menu-button" v-on:click="closeNavMenu()">
-            <i id="navMenuIcon" class="material-icons">close</i>
+            <i id="navMenuIcon" class="material-icons menu-button">close</i>
           </button>
           
           <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -36,6 +36,14 @@
           <a href="#">
             <i class="material-icons account-icon">account_circle</i>
           </a>
+        </div>
+        <div id="mySidenav" class="sidenavmenu">
+          <a href="#">
+            <i class="material-icons account-icon">account_circle</i>
+          </a>
+          <a href="#">About</a>
+          <a href="#">Filmer</a>
+          <a href="#">Medlem</a>
         </div>
       </nav>
 
@@ -126,6 +134,8 @@ body {
   color: #2c3e50;
   display: flex;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
 header {
@@ -137,6 +147,8 @@ header {
   position: fixed;
   z-index: 10;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 nav {
   background-color: #c02215;
@@ -289,7 +301,7 @@ button:focus {
   margin-left: 3%;
 }
 
-.material-icons {
+.menu-button {
     color: white;
 }
 
@@ -331,6 +343,48 @@ button:focus {
   font-size: 40px !important;
 }
 
+.overlay{
+  height: 100%;
+  width: 100%;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0px;
+  top: 0px;
+  background-color: rgb(0,0,0); /* Black fallback color */
+  background-color: rgba(0,0,0, 0.75); /* Black w/opacity */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+.overlay-content {
+  position: relative;
+  top: 25%; /* 25% from the top */
+  width: 100%; /* 100% width */
+  text-align: center; /* Centered text/links */
+  margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+/* The navigation links inside the overlay */
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block; /* Display block instead of inline */
+  transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+/* When you mouse over the navigation links, change their color */
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+/* Position the close button (top right corner) */
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
 </style>
 
 
@@ -360,7 +414,7 @@ export default {
       document.getElementById("close-menu-button").style.visibility = "visible";
       document.getElementById("mySidenav").style.width = "200px";      
       document.getElementById("show-menu-button").style.display = "none";
-              },
+      },
     closeNavMenu: function(){
     
       document.getElementById("mySidenav").style.width = "0px";
@@ -369,8 +423,5 @@ export default {
       
     }
       },
-      
 }
-
-  
 </script>

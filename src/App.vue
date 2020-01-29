@@ -347,7 +347,7 @@ button:focus {
   height: 100%;
   width: 100%;
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 50; /* Sit on top */
   left: 0px;
   top: 0px;
   background-color: rgb(0,0,0); /* Black fallback color */

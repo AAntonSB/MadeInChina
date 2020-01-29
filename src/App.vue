@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
     <header>
@@ -7,52 +6,30 @@
           <button id="show-menu-button" v-on:click="showNavMenu()">
             <i id="navMenuIcon" class="material-icons">menu</i>
           </button>
-
           <button id="close-menu-button" v-on:click="closeNavMenu()">
             <i id="navMenuIcon" class="material-icons">close</i>
           </button>
-
-          <!--nav stor meny början -->
+          <a href="#" class="brand-logo">Logo</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-              <a href="sass.html">About</a>
+              <a href="sass.html">Sass</a>
             </li>
             <li>
-              <a href="badges.html">Filmer</a>
+              <a href="badges.html">Components</a>
             </li>
             <li>
-              <a href="collapsible.html">Medlem</a>
+              <a href="collapsible.html">Logga in</a>
             </li>
           </ul>
-
-            <!--vänster sök menyn början-->
-          <div class="nav-search">
-            <div class="search-box">
-              <input type="text" class="search-input" placeholder="Search" />
-            </div>
-            <div class="btn">
-              <i class="material-icons search-icon">search</i>
-            </div>
-          </div>
-          <!--search-box slut-->
-          <a href="#">
-            <i class="material-icons account-icon">account_circle</i>
-          </a>
+        </div>
+        <div id="mySidenav" class="sidenavmenu">
+          <a href="#"><i class="material-icons account-icon">account_circle</i></a>
+          <a href="#">About</a>
+          <a href="#">Filmer</a>
+          <a href="#">Medlem</a>
         </div>
       </nav>
-
-      <div id="mySidenav" class="sidenavmenu">
-        <a href="#">
-          <i class="material-icons account-icon">account_circle</i>
-        </a>
-        <a href="#">About</a>
-        <a href="#">Filmer</a>
-        <a href="#">Medlem</a>
-      </div>
     </header>
-
-    <div class="container">
-      <HooperSlider msg="Text" />
 
     <div class="containerapp">
       <router-view :key="$route.fullPath"></router-view>
@@ -110,7 +87,6 @@
       </div>
     </footer>
   </div>
-  </div>
 </template>
 
 <style>
@@ -122,7 +98,6 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
-
 #app {
   flex-grow: 1;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -133,7 +108,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
 header {
   color: #fff;
   height: 10%;
@@ -150,37 +124,12 @@ nav {
 #nav {
   padding: 30px;
 }
-
 #nav a {
   font-weight: bold;
   color: #2c3e50;
 }
-
 #nav a.router-link-exact-active {
   color: #42b983;
-}
-
-.nav-search {
-  position:absolute;
-  align-self: center;
-  box-sizing: border-box;
-}
-.search-box {
-  position: relative;
-  display: inline-block;
-  height: 50px;
-}
-.btn{
-  align-self: center;
-  border-radius: 50%;
-  width: 36px;
-  
-}
-.search-icon{
-  height: 36px !important; 
-  width: 20px;
-  text-align: center;
- line-height: 50%;
 }
 .containerapp {
   flex-grow: 1;
@@ -188,25 +137,23 @@ nav {
   flex-direction: column;
   margin-top: 65px;
 }
-
 .flexdirectioncolumn {
   display: flex;
   flex-direction: column;
 }
-
 .flexcenter{
   display: flex; 
   justify-content: center;
 }
-
 .imgholder {
   max-height: 300px;
   width: fit-content;
   display: inline-block;
   margin-right: 15px;
 }
-
-
+.brand-logo {
+  text-align: center;
+}
 .arrowbtn,
 .abtn {
   text-decoration: none;
@@ -220,7 +167,6 @@ nav {
   border: none;
   border-radius: 50%;
 }
-
 footer {
   background-color: #c02215;
   color: #fff;
@@ -231,7 +177,6 @@ footer {
 .hooper {
   margin: 15px;
 }
-
 .hooper span {
   color: #c21c1c;
   font-size: 14px;
@@ -242,51 +187,40 @@ footer {
   height: 100%;
   border-radius: 5px;
 }
-.hooper-next,
-.hooper-prev {
+.hooper-next, .hooper-prev {
   padding: 1em 0em !important;
 }
-
 .icon {
   width: 30px;
   height: 30px;
   fill: red;
 }
-#show-menu-button,
-#close-menu-button {
+#show-menu-button, #close-menu-button {
   visibility: hidden;
 }
 button:focus {
   background-color: transparent;
 }
-
 @media only screen and (max-width: 992px) {
   .hide-on-med-and-down {
     display: none !important;
   }
-
-  #show-menu-button {
+  
+  #show-menu-button{
     visibility: visible;
   }
 }
-#show-menu-button,
-#close-menu-button {
+#show-menu-button, #close-menu-button {
   float: left;
   height: 50px;
   display: flex;
   background-color: #c02215;
-  border: none;
+  border: none;    
   margin-left: 3%;
 }
-
-#autocomplete-input {
-  display: inline-block;
-}
-
 .material-icons {
-  color: white;
+    color: white;
 }
-
 .sidenavmenu {
   width: 0;
   position: fixed;
@@ -299,7 +233,6 @@ button:focus {
   color: #fff;
   margin-top: 55px;
 }
-
 .sidenavmenu a {
   padding: 8px;
   text-decoration: none;
@@ -308,11 +241,9 @@ button:focus {
   display: block;
   transition: 0.3s;
 }
-
 .sidenavmenu a:hover {
   background-color: #9f2727;
 }
-
 .sidenavmenu .closebtn {
   position: absolute;
   top: 0;
@@ -320,55 +251,47 @@ button:focus {
   font-size: 36px;
   margin-left: 50px;
 }
-
-.account-icon {
+.account-icon{
   font-size: 40px !important;
 }
 </style>
 
 
 <script>
-import {
-  Hooper,
-  Slide,
-  Navigation as HooperNavigation,
-  Pagination as HooperPagination
-} from "hooper";
-import "hooper/dist/hooper.css";
-import HooperSlider from "@/components/HooperSlider.vue";
-//import func from '../vue-temp/vue-editor-bridge';
-
-
 export default {
-  computed: {
-    movies() {
-      return this.$store.state.movies;
-    }
-  },
-  created() {
-    this.$store.dispatch("getMovies");
-  },
-  methods: {
-    publishMovies() {
-      this.$store.dispatch("publishMovies");
-    },
-    showNavMenu: function() {
-      document.getElementById("mySidenav").style.width = "200px";
+    computed: {
+        movies(){
+        return this.$store.state.movies
+        }
+      },
+    created(){
+          this.$store.dispatch("getMovies")
+      },
+      
+    methods:{
+          publishMovies(){
+              this.$store.dispatch("publishMovies")
+          },
+          nextImg: function(){
+            document.getElementById('gallery').scrollLeft += 200;
+          },
+          prevImg: function(){
+            document.getElementById('gallery').scrollLeft -= 200;
+          },
+              showNavMenu: function(){
       document.getElementById("close-menu-button").style.visibility = "visible";
+      document.getElementById("mySidenav").style.width = "200px";      
       document.getElementById("show-menu-button").style.display = "none";
-    },
-    closeNavMenu: function() {
+              },
+    closeNavMenu: function(){
+    
       document.getElementById("mySidenav").style.width = "0px";
-      document.getElementById("close-menu-button").style.visibility = "hidden";
       document.getElementById("show-menu-button").style.display = "block";
+      document.getElementById("close-menu-button").style.visibility = "hidden";
+      
     }
-  },
-  components: {
-    Hooper,
-    Slide,
-    HooperNavigation,
-    HooperPagination,
-    HooperSlider
-  }
-};
+      },
+      
+}
+  
 </script>

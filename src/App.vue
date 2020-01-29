@@ -269,6 +269,9 @@ button:focus {
 }
 
 @media only screen and (max-width: 992px) {
+  .nav-search{
+    display: none;
+  }
   .hide-on-med-and-down {
     display: none !important;
   }

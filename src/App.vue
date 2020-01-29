@@ -111,6 +111,8 @@ body {
   color: #2c3e50;
   display: flex;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
 header {
@@ -122,6 +124,8 @@ header {
   position: fixed;
   z-index: 10;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 nav {
   background-color: #c02215;

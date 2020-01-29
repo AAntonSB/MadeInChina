@@ -32,20 +32,19 @@
         <p class="time-and-age">{{movi.time}} | {{movi.age}} år</p>
         <a class="waves-effect waves-light btn-large red book-button">Boka</a>
       </div>
-
       <div class="main-info">
         <p @click="consoleLog(movi.trailer)">{{movi.plot}}</p>
         <p>Regi:{{movi.director.toString()}}</p>
         <p>Skådespelare: {{movi.actors.toString()}}</p>
         <p>Språk: {{movi.language}}</p>
       </div>
-      <div class="Booking collection">
+      <!-- <div class="Booking collection">
           <li class="collection-header"><h4>Visningar v.47</h4></li>
           <a href="#!" class="collection-item black"><p class="white-font">Film tid</p></a>
           <a href="#!" class="collection-item black white-font"><p class="white-font">Sal 2 17:00</p> <p class="reddd">68 av 68 platser kvar</p></a>
           <a href="#!" class="collection-item black white-font"><p class="white-font">Film tid</p></a>
           <a href="#!" class="collection-item black white-font"><p class="white-font">Film tid</p></a>
-      </div>
+      </div> -->
     </section>
   </div>
 </template>
@@ -93,6 +92,7 @@ export default {
 
 <style>
 .img-bg img {
+  justify-content: flex-start;
   width: 100%;
   max-height: 100%;
   -webkit-mask-image: -webkit-gradient(
@@ -113,11 +113,14 @@ export default {
 .movie-bg-image {
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .play-button {
   position: absolute;
   left: 50%;
+  top: 40%;
   transform: translate(-50%);
   z-index: 1;
 }
@@ -142,7 +145,7 @@ i.icon-white {
 .poster-info {
   position: absolute;
   left: 10%;
-  transform: translateY(80%);
+  top: 50%;
   color: white;
 }
 .time-and-age {
@@ -150,12 +153,13 @@ i.icon-white {
 }
 .main-info {
   color: white;
-  position: absolute;
-  top: 90%;
-  left: 10%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   margin: 0px;
   word-wrap: break-all;
-  width: 750px;
+  text-align: left;
+  max-width: 50%;
 }
 .book-button {
   border-radius: 6.35%;

@@ -24,3 +24,14 @@ export default {
   }
 };
 </script>
+
+
+<style>
+.white{
+  color: white;
+  background-color: transparent;
+}
+.poster{
+  cursor: pointer;
+}
+</style>

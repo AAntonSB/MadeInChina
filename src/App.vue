@@ -11,7 +11,6 @@
             <i id="navMenuIcon" class="material-icons">close</i>
           </button>
           
-          <!--nav stor meny början -->
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
               <a href="sass.html">About</a>
@@ -24,16 +23,16 @@
             </li>
           </ul>
 
-            <!--vänster sök menyn början-->
           <div class="nav-search">
+             <div class="btn">
+              <i class="material-icons search-icon">search</i>
+            </div>
             <div class="search-box">
               <input type="text" class="search-input" placeholder="Search" />
             </div>
-            <div class="btn">
-              <i class="material-icons search-icon">search</i>
-            </div>
+           
           </div>
-          <!--search-box slut-->
+
           <a href="#">
             <i class="material-icons account-icon">account_circle</i>
           </a>
@@ -159,11 +158,13 @@ nav {
   position:absolute;
   align-self: center;
   box-sizing: border-box;
+  left: 10px;
 }
 .search-box {
   position: relative;
   display: inline-block;
-  height: 50px;
+  height: 50px; 
+  left:10px; 
 }
 .btn{
   align-self: center;
@@ -180,6 +181,8 @@ background-color:rgba(255, 254, 254, 0.4);
 }
 
 .search-icon{
+  position:absolute;
+  bottom:40%;
   display: flex; 
   height: 36px !important; 
   width: 36px;

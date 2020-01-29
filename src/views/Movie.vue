@@ -134,7 +134,7 @@ i.icon-white {
   top: 50%;
   transform: translateY(-60%);
   left: 20%;
-  z-index: 5;
+  z-index: 50;
 }
 .button {
   left: 52%;

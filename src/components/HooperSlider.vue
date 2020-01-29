@@ -2,13 +2,21 @@
     <hooper :infiniteScroll="true" :itemsToShow="4" style="min-height: 300px; padding-bottom: 30px;">
         <slide v-for="movie in movies" :key="movie.document">
           <div class="hooper-img">
-            <router-link :to="{ path: '/movie', query: { movieId: movie.id }}">
-              <img :src="movie.image" />
-            </router-link>
-          </div>
-          <div>
-            <span>{{movie.title}}</span>
-          </div>
+            <div  style="position: relative; display: inline-block;">
+              <router-link :to="{ path: '/movie', query: { movieId: movie.id }}">
+                <img :src="movie.image"/>
+                <span class="hooperimgage">
+                  {{movie.age}}
+                </span>
+                <span class="hooperimgtext">
+                  {{movie.title}}
+                </span>
+              </router-link>              
+              <span style="position: absolute; left: 0; width: 100%; ">
+                <div v-for="onegenre in movie.genre" :key="onegenre.value">{{onegenre.value}}</div>
+              </span>
+            </div>   
+          </div>          
         </slide>
         <hooper-navigation slot="hooper-addons"></hooper-navigation>
         <hooper-pagination slot="hooper-addons"></hooper-pagination>
@@ -17,7 +25,32 @@
 <style scoped>
 .hooper-img{
     object-fit: contain;
+    width: 100%;
 }
+.hooperimgtext{
+  position: absolute; 
+  left: 0;  
+  width: 100%; 
+  bottom: 1px; 
+  color: white;
+  background: rgba(0, 0, 0, 0.7); 
+  padding: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.hooperimgage{
+  position: absolute; 
+  left: 83%;  
+  width: 25px;
+  height: 25px;
+  bottom: 50px;
+  border: solid #efe911;
+  background-color: rgba(0, 0, 0, 0.7); 
+  border-radius: 50%;
+  color: #efe911;
+}
+
+/*
 @media only screen and (max-width: 1100px)  {
   .hooper-img{
     height: 90%!important;
@@ -33,6 +66,8 @@
     height: 70%!important;
     }  
 }
+*/
+
 </style>
  <script>
 import { Hooper, 

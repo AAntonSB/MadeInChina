@@ -9,7 +9,6 @@
           <button id="close-menu-button" v-on:click="closeNavMenu()">
             <i id="navMenuIcon" class="material-icons">close</i>
           </button>
-          <a href="#" class="brand-logo">Logo</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
               <a href="sass.html">Sass</a>
@@ -181,7 +180,6 @@ footer {
   color: #c21c1c;
   font-size: 14px;
   margin-bottom: 5px;
-  max-width: 160px;
 }
 .hooper img {
   height: 100%;

@@ -56,18 +56,6 @@
 
     <div class="containerapp">
       <router-view :key="$route.fullPath"></router-view>
-
-      <hooper :progress="true" :autoPlay="true" :playSpeed="3000" style="width: 100%; height:100%;">
-        <slide v-for="movie in movies" :key="movie.id">
-          <div>
-            <img :src="movie.imageOfCarousel" />
-          </div>
-        </slide>
-        <hooper-navigation slot="hooper-addons"></hooper-navigation>
-        <hooper-pagination slot="hooper-addons"></hooper-pagination>
-      </hooper>
-
-      <br />
     </div>
 
     <footer>

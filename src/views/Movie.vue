@@ -6,7 +6,7 @@
       </div>
       <i
         @click="toggleTrailer()"
-        class="material-icons large icon-white valign-wrapper center-align btn-flat"
+        class="material-icons large icon-white valign-wrapper center-align btn-flat play-button"
       >play_circle_filled</i>
       <div @click="toggleTrailer()" class="overlay" v-if="trailerVisible === true">
         <div class="video-player overlay-content">
@@ -115,7 +115,7 @@ export default {
   margin: 0;
 }
 
-.material-icons {
+.play-button {
   position: absolute;
   left: 50%;
   transform: translate(-50%);

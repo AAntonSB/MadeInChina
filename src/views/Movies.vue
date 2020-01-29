@@ -1,9 +1,6 @@
 <template>
         <div class="flexdirectioncolumn">
             <!-- Big picture with search -->
-            <div class="bigimgmovies">
-                <div class="bigimginnerbckg"></div>
-            </div>
             <!-- Hooper -->
             <div class="flexcenter" style="margin: 15px 0px;">
                 <HooperSlider style=" width:70vw;" msg="Text"/>
@@ -12,11 +9,16 @@
             <div class="flexcenter">
                 <div class="carousel">
                     <!-- Carousel -->
-                    <hooper :progress="true"  :infiniteScroll="true" :autoPlay="true" :transition="800" :playSpeed="3000" :hoverPause="true">
-                        <slide v-for="movie in movies" :key="movie.id">
-                            <router-link :to="{ path: '/movie', query: { movieId: movie.id }}">
-                                <img :src="movie.imageOfCarousel" />
-                            </router-link>
+                    <hooper :progress="true"  :infiniteScroll="true" :autoPlay="true" :transition="2000" :playSpeed="5000" :hoverPause="true">
+                        <slide v-for="movie in movies" :key="movie.id"   style="position: relative;">
+                            <div>
+                                <router-link :to="{ path: '/movie', query: { movieId: movie.id }}">
+                                    <img :src="movie.imageOfCarousel" />                                
+                                    <span class="carouselimgtext">
+                                        {{movie.title}}<br>
+                                    </span>
+                                </router-link>
+                            </div>
                         </slide>
                         <hooper-navigation slot="hooper-addons"></hooper-navigation>
                         <hooper-pagination slot="hooper-addons"></hooper-pagination>
@@ -28,12 +30,14 @@
 
 <style>
 .carousel{
-    width: 80%;
+    width: 90vw;
     height: 100%;
     padding-bottom: 30px;
+    display: flex;
+    justify-content: center;
 }
 .carousel .hooper{
-    height: 78vh!important;
+    height: 600px;
     object-fit: contain;
 }
 @media only screen and (max-width: 1300px)  {
@@ -65,9 +69,8 @@
     }  
 }
 .bigimgmovies{
-    background-image: url('https://catalog.cinema-api.com/images/ncg-images/85125f023d564412b78598aecc388c4e.jpg?width=1920&version=5FFD6A056267F02198B2ABDD2DCAD9F1');
     background-color: #000;
-    height: 500px;
+    height: 550px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -75,12 +78,36 @@
 }
 .bigimginnerbckg{
     background: linear-gradient(-180deg,transparent 50%,rgba(0,0,0,.68) 85%,#000);
-    display: block;
+    display: flex;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+}
+.searchcontainer{
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.searchinput{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+}
+.carousel .hooper-slide{
+    width: 100%!important;
+}
+.carouselimgtext{
+    position: absolute; 
+    left: 0;
+    font-size: 14px;
+    color: white!important;
+    background: rgba(116, 26, 26, 0.7); 
+    padding: 5px 20px;
+    margin: 5px 0px 0px 5px;
+    border-radius: 3px;
+    opacity: 0.8;
 }
 </style>
 
@@ -98,10 +125,14 @@ export default {
     computed: {
     movies() {
       return this.$store.state.movies;
+    },
+    movie(){
+            return this.$store.state.movie
     }
   },
   created() {
     this.$store.dispatch("getMovies");
+    this.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
   },
   methods: {
     publishMovies() {
@@ -116,7 +147,7 @@ export default {
       document.getElementById("mySidenav").style.width = "0px";
       document.getElementById("close-menu-button").style.visibility = "hidden";
       document.getElementById("show-menu-button").style.display = "block";
-    }
+    },
   },
   components: { Hooper,
     Slide,

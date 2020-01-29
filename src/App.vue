@@ -141,8 +141,9 @@ nav {
   flex-direction: column;
 }
 .flexcenter{
-  display: flex; 
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .imgholder {
   max-height: 300px;
@@ -183,6 +184,7 @@ footer {
 }
 .hooper img {
   height: 100%;
+  width: 100%;
   border-radius: 5px;
 }
 .hooper-next, .hooper-prev {

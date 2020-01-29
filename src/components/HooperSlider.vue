@@ -9,7 +9,8 @@
                   {{movie.age}}
                 </span>
                 <span class="hooperimgtext">
-                  {{movie.title}}
+                  {{movie.title}}<br>
+                  <span style="font-size: 11px; color: #ccc;">{{movie.time}}</span>
                 </span>
               </router-link>              
               <span style="position: absolute; left: 0; width: 100%; ">
@@ -27,6 +28,7 @@
     object-fit: contain;
     width: 100%;
 }
+
 .hooperimgtext{
   position: absolute; 
   left: 0;  
@@ -34,7 +36,7 @@
   bottom: 1px; 
   color: white;
   background: rgba(0, 0, 0, 0.7); 
-  padding: 10px;
+  padding: 5px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
@@ -43,7 +45,7 @@
   left: 83%;  
   width: 25px;
   height: 25px;
-  bottom: 50px;
+  bottom: 20%;
   border: solid #efe911;
   background-color: rgba(0, 0, 0, 0.7); 
   border-radius: 50%;

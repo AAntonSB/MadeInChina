@@ -24,6 +24,16 @@
       </hooper>
 </template>
 <style scoped>
+
+@media screen and (orientation: portrait){
+    .hooper{
+        width: 90vw!important;
+    }
+    .hooper img {
+      height: 30vw;
+    }
+}
+
 .hooper-img{
     object-fit: contain;
     width: 100%;
@@ -90,9 +100,20 @@
   height: 25px;
   bottom: 20%;
   border: solid #efe911;
-  background-color: rgba(0, 0, 0, 0.7); 
+  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 50%;
   color: #efe911;
+}
+
+@media screen and (max-width: 500px){
+  .hooperimgage{
+    bottom: 30%;
+    left: 70%!important;
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+
 }
 
 /*

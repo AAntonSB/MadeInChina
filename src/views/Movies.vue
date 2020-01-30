@@ -37,8 +37,14 @@
     justify-content: center;
 }
 .carousel .hooper{
-    height: 50%;
+    height: 90vh;
     object-fit: contain;
+}
+
+@media screen and (orientation: portrait){
+    .carousel .hooper{
+        height: 30vh;
+    }
 }
 
 .bigimgmovies{
@@ -81,6 +87,22 @@
     margin: 5px 0px 0px 5px;
     border-radius: 3px;
     opacity: 0.8;
+}
+.hooper {
+  margin: 15px;
+}
+.hooper span {
+  color: #c21c1c;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.hooper img {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+}
+.hooper-next, .hooper-prev {
+  padding: 1em 0em !important;
 }
 </style>
 

@@ -182,22 +182,7 @@ footer h5, footer{
 .row .col {
   width: 33%;
 }
-.hooper {
-  margin: 15px;
-}
-.hooper span {
-  color: #c21c1c;
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-.hooper img {
-  height: 100%;
-  width: 100%;
-  border-radius: 5px;
-}
-.hooper-next, .hooper-prev {
-  padding: 1em 0em !important;
-}
+
 .icon {
   width: 30px;
   height: 30px;

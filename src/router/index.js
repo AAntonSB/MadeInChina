@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Movies from '@/views/Movies.vue'
 import Movie from '@/views/Movie.vue'
 import About from '@/views/About'
+import ContactUs from '@/views/ContactUs'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/about',
   name: 'about',
   component: About
+},
+{
+  path: '/contactus',
+name: 'conactus',
+component: ContactUs
 },
   
 ]

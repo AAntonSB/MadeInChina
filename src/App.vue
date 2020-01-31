@@ -68,7 +68,7 @@
             <h5 class="white-text">Om oss</h5>
             <ul>
               <li>
-                <a class="grey-text text-lighten-3" href="#!">Kontakta oss</a>
+                <router-link to="/contactus"><a class="grey-text text-lighten-3" href="#!">Kontakta oss</a></router-link>
               </li>
               <li>
                 <a class="grey-text text-lighten-3" href="#!">Jobba hos oss</a>

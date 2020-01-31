@@ -74,7 +74,7 @@
                 <a class="grey-text text-lighten-3" href="#!">Jobba hos oss</a>
               </li>
               <li>
-                <a class="grey-text text-lighten-3" href="#!">Vår historia</a>
+                <router-link to="/about"><a class="grey-text text-lighten-3" href="#!">Vår historia</a></router-link>
               </li>
             </ul>
           </div>
@@ -116,7 +116,7 @@
 </template>
 
 <style>
-body {
+body{
   background-color: #000;
   font-family: sans-serif;
   margin: 0;

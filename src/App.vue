@@ -178,7 +178,7 @@ nav {
   height: 50px; 
   left:10px; 
 }
-.btn{
+/* .btn{
   align-self: center;
   border-radius: 50%;
   width: 36px;
@@ -190,7 +190,7 @@ nav {
 {
 background-image:none;
 background-color:rgba(255, 254, 254, 0.4); 
-}
+} */
 
 .search-icon{
   position:absolute;

@@ -27,7 +27,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
 .bg-modal{
     display: flex;
     justify-content: center;

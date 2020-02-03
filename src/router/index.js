@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Movies from '@/views/Movies.vue'
 import Movie from '@/views/Movie.vue'
 import LoginModal from '@/views/LoginModal'
+import Register from '@/views/Register'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,10 @@ const routes = [
     name: 'loginmodal',
     component: LoginModal
   },
+  {path: '/register',
+  name: 'register',
+  component: Register
+}
 ]
 
 const router = new VueRouter({

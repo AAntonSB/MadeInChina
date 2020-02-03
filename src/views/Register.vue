@@ -1,54 +1,70 @@
 <template>
   <div class="bg-modal">
-    <div class="modal-content row valign-wrapper">
-      <form class="register-form col s12">
-        <p style="font-size: 30px">LOGO</p>
-        <h5>Registrera ett placeholder-konto</h5>
+    <div class="modal-content">
+      <div class="row valign-wrapper">
+        <form class="register-form col s12">
+          <p style="font-size: 30px">LOGO</p>
+          <h5>Registrera ett placeholder-konto</h5>
+          <div class="email">
+            <input class="col s11 input" type="email" placeholder="E-Mail" v-model="email" />
+            <div>
+            <p
+              v-if="this.emailError == 'auth/invalid-email'"
+              class="error-message col s12"
+            >Ogiltligt e-mail format. Exempel: exempel@e-mail.com</p>
+            <p v-if="this.emailError == 'auth/email-already-in-use'" class="error-message col s12">
+              Den här e-mail adressen är redan kopplad till ett konto, är det du?
+              <br />Klicka här för att
+              <router-link to="/">Byta lösenord.</router-link>
+            </p>
+            <p v-if="this.emailError == 'auth/required-field'" class="error-message col s12">
+              <i class="material-icons tiny warning-symbol">report_problem</i> Detta fältet är obligatoriskt.
+            </p>
+            </div>
+          </div>
+          <div class="password">
+            <input class="col s11" type="password" placeholder="Lösenord" v-model="password" />
 
-        <div class="email">
-          <input class="col s11 input" type="email" placeholder="E-Mail" v-model="email" />
-          <p class="error-message col s12">Ogiltligt e-mail format. Exempel: exempel@e-mail.com</p>
-          <p class="error-message col s12">
-            Den här e-mail adressen är redan kopplad till ett konto, är det du?
-            <br />Klicka här för att
-            <router-link to="/">Byta lösenord.</router-link>
-          </p>
-          <p class="error-message col s12">
-            <i class="material-icons tiny warning-symbol">report_problem</i> Detta fältet är obligatoriskt.
-          </p>
-        </div>
-        <input class="col s11" type="password" placeholder="Lösenord" v-model="password" />
-        <i class="col s1 material-icons prefix right strong-password">verified_user</i>
-        <input
-          class="col s11"
-          type="password"
-          placeholder="Bekräfta Lösenord"
-          v-model="confirmedPassword"
-        />
-        <i class="col s1 material-icons prefix right strong-password">verified_user</i>
-        <div>
-          <div class="error-box">
-            <p class="center-align error-message col s12">Lösenorden är inte samma.</p>
-            <p class="error-message col s12">Lösenordet är för kort. Minst 6 karaktärer.</p>
-            <p class="error-message col s12">Lösenordet är för långt. Max 30 karaktärer.</p>
-            <p class="error-message col s12">
+            <input
+              class="col s11"
+              type="password"
+              placeholder="Bekräfta Lösenord"
+              v-model="confirmedPassword"
+            />
+            <p
+              v-if="this.passError == 'auth/different-passwords'"
+              class="center-align error-message col s12"
+            >Lösenorden är inte samma.</p>
+            <p
+              v-if="this.passError == 'auth/weak-password'"
+              class="error-message col s12"
+            >Lösenordet är för kort. Minst 6 karaktärer.</p>
+            <p
+              v-if="this.passError == 'auth/long-password'"
+              class="error-message col s12"
+            >Lösenordet är för långt. Max 30 karaktärer.</p>
+            <p v-if="this.passError == 'auth/required-field'" class="error-message col s12">
               <i class="material-icons tiny warning-symbol">report_problem</i> Dessa fälten är obligatoriska.
             </p>
-          </div>
-          <div class="action-buttons right">
-            <a class="btn-large light-blue right" @click="registerAccount()">Skapa Konto</a>
-            <strong>
-              <router-link to="/">logga in i stället</router-link>
-            </strong>
-          </div>
-        </div>
 
-        <span class="col s12 terms-of-service">
-          <router-link to="/">Terms</router-link> |
-          <router-link to="/">Privacy</router-link> |
-          <router-link to="/">Security</router-link>
-        </span>
-      </form>
+            <div class="action-buttons row">
+              <a class="btn-large light-blue col s12" @click="registerAccount()">Skapa Konto</a>
+              <strong>
+                <router-link class="login-button col s12" to="/">logga in i stället</router-link>
+              </strong>
+            </div>
+
+            <span class="col s12 terms-of-service">
+              <br />
+              <br />
+              <br />
+              <router-link to="/">Terms</router-link> |
+              <router-link to="/">Privacy</router-link> |
+              <router-link to="/">Security</router-link>
+            </span>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -61,20 +77,53 @@ export default {
     return {
       email: "",
       password: "",
-      confirmedPassword: ""
+      confirmedPassword: "",
+      emailError: "",
+      passError: ""
     };
   },
   methods: {
+    
     async registerAccount() {
+      var that = this;
       const user = firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .catch(function(error) {
-          console.log(user + error.code);
+          console.log(user);
+          that.errorHandling(error.code);
         });
-    }
+    },
+
+    errorHandling(errorCode){
+    if(this.email != ""){
+              if (
+                errorCode == "auth/invalid-email" ||
+                errorCode == "auth/email-already-in-use"
+              ) { 
+                this.emailError = errorCode;
+              }
+              
+              }else{
+                  this.emailError = 'auth/required-field'
+              }
+            if(this.password != "" || this.confirmedPassword != ""){
+                if(this.password == this.confirmedPassword){
+                    //   Potentialy creating an advanced password checker for secure passwords.
+                if (this.password.length < 6) {
+                this.passError = 'auth/weak-password';
+              }else if(this.password.length > 30){
+                    this.passError = 'auth/long-password'
+                    }
+                }else{
+                    this.passError = 'auth/different-passwords'
+                }
+                }else{
+                    this.passError = 'auth/required-field'
+                }
+            }
   }
-};
+}
 </script>
 
 <style scoped>
@@ -92,29 +141,20 @@ export default {
   background-color: white;
   text-align: center;
   padding: 48px 40px 36px;
-  max-width: 35%;
 }
 
 .light-blue {
   background-color: #03b6ef;
 }
 
+.action-buttons {
+  margin-left: 37%;
+}
+
 .strong-password {
   color: #03b6ef;
-  margin-top: 4%;
-}
-
-.terms-of-service {
-  margin-top: 8%;
-}
-
-.login-button {
-  max-width: 10%;
-}
-
-.action-buttons {
-  max-width: 47%;
-  min-width: 47%;
+  margin-top: 3.2%;
+  display: none
 }
 
 .error-message {
@@ -125,5 +165,17 @@ export default {
   margin-top: 15px;
   margin-bottom: 15px;
   padding: 0vh;
+}
+
+@media (max-width: 450px) {
+  .bg-modal {
+    background-color: white;
+  }
+  .strong-password{
+    display: none
+  }
+  body{
+    background-color: white;
+  }
 }
 </style>

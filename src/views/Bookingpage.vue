@@ -1,31 +1,55 @@
 <template>
-  <div>
-    <div class="buttons">
-      <a class="btn-floating btn-medium waves-effect waves-light red">
-        <i class="material-icons" @click="removeOrdinaryTicket">remove</i>
-      </a>
-      {{ordinarieTickets}}
-      <a class="btn-floating btn-medium waves-effect waves-light red">
+  <div class="maxSize">
+      <div class="ordinarySection">
+        <div class="informationText">
+        <div class="ordinary">Ordinarie</div>
+        <div class="subOrdinary">85kr/st</div>
+        </div>
+        <div class="buttons">
+      <a class="btn-floating btn-medium waves-effect waves-light red btn-spacing">
         <i class="material-icons" @click="addOrdinaryTicket">add</i>
       </a>
-    </div>
-    <div class="buttons">
-      <a class="btn-floating btn-medium waves-effect waves-light red">
-        <i class="material-icons" @click="removeSeniorTicket">remove</i>
+      <div class="amountOfTickets">
+      {{ordinaryTickets}}
+      </div>
+      <a class="btn-floating btn-medium waves-effect waves-light red btn-spacing">
+          <i class="material-icons" @click="removeOrdinaryTicket">remove</i>
       </a>
-      {{seniorTickets}}
-      <a class="btn-floating btn-medium waves-effect waves-light red">
+    </div>
+    </div>
+    <div class="seniorSection">
+        <div class="informationText">
+        <div class="ordinary">Pensionär</div>
+        <div class="subOrdinary">75kr/st</div>
+        </div>
+        <div class="buttons">
+      <a class="btn-floating btn-medium waves-effect waves-light red btn-spacing">
         <i class="material-icons" @click="addSeniorTicket">add</i>
       </a>
-    </div>
-    <div class="buttons">
-      <a class="btn-floating btn-medium waves-effect waves-light red">
-        <i class="material-icons" @click="removeKidTicket">remove</i>
+      <div class="amountOfTickets">
+      {{seniorTickets}}
+      </div>
+      <a class="btn-floating btn-medium waves-effect waves-light red btn-spacing">
+        <i class="material-icons" @click="removeSeniorTicket">remove</i>
       </a>
-      {{kidTickets}}
-      <a class="btn-floating btn-medium waves-effect waves-light red">
+    </div>
+    </div>
+    <div class="kidSection">
+        <div class="informationText">
+        <div class="ordinary">Barn</div>
+        <div class="subOrdinary">65kr/st | (12 år)</div>
+        </div>
+        <div class="buttons">
+      <a class="btn-floating btn-medium waves-effect waves-light red btn-spacing">
         <i class="material-icons" @click="addKidTicket">add</i>
       </a>
+      <div class="amountOfTickets">
+      {{kidTickets}}
+      </div>
+      <a class="btn-floating btn-medium waves-effect waves-light red btn-spacing">
+        <i class="material-icons" @click="removeKidTicket">remove</i>
+      </a>
+    </div>
     </div>
   </div>
 </template>
@@ -34,7 +58,7 @@
 export default {
   data() {
     return {
-      ordinarieTickets: 0,
+      ordinaryTickets: 0,
       seniorTickets: 0,
       kidTickets: 0
     };
@@ -42,7 +66,7 @@ export default {
 
   methods: {
     addOrdinaryTicket() {
-      return this.ordinarieTickets++;
+      return this.ordinaryTickets++;
     },
     addSeniorTicket() {
       return this.seniorTickets++;
@@ -68,5 +92,71 @@ export default {
 .buttons {
   margin-top: 3%;
   color: white;
+  display: flex;
+  flex-direction: row-reverse;
+  width: 25vw;
+  flex: 1;
+
+}
+.maxSize{
+    margin-left: 25vw;
+    margin-right: 25vw;
+    width: 50vw;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+}
+
+.ordinarySection{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.seniorSection{
+display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.kidSection{
+display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.amountOfTickets{
+    font-size: 40px;
+}
+
+.informationText{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    text-align: left;
+    width: 24vw;
+    color: white;
+}
+
+.btn-spacing{
+    margin-top: 2%;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+}
+.ordinary{
+    font-size: 40px;
+}
+
+.subOrdinary{
+    font-size: 20px;
+    
+}
+
+@media(max-width: 450px ) {
+    .maxSize{
+        margin:0;
+        width: 100vw;
+    }
 }
 </style>

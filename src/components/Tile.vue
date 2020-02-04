@@ -16,8 +16,8 @@ export default {
 <style>
 .clickSeat{
   margin: 2px;
-  border-radius: 40%;
-  height: 70%;
+  border-radius: 0 0 40% 40%;
+  height: 60%;
   width: 15px;
   border:none;
 }

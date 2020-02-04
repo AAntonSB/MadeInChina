@@ -51,6 +51,10 @@
       </a>
     </div>
     </div>
+    <br>
+    <div class="nextbutton">
+    <router-link to="/"><a class="waves-effect waves-light btn-large red">Välj platser</a></router-link>
+    </div>
   </div>
 </template>
     
@@ -158,5 +162,9 @@ display: flex;
         margin:0;
         width: 100vw;
     }
+}
+
+.nextbutton{
+    
 }
 </style>

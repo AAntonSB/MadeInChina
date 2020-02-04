@@ -75,16 +75,12 @@ export default {
     filter: drop-shadow(0 0.20rem 0.75rem rgb(199, 222, 226));
 	height: 20px;
 	width: 350px;
-    
+    margin-left: auto;
     display: flex;
     justify-content: center;
     margin: auto;
   
 }
-/* #screen {
-  border: 3px;
-  color: aqua;
-} */
 #seatPage {
   align-content: center;
   justify-content: center;
@@ -92,6 +88,7 @@ export default {
 .seatLayout {
   display: flex;
   width: 315px;
+  margin-left: auto;
   flex-wrap: wrap;
   align-self: center;
   justify-content: center;

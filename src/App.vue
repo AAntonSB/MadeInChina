@@ -32,10 +32,6 @@
             </div>
            
           </div>
-
-          <a href="#">
-            <i class="material-icons account-icon">account_circle</i>
-          </a>
         </div>
         <div id="mySidenav" class="sidenavmenu">
           <a href="#">

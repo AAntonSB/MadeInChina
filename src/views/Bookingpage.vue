@@ -4,10 +4,11 @@
       <a class="btn-floating btn-medium waves-effect waves-light red">
         <i class="material-icons" @click="removeOrdinaryTicket">remove</i>
       </a>
-      {{ordinarieTickets}}
+      {{ordinaryTickets}}
       <a class="btn-floating btn-medium waves-effect waves-light red">
-        <i class="material-icons" @click="addOrdinaryTicket">add</i>
+        <i class="material-icons" @click="addOrdinaryTicket">add</i>   
       </a>
+      
     </div>
     <div class="buttons">
       <a class="btn-floating btn-medium waves-effect waves-light red">
@@ -27,6 +28,10 @@
         <i class="material-icons" @click="addKidTicket">add</i>
       </a>
     </div>
+    <br>
+    <div class="nextbutton">
+    <router-link to="/"><a class="waves-effect waves-light btn-large red">Välj platser</a></router-link>
+    </div>
   </div>
 </template>
     
@@ -34,7 +39,7 @@
 export default {
   data() {
     return {
-      ordinarieTickets: 0,
+      ordinaryTickets: 0,
       seniorTickets: 0,
       kidTickets: 0
     };
@@ -42,7 +47,7 @@ export default {
 
   methods: {
     addOrdinaryTicket() {
-      return this.ordinarieTickets++;
+      return this.ordinaryTickets++;
     },
     addSeniorTicket() {
       return this.seniorTickets++;
@@ -68,5 +73,9 @@ export default {
 .buttons {
   margin-top: 3%;
   color: white;
+}
+
+.nextbutton{
+    
 }
 </style>

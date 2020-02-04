@@ -21,6 +21,9 @@ export default {
   width: 15px;
   border:none;
 }
+.clickSeat:hover{
+    background-color: darkgoldenrod;
+}
 /* Se nedan för färg på upptaget seat. */
 /*   background-color: #C02215;
   border: #C02215;  */

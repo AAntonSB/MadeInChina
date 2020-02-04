@@ -75,9 +75,11 @@ export default {
     filter: drop-shadow(0 0.20rem 0.75rem rgb(199, 222, 226));
 	height: 20px;
 	width: 350px;
-    margin-left: 447px;
+    
     display: flex;
-    justify-content: center
+    justify-content: center;
+    margin: auto;
+  
 }
 /* #screen {
   border: 3px;
@@ -89,13 +91,19 @@ export default {
 }
 .seatLayout {
   display: flex;
-  width: 25vw;
+  width: 315px;
   flex-wrap: wrap;
   align-self: center;
   justify-content: center;
+  margin: auto;
+  
+  
+  
+  
 }
 .seats {
   width: 20%;
   height: 30px;
+ 
 }
 </style>

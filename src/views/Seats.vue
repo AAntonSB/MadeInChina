@@ -1,8 +1,11 @@
 
 <template>
   <div id="seatPage">
+    <br>
     <div id="screen"></div>
     <br/>
+    
+    
     <div class="seatLayout">
       <tile
         v-for="(seats, i) of flatSeats"
@@ -78,6 +81,7 @@ export default {
     display: flex;
     justify-content: center;
     margin: auto;
+    padding: 15px;
   
 }
 #seatPage {

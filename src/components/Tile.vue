@@ -20,5 +20,8 @@ export default {
   height: 70%;
   width: 15px;
 }
+/* Se nedan för färg på upptaget seat. */
+/*   background-color: #C02215;
+  border: #C02215;  */
 
 </style>

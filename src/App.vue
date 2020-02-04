@@ -13,7 +13,7 @@
           
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-              <a href="sass.html">About</a>
+              <a href="sass.html">Om Oss</a>
             </li>
             <li>
               <a href="badges.html">Filmer</a>
@@ -28,7 +28,7 @@
               <i class="material-icons search-icon">search</i>
             </div>
             <div class="search-box">
-              <input type="text" class="search-input" placeholder="Search" />
+              <input type="text" class="search-input" placeholder="Sök" />
             </div>
            
           </div>
@@ -41,7 +41,7 @@
           <a href="#">
             <i class="material-icons account-icon">account_circle</i>
           </a>
-          <a href="#">About</a>
+          <a href="#">Om Oss</a>
           <a href="#">Filmer</a>
           <a href="#">Medlem</a>
         </div>

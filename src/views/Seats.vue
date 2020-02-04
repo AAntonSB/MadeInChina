@@ -13,6 +13,7 @@
         v-bind:key="'seats' + i + seats.x + seats.y"
       ></tile>
     </div>
+    <a class="waves-effect waves-light btn-large red book-button">Book Tickets</a>
   </div>
 </template>
 
@@ -25,7 +26,20 @@ export default {
   },
   data() {
     return {
-      seats: []
+      seats: [],
+      gridTemplate: [
+                    " ", " ", "S", "S", "S", "S", "S", "S", "S", "S", " ", " ",
+                    " ", " ", "S", "S", "S", "S", "S", "S", "S", "S", "S", " ",
+                    " ", " ", "S", "S", "S", "S", "S", "S", "S", "S", "S", " ",
+                    " ", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", " ",
+                    " ", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", " ",
+                    " ", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", " ",
+                    " ", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", " ",
+                    "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S",
+                    "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S",
+                    "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S",
+                    "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S",
+                    "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S",]
       //customGrid: mapsArray[this.audit]
     };
   },
@@ -101,6 +115,10 @@ export default {
 .seats {
   width: 20%;
   height: 30px;
+}
+
+.book-button{
+  margin-top:7%;
 }
 
 </style>

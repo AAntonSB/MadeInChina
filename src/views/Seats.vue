@@ -85,6 +85,8 @@ export default {
   
 }
 #seatPage {
+    margin-top: 50px;
+    margin-bottom: 50px;
   align-content: center;
   justify-content: center;
 }

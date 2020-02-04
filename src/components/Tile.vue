@@ -19,6 +19,7 @@ export default {
   border-radius: 40%;
   height: 70%;
   width: 15px;
+  border:none;
 }
 /* Se nedan för färg på upptaget seat. */
 /*   background-color: #C02215;

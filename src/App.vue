@@ -7,9 +7,6 @@
           <button id="show-menu-button" v-on:click="showNavMenu()">
             <i id="navMenuIcon" class="material-icons">menu</i>
           </button>
-          <button id="close-menu-button" v-on:click="closeNavMenu()">
-            <i id="navMenuIcon" class="material-icons">close</i>
-          </button>
           <a href="#" class="brand-logo">Logo</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>

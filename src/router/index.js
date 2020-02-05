@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Movies from '@/views/Movies.vue'
 import Movie from '@/views/Movie.vue'
-import LoginModal from '@/views/LoginModal'
+import Login from '@/views/Login'
 import Register from '@/views/Register'
 
 Vue.use(VueRouter)
@@ -26,9 +26,9 @@ const routes = [
     }
   },
   {
-    path: '/loginmodal',
-    name: 'loginmodal',
-    component: LoginModal
+    path: '/login',
+    name: 'login',
+    component: Login
   },
   {path: '/register',
   name: 'register',

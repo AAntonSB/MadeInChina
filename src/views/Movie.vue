@@ -81,6 +81,17 @@ export default {
       }
     }
   },
+  watch: {
+    trailerVisible(value){
+      if(value){
+        document.body.style.setProperty("height", "100vh")
+        document.body.style.setProperty("overflow-y", "hidden")
+      }else{
+        document.body.style.setProperty("height", "100%")
+        document.body.style.setProperty("overflow-y", "auto")
+      }
+    }
+  },
   created() {
     console.log(this.$route.query.movieId);
     window.addEventListener("keydown", this.handleKeyPress);

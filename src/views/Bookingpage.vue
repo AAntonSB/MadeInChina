@@ -141,6 +141,7 @@ export default {
     text-align: left;
     width: 24vw;
     color: white;
+    margin-top: 4%;
 }
 
 .btn-spacing{
@@ -168,5 +169,10 @@ export default {
         margin-right: 2vw;
         width: 96vw;
     }
+}
+
+.nextbutton{
+  margin-bottom: 4%;
+    
 }
 </style>

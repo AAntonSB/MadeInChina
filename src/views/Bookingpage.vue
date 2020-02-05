@@ -103,9 +103,9 @@ export default {
 
 }
 .maxSize{
-    margin-left: 25vw;
-    margin-right: 25vw;
-    width: 50vw;
+    margin-left: 35vw;
+    margin-right: 35vw;
+    width: 30vw;
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -119,13 +119,13 @@ export default {
 }
 
 .seniorSection{
-display: flex;
+    display: flex;
     flex-direction: row;
     flex: 1;
 }
 
 .kidSection{
-display: flex;
+    display: flex;
     flex-direction: row;
     flex: 1;
 }
@@ -157,14 +157,16 @@ display: flex;
     
 }
 
+.nextbutton{
+    
+}
+
 @media(max-width: 450px ) {
     .maxSize{
         margin:0;
-        width: 100vw;
+        margin-left: 2vw;
+        margin-right: 2vw;
+        width: 96vw;
     }
-}
-
-.nextbutton{
-    
 }
 </style>

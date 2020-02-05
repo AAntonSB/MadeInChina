@@ -2,18 +2,24 @@
 <<<<<<< Updated upstream
         <div class="flexdirectioncolumn">
             <!-- Big picture with search -->
-           
             <!-- Hooper -->
-            <div class="flexcenter">
+            <div class="flexcenter" style="margin: 15px 0px;">
                 <HooperSlider style=" width:70vw;" msg="Text"/>
             </div>
 
             <div class="flexcenter">
                 <div class="carousel">
                     <!-- Carousel -->
-                    <hooper :progress="true" :autoPlay="true" :playSpeed="3000">
-                        <slide v-for="movie in movies" :key="movie.id">
-                            <img :src="movie.imageOfCarousel" />
+                    <hooper :progress="true"  :infiniteScroll="true" :autoPlay="true" :transition="2000" :playSpeed="5000" :hoverPause="true">
+                        <slide v-for="movie in movies" :key="movie.id"   style="position: relative;">
+                            <div>
+                                <router-link :to="{ path: '/movie', query: { movieId: movie.id }}">
+                                    <img :src="movie.imageOfCarousel" />                                
+                                    <span class="carouselimgtext">
+                                        {{movie.title}}<br>
+                                    </span>
+                                </router-link>
+                            </div>
                         </slide>
                         <hooper-navigation slot="hooper-addons"></hooper-navigation>
                         <hooper-pagination slot="hooper-addons"></hooper-pagination>
@@ -25,44 +31,80 @@
 
 <style>
 .carousel{
-    width: 70%;
+    width: 90vw;
     height: 100%;
     padding-bottom: 30px;
-}
-.img-bg{
-    width:100vw;
-    height: 70vh;
+    display: flex;
+    justify-content: center;
 }
 .carousel .hooper{
-    height: 78vh!important;
+    height: 90vh;
     object-fit: contain;
 }
-@media only screen and (max-width: 1300px)  {
-  .carousel .hooper{
-    height: 70vh!important;
-    }  
-}
-@media only screen and (max-width: 1000px)  {
-  .carousel .hooper{
-    height: 50vh!important;
-    }  
-}
-@media only screen and (max-width: 750px)  {
-  .carousel .hooper{
-    height: 45vh!important;
-    }  
-}
-@media only screen and (max-width: 600px)  {
-  .carousel .hooper{
-    height: 40vh!important;
-    }  
-}
-@media only screen and (max-width: 400px)  {
-  .carousel .hooper{
-    height: 30vh!important;
-    }  
+
+@media screen and (orientation: portrait){
+    .carousel .hooper{
+        height: 30vh;
+    }
 }
 
+.bigimgmovies{
+    background-color: #000;
+    height: 550px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 15px;
+}
+.bigimginnerbckg{
+    background: linear-gradient(-180deg,transparent 50%,rgba(0,0,0,.68) 85%,#000);
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.searchcontainer{
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.searchinput{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+}
+.carousel .hooper-slide{
+    width: 100%!important;
+}
+.carouselimgtext{
+    position: absolute; 
+    left: 0;
+    font-size: 14px;
+    color: white!important;
+    background: rgba(116, 26, 26, 0.7); 
+    padding: 5px 20px;
+    margin: 5px 0px 0px 5px;
+    border-radius: 3px;
+    opacity: 0.8;
+}
+.hooper {
+  margin: 15px;
+}
+.hooper span {
+  color: #c21c1c;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.hooper img {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+}
+.hooper-next, .hooper-prev {
+  padding: 1em 0em !important;
+}
 </style>
 
 =======
@@ -167,10 +209,14 @@ export default {
   computed: {
     movies() {
       return this.$store.state.movies;
+    },
+    movie(){
+            return this.$store.state.movie
     }
   },
   created() {
     this.$store.dispatch("getMovies");
+    this.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
   },
   methods: {
     publishMovies() {
@@ -185,7 +231,7 @@ export default {
       document.getElementById("mySidenav").style.width = "0px";
       document.getElementById("close-menu-button").style.visibility = "hidden";
       document.getElementById("show-menu-button").style.display = "block";
-    }
+    },
   },
   components: {
     Hooper,

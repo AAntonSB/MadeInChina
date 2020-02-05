@@ -94,8 +94,8 @@ export default {
 
 <style>
 .buttons {
-  margin-top: 3%;
-  color: white;
+  margin-top: 6%;
+  color: rgb(184, 90, 90);
   display: flex;
   flex-direction: row-reverse;
   width: 25vw;
@@ -132,6 +132,7 @@ export default {
 
 .amountOfTickets{
     font-size: 40px;
+    color: white;
 }
 
 .informationText{

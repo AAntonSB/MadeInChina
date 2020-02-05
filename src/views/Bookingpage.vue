@@ -132,6 +132,7 @@ export default {
 
 .amountOfTickets{
     font-size: 40px;
+    color: white;
 }
 
 .informationText{

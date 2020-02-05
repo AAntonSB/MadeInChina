@@ -93,7 +93,7 @@
             </ul>
           </div>
           <div class="col l4">
-            <h5 class="white-text">Medlemsskap</h5>
+            <h5 class="white-text">Medlem</h5>
             <ul>
               <li>
                 <a class="grey-text text-lighten-3" href="#!">Logga in</a>
@@ -102,7 +102,7 @@
                 <a class="grey-text text-lighten-3" href="#!">Bli medlem</a>
               </li>
               <li>
-                <a class="grey-text text-lighten-3" href="#!">Medlemsförmåner</a>
+                <a class="grey-text text-lighten-3" href="#!">Förmåner</a>
               </li>
             </ul>
           </div>
@@ -246,6 +246,11 @@ background-color:rgba(255, 254, 254, 0.4);
 footer {
   background-color: #c02215;
   color: #fff;
+  height: 10%;
+  z-index: 10;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 .row .col {
   width: 33%;

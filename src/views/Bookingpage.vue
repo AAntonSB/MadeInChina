@@ -165,9 +165,9 @@ export default {
 @media(max-width: 450px ) {
     .maxSize{
         margin:0;
-        margin-left: 2vw;
-        margin-right: 2vw;
-        width: 96vw;
+        margin-left: 3vw;
+        margin-right: 3vw;
+        width: 94vw;
     }
 }
 

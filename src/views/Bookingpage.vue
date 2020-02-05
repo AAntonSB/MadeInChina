@@ -156,6 +156,7 @@ export default {
 
 .subOrdinary{
     font-size: 20px;
+    color:rgb(184, 184, 184);
     
 }
 

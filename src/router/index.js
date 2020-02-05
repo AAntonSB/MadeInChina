@@ -4,6 +4,10 @@ import Movies from '@/views/Movies.vue'
 import Movie from '@/views/Movie.vue'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
+import MyPage from '@/views/MyPage'
+
+import * as firebase from "firebase/app";
+import "firebase/auth";
 
 Vue.use(VueRouter)
 
@@ -33,7 +37,13 @@ const routes = [
   {path: '/register',
   name: 'register',
   component: Register
-}
+},
+{
+  path: '/mypage',
+  name: 'mypage',
+  component: MyPage,
+  meta: {requiersAuth: true}
+},
 ]
 
 const router = new VueRouter({
@@ -41,6 +51,17 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 
+})
+
+
+router.beforeEach((to, from, next)=>{
+  const requiersAuth = to.matched.some(record => record.meta.requiersAuth);
+  const isAuthenticated = firebase.auth().currentUser;
+  if(requiersAuth && !isAuthenticated){
+    next("/login")
+  }else{
+    next();
+  }
 })
 
 export default router

@@ -60,7 +60,7 @@ export default {
           .auth()
           .signInWithEmailAndPassword(this.email, this.password);
         console.log(val);
-        this.$router.replace({ name: "movies" });
+        this.$router.replace({ name: "mypage" });
       } catch (err) {
         console.log(err);
       }
@@ -69,11 +69,10 @@ export default {
     async socialSignin() {
       try{
                 const provider = new firebase.auth.GoogleAuthProvider();
-                  console.log("hello")
 
                 const result = await firebase.auth().signInWithPopup(provider)
-                console.log("hello")
 
+                this.$router.replace({ name: "mypage" });
                 console.log(result)
       }catch(err){
         console.log(err)

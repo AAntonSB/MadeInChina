@@ -31,6 +31,10 @@
               placeholder="Bekräfta Lösenord"
               v-model="confirmedPassword"
             />
+            <i
+                
+                class="col s1 material-icons prefix right strong-password"
+              >verified_user</i>
             <p
               v-if="this.passError == 'auth/different-passwords'"
               class="center-align error-message col s12"
@@ -48,16 +52,14 @@
             </p>
 
             <div class="action-buttons row">
-              <a class="btn-large light-blue col s12" @click="registerAccount()">Skapa Konto</a>
+              <a class="btn-large light-blue col s12 submit-button" @click="registerAccount()">Skapa Konto</a>
               <strong>
-                <router-link class="login-button col s12" to="/">logga in i stället</router-link>
+                <router-link class="login-button col s12" to="/loginmodal">logga in i stället</router-link>
               </strong>
             </div>
 
             <span class="col s12 terms-of-service">
-              <br />
-              <br />
-              <br />
+           
               <router-link to="/">Terms</router-link> |
               <router-link to="/">Privacy</router-link> |
               <router-link to="/">Security</router-link>
@@ -79,9 +81,20 @@ export default {
       password: "",
       confirmedPassword: "",
       emailError: "",
-      passError: ""
-    };
+      passError: "",
+      strongPassword: false,
+    }
   },
+    watch:{
+      password(password){
+        var re = /(?=.\d)(?=.[a-z])(?=.*[A-Z]).{6,}/;
+        //alert(this.password)
+        return this.strongPassword = re.test(password);
+        
+      },
+
+
+    },
   methods: {
     
     async registerAccount() {
@@ -135,12 +148,17 @@ export default {
   height: 100vh;
   position: absolute;
   top: 0;
+   background-color: rgba(0,0,0,0.7);
+   z-index: 10;
 }
 .modal-content {
   display: flex;
   background-color: white;
   text-align: center;
   padding: 48px 40px 36px;
+  max-width: 450px;
+  
+  
 }
 
 .light-blue {
@@ -162,9 +180,25 @@ export default {
   color: red;
   text-align: center;
   margin: 0;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
   padding: 0vh;
+
+}
+.submit-button{
+    border: 0;
+background-image: linear-gradient(
+    45deg,
+    #845ec2,
+    #d65db1,
+    #ff9671,
+    #ffc72f,
+    #f9f871
+  );
+  background-size: 200%;
+  animation: bg-animation 120s infinite alternate;
+  
+
 }
 
 @media (max-width: 450px) {

@@ -65,6 +65,20 @@ export default {
         console.log(err);
       }
     },
+
+    async socialSignin() {
+      try{
+                const provider = new firebase.auth.GoogleAuthProvider();
+                  console.log("hello")
+
+                const result = await firebase.auth().signInWithPopup(provider)
+                console.log("hello")
+
+                console.log(result)
+      }catch(err){
+        console.log(err)
+      }
+          }
   }
 }
 </script>

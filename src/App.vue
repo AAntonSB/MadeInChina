@@ -10,7 +10,7 @@
           <button id="close-menu-button" v-on:click="closeNavMenu()">
             <i id="navMenuIcon" class="material-icons menu-button">close</i>
           </button>
-          
+
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
               <a href="sass.html">About</a>
@@ -24,13 +24,12 @@
           </ul>
 
           <div class="nav-search">
-             <div class="btn">
+            <div class="btn">
               <i class="material-icons search-icon">search</i>
             </div>
             <div class="search-box">
               <input type="text" class="search-input" placeholder="Search" />
             </div>
-           
           </div>
 
           <a href="#">
@@ -167,7 +166,7 @@ nav {
 }
 
 .nav-search {
-  position:absolute;
+  position: absolute;
   align-self: center;
   box-sizing: border-box;
   left: 10px;
@@ -175,8 +174,8 @@ nav {
 .search-box {
   position: relative;
   display: inline-block;
-  height: 50px; 
-  left:10px; 
+  height: 50px;
+  left: 10px;
 }
 /* .btn{
   align-self: center;
@@ -192,13 +191,13 @@ background-image:none;
 background-color:rgba(255, 254, 254, 0.4); 
 } */
 
-.search-icon{
-  position:absolute;
-  bottom:40%;
-  display: flex; 
-  height: 36px !important; 
+.search-icon {
+  position: absolute;
+  bottom: 40%;
+  display: flex;
+  height: 36px !important;
   width: 36px;
-  position:relative;
+  position: relative;
   display: flex;
   justify-content: center;
 }
@@ -215,8 +214,8 @@ background-color:rgba(255, 254, 254, 0.4);
   flex-direction: column;
 }
 
-.flexcenter{
-  display: flex; 
+.flexcenter {
+  display: flex;
   justify-content: center;
 }
 
@@ -264,7 +263,8 @@ footer {
   height: 100%;
   border-radius: 5px;
 }
-.hooper-next, .hooper-prev {
+.hooper-next,
+.hooper-prev {
   padding: 1em 0em !important;
 }
 
@@ -273,7 +273,8 @@ footer {
   height: 30px;
   fill: red;
 }
-#show-menu-button, #close-menu-button {
+#show-menu-button,
+#close-menu-button {
   visibility: hidden;
 }
 button:focus {
@@ -281,28 +282,29 @@ button:focus {
 }
 
 @media only screen and (max-width: 992px) {
-  .nav-search{
+  .nav-search {
     display: none;
   }
   .hide-on-med-and-down {
     display: none !important;
   }
-  
-  #show-menu-button{
+
+  #show-menu-button {
     visibility: visible;
   }
 }
-#show-menu-button, #close-menu-button {
+#show-menu-button,
+#close-menu-button {
   float: left;
   height: 50px;
   display: flex;
   background-color: #c02215;
-  border: none;    
+  border: none;
   margin-left: 3%;
 }
 
 .menu-button {
-    color: white;
+  color: white;
 }
 
 .sidenavmenu {
@@ -339,19 +341,19 @@ button:focus {
   margin-left: 50px;
 }
 
-.account-icon{
+.account-icon {
   font-size: 40px !important;
 }
 
-.overlay{
+.overlay {
   height: 100%;
   width: 100%;
   position: fixed; /* Stay in place */
   z-index: 50; /* Sit on top */
   left: 0px;
   top: 0px;
-  background-color: rgb(0,0,0); /* Black fallback color */
-  background-color: rgba(0,0,0, 0.75); /* Black w/opacity */
+  background-color: rgb(0, 0, 0); /* Black fallback color */
+  background-color: rgba(0, 0, 0, 0.75); /* Black w/opacity */
   overflow-x: hidden; /* Disable horizontal scroll */
   transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 }
@@ -374,7 +376,8 @@ button:focus {
 }
 
 /* When you mouse over the navigation links, change their color */
-.overlay a:hover, .overlay a:focus {
+.overlay a:hover,
+.overlay a:focus {
   color: #f1f1f1;
 }
 
@@ -389,39 +392,51 @@ button:focus {
 
 
 <script>
+import * as firebase from 'firebase'
+import 'firebase/auth'
 export default {
-    computed: {
-        movies(){
-        return this.$store.state.movies
-        }
-      },
-    created(){
-          this.$store.dispatch("getMovies")
-      },
+  computed: {
+    movies() {
+      return this.$store.state.movies;
+    }
+  },
+  created() {
+    this.$store.dispatch("getMovies");
+    firebase.auth().onAuthStateChanged(user => {
+      this.loggedIn = !!user;
+    });
+  },
 
-      
-    methods:{
-          publishMovies(){
-              this.$store.dispatch("publishMovies")
-          },
-          nextImg: function(){
-            document.getElementById('gallery').scrollLeft += 200;
-          },
-          prevImg: function(){
-            document.getElementById('gallery').scrollLeft -= 200;
-          },
-              showNavMenu: function(){
+  methods: {
+    async signOut() {
+      try {
+        const data = await firebase.auth().signOut();
+        console.log(data);
+        this.$router.replace({ name: "login" });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    publishMovies() {
+      this.$store.dispatch("publishMovies");
+    },
+    nextImg: function() {
+      document.getElementById("gallery").scrollLeft += 200;
+    },
+    prevImg: function() {
+      document.getElementById("gallery").scrollLeft -= 200;
+    },
+    showNavMenu: function() {
       document.getElementById("close-menu-button").style.visibility = "visible";
-      document.getElementById("mySidenav").style.width = "200px";      
+      document.getElementById("mySidenav").style.width = "200px";
       document.getElementById("show-menu-button").style.display = "none";
-      },
-    closeNavMenu: function(){
-    
+    },
+    closeNavMenu: function() {
       document.getElementById("mySidenav").style.width = "0px";
       document.getElementById("show-menu-button").style.display = "block";
       document.getElementById("close-menu-button").style.visibility = "hidden";
-      
     }
-      },
-}
+  }
+};
 </script>

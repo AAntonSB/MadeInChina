@@ -7,15 +7,15 @@
                 <div class="bigimginnerbckg">                    
                       <div class="searchcontainer">
                         <span class="my-custom-dropdown">
-                            <select>
+                            <select name="dateDropdown">
                                 <option>Sök via dag</option>
-                                <option  v-for="index in 7" :key="index">{{setDateWithIndex(index)}}</option>
+                                <option  v-for="index in 7" :key="index" :value="setDateWithIndex(index)">{{setDateWithIndex(index)}}</option>
                             </select>
                         </span>
                         <span class="my-custom-dropdown">
-                            <select>
+                            <select name="moviesDropdown">
                                 <option>Sök via film</option>
-                                <option  v-for="movie in movies" :key="movie.id">{{movie.title}}</option>
+                                <option  v-for="movie in movies" :id="movie.id" :key="movie.id" >{{movie.title}}</option>
                             </select>
                         </span>
                     </div>
@@ -250,7 +250,19 @@ export default {
         if (month.length < 2) month = '0' + month;
         if (day.length < 2) day = '0' + day;
 
-        return day+'/'+month;
+        let days = [
+        'söndag',
+        'måndag',
+        'tisdag',
+        'onsdag',
+        'torsdag',
+        'fredag',
+        'lördag'
+        ]
+
+        let dayName = days[finalDate.getDay()]
+
+        return day+'/'+month +' '+ ' - '+dayName;
         }
     },
   components: {

@@ -1,6 +1,6 @@
 <template>
     <hooper :infiniteScroll="true" :itemsToShow="4" style="height: 30%; padding-bottom: 30px;">
-        <slide v-for="movie in movies" :key="movie.document">
+        <slide v-for="movie in movies" :key="movie.id">
           <div class="hooper-img">
             <div  style="position: relative; display: inline-block;">
               <router-link :to="{ path: '/movie', query: { movieId: movie.id }}">

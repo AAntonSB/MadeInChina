@@ -6,7 +6,6 @@
           <button id="show-menu-button" v-on:click="showNavMenu()">
             <i id="navMenuIcon" class="material-icons">menu</i>
           </button>
-          <a href="#" class="brand-logo">Logo</a>
           <button id="close-menu-button" v-on:click="closeNavMenu()">
             <i id="navMenuIcon" class="material-icons">close</i>
           </button>

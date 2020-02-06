@@ -1,67 +1,14 @@
 <template>
         <div class="flexdirectioncolumn">
             <!-- Big picture with search -->
-
-<div class="bigimgmovies">
-      <div class="bigimginnerbckg">
-        <a id="dropdown-button" class="dropdown-trigger btn red  darken-3" data-target="dropdown1">Sök via dag</a>
-      <a id="dropdown-button2" class="dropdown-trigger btn red  darken-3" data-target="dropdown2">Sök via film</a>
-
-        <!-- Dropdown Structure -->
-        <div class="dropdown-content" :coverTrigger="true">
-         
-          <ul id="dropdown1" class="dropdown-content listPosition">
-            <li>
-              <a class="dbtext">måndag</a>
-            </li>
-            <li>
-              <a>tisdag</a>
-            </li>
-            
-            <li>
-              <a>onsdag</a>
-            </li>
-            <li>
-              <a>torsdag</a>
-            </li>
-            <li>
-              <a>fredag</a>
-            </li>
-            <li>
-              <a>lördag</a>
-            </li>
-            <li>
-              <a>söndag</a>
-              </li>
-          </ul>
-           <div class="dropdown-content2">
-          <ul id="dropdown2" class="dropdown-content">
-            
-            <li>
-              <a>Film1</a>
-            </li>
-            <li>
-              <a>Film2</a>
-            </li>
-            
-            <li>
-              <a>Film3</a>
-            </li>
-            <li>
-              <a>Film4</a>
-            </li>
-            <li>
-              <a>Film5</a>
-            </li>
-            
-        
-          </ul>
-       
-        </div>
-      </div>
-    </div>
-    </div>
-    
+            <div class="bigimgmovies" 
+                v-bind:style="{ 'background-image': 'url(' + randommovie[0].videoImage + ')' }"
+                >
+                <div class="bigimginnerbckg">
+                    <div class="searchcontainer">
+                    </div>
+                </div>
+            </div>    
 
             <!-- Hooper -->
             <div class="flexcenter" style="margin: 15px 0px;">
@@ -110,7 +57,6 @@
 }
 
 .bigimgmovies{
-    background-image:url('https://catalog.cinema-api.com/images/ncg-images/85125f023d564412b78598aecc388c4e.jpg?width=1920&version=5FFD6A056267F02198B2ABDD2DCAD9F1');
     background-color: #000;
     height: 550px;
     background-position: center;
@@ -133,7 +79,7 @@
   margin-top: 35px;
 }
 
-#dropdown1 li a{
+#dropdown1 li a, .my-dropdown-content li a{
   color:rgb(172, 23, 23)!important;
 }
 
@@ -201,10 +147,10 @@ export default {
   },
   computed: {
     movies() {
-      return this.$store.state.movies;
+        return this.$store.state.movies
     },
-    movie(){
-            return this.$store.state.movie
+    randommovie: function (){
+        return this.$store.state.movie
     }
   },
   created() {
@@ -224,7 +170,7 @@ export default {
       document.getElementById("mySidenav").style.width = "0px";
       document.getElementById("close-menu-button").style.visibility = "hidden";
       document.getElementById("show-menu-button").style.display = "block";
-    },
+    }
   },
   components: {
     Hooper,

@@ -2,66 +2,25 @@
         <div class="flexdirectioncolumn">
             <!-- Big picture with search -->
 
-<div class="bigimgmovies">
-      <div class="bigimginnerbckg">
-        <a id="dropdown-button" class="dropdown-trigger btn red  darken-3" data-target="dropdown1">Sök via dag</a>
-      <a id="dropdown-button2" class="dropdown-trigger btn red  darken-3" data-target="dropdown2">Sök via film</a>
-
-        <!-- Dropdown Structure -->
-        <div class="dropdown-content" :coverTrigger="true">
-         
-          <ul id="dropdown1" class="dropdown-content listPosition">
-            <li>
-              <a class="dbtext">måndag</a>
-            </li>
-            <li>
-              <a>tisdag</a>
-            </li>
-            
-            <li>
-              <a>onsdag</a>
-            </li>
-            <li>
-              <a>torsdag</a>
-            </li>
-            <li>
-              <a>fredag</a>
-            </li>
-            <li>
-              <a>lördag</a>
-            </li>
-            <li>
-              <a>söndag</a>
-              </li>
-          </ul>
-           <div class="dropdown-content2">
-          <ul id="dropdown2" class="dropdown-content">
-            
-            <li>
-              <a>Film1</a>
-            </li>
-            <li>
-              <a>Film2</a>
-            </li>
-            
-            <li>
-              <a>Film3</a>
-            </li>
-            <li>
-              <a>Film4</a>
-            </li>
-            <li>
-              <a>Film5</a>
-            </li>
-            
-        
-          </ul>
-       
-        </div>
-      </div>
-    </div>
-    </div>
-    
+            <div class="bigimgmovies">
+                  <div class="bigimginnerbckg">
+                      <div class="searchcontainer">
+                        <span class="my-custom-dropdown">
+                            <select>
+                                <option>Sök via dag</option>
+                                <option  v-for="index in 7" :key="index">{{setDateWithIndex(index)}}</option>
+                            </select>
+                        </span>
+                        <span class="my-custom-dropdown">
+                            <select>
+                                <option>Sök via film</option>
+                                <option  v-for="movie in movies" :key="movie.id">{{movie.title}}</option>
+                            </select>
+                        </span>
+                    </div>
+                  
+                  </div>
+                </div>    
 
             <!-- Hooper -->
             <div class="flexcenter" style="margin: 15px 0px;">
@@ -110,7 +69,6 @@
 }
 
 .bigimgmovies{
-    background-image:url('https://catalog.cinema-api.com/images/ncg-images/85125f023d564412b78598aecc388c4e.jpg?width=1920&version=5FFD6A056267F02198B2ABDD2DCAD9F1');
     background-color: #000;
     height: 550px;
     background-position: center;
@@ -129,17 +87,70 @@
     justify-content: center;
     align-items: center;
 }
-.listPosition{
-  margin-top: 35px;
+.square {
+  width: .7em;
+  height: .7em;
+  margin: .5em;
+  display: inline-block;
 }
 
-#dropdown1 li a{
-  color:rgb(172, 23, 23)!important;
+.my-custom-dropdown {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 10px; /* demo only */
 }
 
-#dropdown2 li a{
-  color:rgb(172, 23, 23)!important;
+.my-custom-dropdown select {
+    background-color: #C62828;
+    color: #fff;
+    font-size: inherit;
+    padding: .5em;
+    padding-right: 2.5em;
+    margin: 0;
+    border-radius: 3px;
+    text-indent: 0.01px;
+    text-overflow: '';
+    -webkit-appearance: button; /* hide default arrow in chrome OSX */
+    display: block;
+    border: none;
+    border-radius: 2px;
+}
 
+.my-custom-dropdown::before,
+.my-custom-dropdown::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border: none;
+}
+
+.my-custom-dropdown::before { /*  Custom dropdown arrow cover */
+  width: 2em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+.my-custom-dropdown select[disabled] {
+  color: rgba(0,0,0,.3);
+}
+
+.my-custom-dropdown select[disabled]::after {
+  color: rgba(0,0,0,.1);
+}
+
+.my-custom-dropdown::before {
+  background-color: rgba(0,0,0,.15);
+}
+
+.my-custom-dropdown::after {
+  color: rgba(0,0,0,.4);
+}
+
+.my-custom-dropdown select:focus{
+    outline: none; 
 }
 .searchcontainer{
     justify-content: center;
@@ -196,8 +207,7 @@ import HooperSlider from "@/components/HooperSlider.vue";
 
 export default {
   mounted() {
-    let elems = document.querySelectorAll('.dropdown-trigger');
-    this.$M.Dropdown.init(elems);
+
   },
   computed: {
     movies() {
@@ -225,7 +235,26 @@ export default {
       document.getElementById("close-menu-button").style.visibility = "hidden";
       document.getElementById("show-menu-button").style.display = "block";
     },
-  },
+    setDateWithIndex: function(x){
+        // Getting required values
+        let today = new Date()
+        let year = today.getFullYear()
+        let month = today.getMonth()
+        let day = today.getDate()
+
+        // Creating a new Date (with the delta)
+        let finalDate = new Date(year, month, day + x-1)
+
+        day = ''+finalDate.getDate();
+        //let monthIndex = finalDate.getMonth();
+        month = ''+(finalDate.getMonth()+1)
+        year = finalDate.getFullYear();
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return day+'/'+month;
+    }
+ },
   components: {
     Hooper,
     Slide,

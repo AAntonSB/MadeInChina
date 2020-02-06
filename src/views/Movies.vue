@@ -1,9 +1,10 @@
 <template>
         <div class="flexdirectioncolumn">
             <!-- Big picture with search -->
-
-            <div class="bigimgmovies">
-                  <div class="bigimginnerbckg">
+            <div class="bigimgmovies" 
+                v-bind:style="{ 'background-image': 'url(' + randommovie[0].videoImage + ')' }"
+                >
+                <div class="bigimginnerbckg">                    
                       <div class="searchcontainer">
                         <span class="my-custom-dropdown">
                             <select>
@@ -18,10 +19,8 @@
                             </select>
                         </span>
                     </div>
-                  
-                  </div>
-                </div>    
-
+                </div>
+            </div>
             <!-- Hooper -->
             <div class="flexcenter" style="margin: 15px 0px;">
                 <HooperSlider style=" width:70vw;" msg="Text"/>
@@ -116,7 +115,6 @@
     border: none;
     border-radius: 2px;
 }
-
 .my-custom-dropdown::before,
 .my-custom-dropdown::after {
   content: "";
@@ -211,10 +209,10 @@ export default {
   },
   computed: {
     movies() {
-      return this.$store.state.movies;
+        return this.$store.state.movies
     },
-    movie(){
-            return this.$store.state.movie
+    randommovie: function (){
+        return this.$store.state.movie
     }
   },
   created() {
@@ -253,8 +251,8 @@ export default {
         if (day.length < 2) day = '0' + day;
 
         return day+'/'+month;
-    }
- },
+        }
+    },
   components: {
     Hooper,
     Slide,

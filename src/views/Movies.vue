@@ -115,18 +115,12 @@
     border: none;
     border-radius: 2px;
 }
-
-<<<<<<< HEAD
-#dropdown1 li a, .my-dropdown-content li a{
-  color:rgb(172, 23, 23)!important;
-=======
 .my-custom-dropdown::before,
 .my-custom-dropdown::after {
   content: "";
   position: absolute;
   pointer-events: none;
   border: none;
->>>>>>> Landingpage
 }
 
 .my-custom-dropdown::before { /*  Custom dropdown arrow cover */
@@ -238,10 +232,6 @@ export default {
       document.getElementById("mySidenav").style.width = "0px";
       document.getElementById("close-menu-button").style.visibility = "hidden";
       document.getElementById("show-menu-button").style.display = "block";
-<<<<<<< HEAD
-    }
-  },
-=======
     },
     setDateWithIndex: function(x){
         // Getting required values
@@ -261,9 +251,8 @@ export default {
         if (day.length < 2) day = '0' + day;
 
         return day+'/'+month;
-    }
- },
->>>>>>> Landingpage
+        }
+    },
   components: {
     Hooper,
     Slide,

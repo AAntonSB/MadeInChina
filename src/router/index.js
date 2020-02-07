@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Movies from '@/views/Movies.vue'
 import Movie from '@/views/Movie.vue'
 import Bookingpage from '@/views/Bookingpage.vue'
+import Setselect from '@/views/Setselect.vue'
 
 Vue.use(VueRouter)
 
@@ -27,7 +28,13 @@ const routes = [
   {
     path: '/bookingpage',
     name: 'bookingpage',
+    props: 'showtimeId',
     component: Bookingpage
+  },
+  {
+    path: '/setselect',
+    name: 'setselect',
+    component: Setselect
   }
 ]
 

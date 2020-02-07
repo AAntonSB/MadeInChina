@@ -39,7 +39,7 @@
           </div>
         </div>
         <div id="ticketsPrice"><label>Pris {{ticketsPrice}} kr</label></div>
-        <a id="bookingBtn" class="btn-small red">Välj platser</a>
+        <a id="bookingBtn" class="btn-small red"><router-link :to="{path: '/setselect'}">Välj platser</router-link></a>
       </div>
     </div>
 </template>
@@ -53,7 +53,9 @@ export default {
       childTicketPris: 65,
       ordinaryTicketCount: 0,
       retiredTicketCount: 0,
-      childTicketCount: 0
+      childTicketCount: 0,
+      //bigAuditoriumSize
+      //littleAuditorumSize
     };
   },
   methods: {
@@ -139,6 +141,9 @@ export default {
 #bookingBtn{
   margin: 15px;
   visibility: hidden;
+}
+#bookingBtn a{  
+  color: #fff!important;
 }
 .booking-icon{
   font-size: 30px !important;

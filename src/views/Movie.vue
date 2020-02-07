@@ -30,7 +30,7 @@
         <p>{{movi.genre.toString()}}</p>
         <p></p>
         <p class="time-and-age">{{movi.time}} | {{movi.age}} år</p>
-        <a class="waves-effect waves-light btn-large red book-button"><router-link :to="{path: '/bookingpage', params: { showtimeId: 99 }}">Boka</router-link></a>
+        <a class="waves-effect waves-light btn-large red book-button"><router-link :to="{path: '/bookingpage', query: { showtimeId: 1 }}">Boka</router-link></a>
       </div>
       <div style="width:100%;padding: 10px 50px;">
       <div class="main-info">

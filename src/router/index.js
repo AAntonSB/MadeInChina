@@ -27,9 +27,11 @@ const routes = [
   },
   {
     path: '/bookingpage',
+    component: Bookingpage,
     name: 'bookingpage',
-    props: 'showtimeId',
-    component: Bookingpage
+    props(route){
+      return { showtimeId: route.query.showtimeId}
+    }
   },
   {
     path: '/setselect',

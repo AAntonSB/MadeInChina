@@ -83,7 +83,7 @@
 .bigimginnerbckg{
     background: linear-gradient(-180deg,transparent 50%,rgba(0,0,0,.68) 85%,#000);
     display: flex;
-    position: absolute;
+    /*position: absolute;*/
     top: 0;
     left: 0;
     width: 100%;

@@ -215,6 +215,11 @@ background-color:rgba(255, 254, 254, 0.4);
   flex-direction: column;
 }
 
+.flexdirectionrow {
+  display: flex;
+  flex-direction: row;
+}
+
 .flexcenter{
   display: flex; 
   justify-content: center;
@@ -246,11 +251,6 @@ background-color:rgba(255, 254, 254, 0.4);
 footer {
   background-color: #c02215;
   color: #fff;
-  height: 10%;
-  z-index: 10;
-  width: 100%;
-  margin: 0;
-  padding: 0;
 }
 .row .col {
   width: 33%;

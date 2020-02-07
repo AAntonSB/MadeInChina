@@ -1,180 +1,162 @@
 <template>
-  <div class="maxSize">
-      <div class="ordinarySection">
-        <div class="informationText">
-        <div class="ordinary">Ordinarie</div>
-        <div class="subOrdinary">85kr/st</div>
+    <div class="flexdirectioncolumn bookingcontainer">      
+      <div class="flexdirectioncolumn  bookingbox">
+        <h2>Antal biljetter</h2>
+        <!-- Ordinary -->
+        <div class="flexdirectionrow ticketSection">
+          <div class="ticketTypeTextBox">
+            <span class="ticketTypeText">Ordinarie</span>
+            <label> ({{ordinaryTicketPris}}kr/st)</label>
+          </div>
+          <div class="ticketCounter">
+            <i id="ordinaryMinusIcon" class="material-icons booking-icon" v-on:click="ordinaryTicketCount--" v-on:click.capture="checkCounter('ordinary')">remove_circle_outline</i>
+            <span class="countNumber" id="ordinarycount">{{ordinaryTicketCount}}</span>
+            <i class="material-icons booking-icon" v-on:click="ordinaryTicketCount++" v-on:click.capture="checkCounter('ordinary')">add_circle_outline</i>
+          </div>
         </div>
-        <div class="buttons">
-      <a class="btn-floating btn-medium waves-effect waves-light red btn-spacing">
-        <i class="material-icons" @click="addOrdinaryTicket">add</i>
-      </a>
-      <div class="amountOfTickets">
-      {{ordinaryTickets}}
-      </div>
-      <a class="btn-floating btn-medium waves-effect waves-light red btn-spacing">
-          <i class="material-icons" @click="removeOrdinaryTicket">remove</i>
-      </a>
-    </div>
-    </div>
-    <div class="seniorSection">
-        <div class="informationText">
-        <div class="ordinary">Pensionär</div>
-        <div class="subOrdinary">75kr/st</div>
+        <!-- Retired -->
+        <div class="ticketSection flexdirectionrow">
+          <div class="ticketTypeTextBox">
+            <span class="ticketTypeText">Pensionär</span>
+            <label> ({{retiredTicketPris}}kr/st)</label>
+          </div>
+          <div class="ticketCounter">
+            <i id="retiredMinusIcon" class="material-icons booking-icon" v-on:click="retiredTicketCount--" v-on:click.capture="checkCounter('retired')">remove_circle_outline</i>
+            <span class="countNumber" id="countNumber retiredcount">{{retiredTicketCount}}</span>
+            <i class="material-icons booking-icon" v-on:click="retiredTicketCount++" v-on:click.capture="checkCounter('retired')">add_circle_outline</i>
+          </div>
         </div>
-        <div class="buttons">
-      <a class="btn-floating btn-medium waves-effect waves-light red btn-spacing">
-        <i class="material-icons" @click="addSeniorTicket">add</i>
-      </a>
-      <div class="amountOfTickets">
-      {{seniorTickets}}
-      </div>
-      <a class="btn-floating btn-medium waves-effect waves-light red btn-spacing">
-        <i class="material-icons" @click="removeSeniorTicket">remove</i>
-      </a>
-    </div>
-    </div>
-    <div class="kidSection">
-        <div class="informationText">
-        <div class="ordinary">Barn</div>
-        <div class="subOrdinary">65kr/st | (12 år)</div>
+        <!-- Child -->
+        <div class="ticketSection flexdirectionrow">
+          <div class="ticketTypeTextBox">
+            <span class="ticketTypeText">Barn</span>
+            <label> ({{childTicketPris}}kr/st)</label>
+          </div>
+          <div class="ticketCounter">
+            <i id="childMinusIcon" class="material-icons booking-icon" v-on:click="childTicketCount--" v-on:click.capture="checkCounter('child')">remove_circle_outline</i>
+            <span class="countNumber" id="countNumber childcount">{{childTicketCount}}</span>
+            <i class="material-icons booking-icon" v-on:click="childTicketCount++" v-on:click.capture="checkCounter('child')">add_circle_outline</i>
+          </div>
         </div>
-        <div class="buttons">
-      <a class="btn-floating btn-medium waves-effect waves-light red btn-spacing">
-        <i class="material-icons" @click="addKidTicket">add</i>
-      </a>
-      <div class="amountOfTickets">
-      {{kidTickets}}
+        <div id="ticketsPrice"><label>Pris {{ticketsPrice}} kr</label></div>
+        <a id="bookingBtn" class="btn-small red">Välj platser</a>
       </div>
-      <a class="btn-floating btn-medium waves-effect waves-light red btn-spacing">
-        <i class="material-icons" @click="removeKidTicket">remove</i>
-      </a>
     </div>
-    </div>
-    <br>
-    <div class="nextbutton">
-    <router-link to="/"><a class="waves-effect waves-light btn-large red">Välj platser</a></router-link>
-    </div>
-  </div>
 </template>
     
 <script>
 export default {
   data() {
     return {
-      ordinaryTickets: 0,
-      seniorTickets: 0,
-      kidTickets: 0
+      ordinaryTicketPris: 85,
+      retiredTicketPris: 75,
+      childTicketPris: 65,
+      ordinaryTicketCount: 0,
+      retiredTicketCount: 0,
+      childTicketCount: 0
     };
   },
-
   methods: {
-    addOrdinaryTicket() {
-      return this.ordinaryTickets++;
-    },
-    addSeniorTicket() {
-      return this.seniorTickets++;
-    },
-    addKidTicket() {
-      return this.kidTickets++;
-    },
-    removeOrdinaryTicket() {
-        return this.ordinaryTickets--;
-    },
-    removeSeniorTicket() {
-        return this.seniorTickets--;
-    },
-    removeKidTicket() {
-        return this.kidTickets--;
+    checkCounter: function(ticketType){
+      if(ticketType == 'ordinary'){
+        if(this.ordinaryTicketCount == 0){
+          document.getElementById('ordinaryMinusIcon').style.visibility= "hidden";
+        }else if(this.ordinaryTicketCount == 1){
+          document.getElementById('ordinaryMinusIcon').style.visibility= "visible";
+        }
+      } else if(ticketType == 'retired'){
+        if(this.retiredTicketCount == 0){          
+          document.getElementById('retiredMinusIcon').style.visibility= "hidden";
+        }else if(this.retiredTicketCount == 1){
+          document.getElementById('retiredMinusIcon').style.visibility= "visible";
+        }
+      } else if(ticketType == 'child'){
+        if(this.childTicketCount == 0){    
+          document.getElementById('childMinusIcon').style.visibility= "hidden";
+        }else if(this.childTicketCount == 1){
+          document.getElementById('childMinusIcon').style.visibility= "visible";
+        }
+      }
+      if (this.ticketsPrice > 0){
+        document.getElementById('bookingBtn').style.visibility= "visible";
+      }else{
+        document.getElementById('bookingBtn').style.visibility= "hidden";
+      }
     }
+  },
+  computed: {
+    ticketsPrice: {   
+        get: function() {          
+            return (this.ordinaryTicketCount*this.ordinaryTicketPris)
+                  +(this.retiredTicketCount*this.retiredTicketPris)
+                  +(this.childTicketCount*this.childTicketPris);
+          },
+        set: function() {
+            
+        }
+      }   
   }
 };
 </script>
 
 
-<style>
-.buttons {
-  margin-top: 6%;
-  color: rgb(184, 90, 90);
+<style scoped>
+.bookingcontainer{
+  flex-grow: 1;
+}
+.bookingbox{
+  flex-grow: 1;
+  width: 50%;
+  border-radius: 3px; 
+  padding: 5px 0px 15px 0px;
+  margin: 15px; 
+  background-color: #efefef;
+  justify-content: space-around;
+}
+.bookingbox h2{
+  font-size: 2.56rem;
+}
+.flexdirectioncolumn{
+  align-items: center;
+}
+.ticketSection{
+  width: 100%;
+  padding: 5px 0px;
+  justify-content: left;
+}
+.ticketTypeTextBox{
+  padding-left: 20%;
+  text-align: left;  
+  width: 60%;
+}
+.ticketTypeText{
+  font-weight: bold;
+}
+.ticketCounter{
+  padding-left: 15px;
   display: flex;
-  flex-direction: row-reverse;
-  width: 25vw;
-  flex: 1;
-
 }
-.maxSize{
-    margin-left: 35vw;
-    margin-right: 35vw;
-    width: 30vw;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-
+#bookingBtn{
+  margin: 15px;
+  visibility: hidden;
 }
-
-.ordinarySection{
-    display: flex;
-    flex-direction: row;
-    flex: 1;
+.booking-icon{
+  font-size: 30px !important;
+  cursor: pointer;
+  color: #9f9999;
 }
-
-.seniorSection{
-    display: flex;
-    flex-direction: row;
-    flex: 1;
+.countNumber{
+  font-family: sf_sansbold;
+  font-size: 18px;
+  font-weight: 500;
+  color: #615656;
+  padding: 0px 10px;
 }
-
-.kidSection{
-    display: flex;
-    flex-direction: row;
-    flex: 1;
+.icon-disabled{
+  cursor: auto;
+  background: #c8c8c8;
 }
-
-.amountOfTickets{
-    font-size: 40px;
-    color: white;
-}
-
-.informationText{
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    text-align: left;
-    width: 24vw;
-    color: white;
-    margin-top: 4%;
-}
-
-.btn-spacing{
-    margin-top: 2%;
-    margin-left: 0.5%;
-    margin-right: 0.5%;
-}
-.ordinary{
-    font-size: 40px;
-}
-
-.subOrdinary{
-    font-size: 20px;
-    color:rgb(184, 184, 184);
-    
-}
-
-.nextbutton{
-    
-}
-
-@media(max-width: 450px ) {
-    .maxSize{
-        margin:0;
-        margin-left: 3vw;
-        margin-right: 3vw;
-        width: 94vw;
-    }
-}
-
-.nextbutton{
-  margin-bottom: 4%;
-    
+#childMinusIcon, #retiredMinusIcon, #ordinaryMinusIcon{
+  visibility: hidden;
 }
 </style>

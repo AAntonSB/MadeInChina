@@ -51,10 +51,11 @@
               <i class="material-icons tiny warning-symbol">report_problem</i> Dessa fälten är obligatoriska.
             </p>
 
+            
             <div class="action-buttons">
-              <a class="btn-large light-blue col s12  submit-button" @click="registerAccount()">Skapa Konto</a>
+              <a class="btn-large light-blue submit-button" @click="registerAccount()">Skapa Konto</a>
               <strong>
-                <router-link class="login-button col s12" to="/login">logga in i stället</router-link>
+                <router-link class="login-button" to="/login">logga in i stället</router-link>
               </strong>
             </div>
 
@@ -167,7 +168,9 @@ export default {
 }
 
 .action-buttons {
-  margin-left: 37%;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 5%;
 }
 
 .strong-password {

@@ -1,7 +1,15 @@
 <template>
   <div class="bg-modal">
     <div class="modal-content">
-      <div class="row valign-wrapper">
+
+      <div v-if="!registered" class="success">
+          <h3>Logo</h3>
+          <i class="material-icons checkmark large">check_circle</i>
+          <h3 class="main-textblock">Du har skapat ett nytt konto på <strong>Filmvisarna AB</strong></h3>
+          <router-link to="/mypage"><a class="waves-effect waves-light btn green">Fortsätt till Minsida</a></router-link>
+      </div>
+
+      <div v-if="registered" class="row valign-wrapper">
         <form class="register-form col s12">
           <p style="font-size: 30px">LOGO</p>
           <h5>Registrera ett placeholder-konto</h5>
@@ -53,7 +61,7 @@
 
             
             <div class="action-buttons">
-              <a class="btn-large light-blue submit-button" @click="registerAccount()">Skapa Konto</a>
+              <a class="btn light-blue submit-button" @click="registerAccount()">Skapa Konto</a>
               <strong>
                 <router-link class="login-button" to="/login">logga in i stället</router-link>
               </strong>
@@ -84,6 +92,7 @@ export default {
       emailError: "",
       passError: "",
       strongPassword: false,
+      registered: true  
     }
   },
     watch:{
@@ -107,6 +116,7 @@ export default {
           console.log(user);
           that.errorHandling(error.code);
         });
+        this.registered = false;
     },
 
     errorHandling(errorCode){
@@ -158,9 +168,14 @@ export default {
   text-align: center;
   padding: 48px 40px 36px;
   max-width: 450px; 
+  height: 560px;
 }
 .login-button{
   margin-top: 3%;
+}
+
+.main-textblock{
+  margin-bottom: 15%;
 }
 
 .light-blue {
@@ -168,9 +183,15 @@ export default {
 }
 
 .action-buttons {
-  margin-left: 25%;
-  margin-right: 25%;
+  text-align: center;
+  margin-left: 26%;
+  margin-right: 26%;
   margin-bottom: 5%;
+}
+
+.checkmark{
+  margin-bottom: 10%;
+  color: rgb(21, 207, 14);
 }
 
 .strong-password {
@@ -190,19 +211,7 @@ export default {
 
 }
 .submit-button{
-    border: 0;
-background-image: linear-gradient(
-    45deg,
-    #845ec2,
-    #d65db1,
-    #ff9671,
-    #ffc72f,
-    #f9f871
-  );
-  background-size: 200%;
-  animation: bg-animation 120s infinite alternate;
-  
-
+background-color: #54C6F3;
 }
 
 @media (max-width: 450px) {

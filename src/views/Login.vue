@@ -116,6 +116,7 @@ export default {
   text-align: center;
   padding: 48px 40px 36px;
   width: 450px;
+  height: 560px;
 }
 .terms-of-service {
   margin-top: 5%;
@@ -127,26 +128,9 @@ export default {
   align-content: center;
 }
 .submit-button {
-  border: 0;
-  background-image: linear-gradient(
-    45deg,
-    #845ec2,
-    #d65db1,
-    #ff9671,
-    #ffc72f,
-    #f9f871
-  );
-  background-size: 200%;
-  animation: bg-animation 120s infinite alternate;
+  background-color: #03A9F4;
 }
-@keyframes bg-animation {
-  0% {
-    background-postion: left;
-  }
-  100% {
-    background-position: right;
-  }
-}
+
 @media (max-width: 450px) {
   .bg-modal {
     background-color: white;

@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
     <header>
@@ -124,7 +123,6 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
-
 #app {
   flex-grow: 1;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -137,7 +135,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
 header {
   color: #fff;
   height: 10%;
@@ -156,12 +153,10 @@ nav {
 #nav {
   padding: 30px;
 }
-
 #nav a {
   font-weight: bold;
   color: #2c3e50;
 }
-
 #nav a.router-link-exact-active {
   color: #42b983;
 }
@@ -209,7 +204,6 @@ background-color:rgba(255, 254, 254, 0.4);
   flex-direction: column;
   margin-top: 65px;
 }
-
 .flexdirectioncolumn {
   display: flex;
   flex-direction: column;
@@ -221,10 +215,10 @@ background-color:rgba(255, 254, 254, 0.4);
 }
 
 .flexcenter{
-  display: flex; 
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 .imgholder {
   max-height: 300px;
   width: fit-content;
@@ -247,30 +241,20 @@ background-color:rgba(255, 254, 254, 0.4);
   border: none;
   border-radius: 50%;
 }
-
 footer {
   background-color: #c02215;
   color: #fff;
 }
+footer h5, footer{
+  font-size: 12px!important;
+}
+@media  (min-width: 1000px) {
+  footer h5, footer{
+    font-size: 18px!important;
+  }
+}
 .row .col {
   width: 33%;
-}
-.hooper {
-  margin: 15px;
-}
-
-.hooper span {
-  color: #c21c1c;
-  font-size: 14px;
-  margin-bottom: 5px;
-  max-width: 160px;
-}
-.hooper img {
-  height: 100%;
-  border-radius: 5px;
-}
-.hooper-next, .hooper-prev {
-  padding: 1em 0em !important;
 }
 
 .icon {
@@ -284,7 +268,6 @@ footer {
 button:focus {
   background-color: transparent;
 }
-
 @media only screen and (max-width: 992px) {
   .nav-search{
     display: none;
@@ -309,7 +292,6 @@ button:focus {
 .menu-button {
     color: white;
 }
-
 .sidenavmenu {
   width: 0;
   position: fixed;
@@ -322,7 +304,6 @@ button:focus {
   color: #fff;
   margin-top: 55px;
 }
-
 .sidenavmenu a {
   padding: 8px;
   text-decoration: none;
@@ -331,11 +312,9 @@ button:focus {
   display: block;
   transition: 0.3s;
 }
-
 .sidenavmenu a:hover {
   background-color: #9f2727;
 }
-
 .sidenavmenu .closebtn {
   position: absolute;
   top: 0;
@@ -343,7 +322,6 @@ button:focus {
   font-size: 36px;
   margin-left: 50px;
 }
-
 .account-icon{
   font-size: 40px !important;
 }

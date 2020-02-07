@@ -1,6 +1,27 @@
 <template>
         <div class="flexdirectioncolumn">
             <!-- Big picture with search -->
+            <!-- Big picture with search -->
+            <div class="bigimgmovies" 
+                v-bind:style="{ 'background-image': 'url(' + randommovie[0].videoImage + ')' }"
+                >
+                <div class="bigimginnerbckg">                    
+                      <div class="searchcontainer">
+                        <span class="my-custom-dropdown">
+                            <select name="dateDropdown">
+                                <option>Sök via dag</option>
+                                <option  v-for="index in 7" :key="index" :value="setDateWithIndex(index)">{{setDateWithIndex(index)}}</option>
+                            </select>
+                        </span>
+                        <span class="my-custom-dropdown">
+                            <select name="moviesDropdown">
+                                <option>Sök via film</option>
+                                <option  v-for="movie in movies" :id="movie.id" :key="movie.id" >{{movie.title}}</option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+            </div>
             <!-- Hooper -->
             <div class="flexcenter" style="margin: 15px 0px;">
                 <HooperSlider style=" width:70vw;" msg="Text"/>

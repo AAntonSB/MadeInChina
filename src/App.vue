@@ -4,30 +4,56 @@
       <nav>
         <div class="nav-wrapper">
           <button id="show-menu-button" v-on:click="showNavMenu()">
-            <i id="navMenuIcon" class="material-icons">menu</i>
+            <i id="navMenuIcon" class="material-icons menu-button">menu</i>
           </button>
           <button id="close-menu-button" v-on:click="closeNavMenu()">
-            <i id="navMenuIcon" class="material-icons">close</i>
+            <i id="navMenuIcon" class="material-icons menu-button">close</i>
           </button>
+          
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-              <a href="sass.html">Sass</a>
+              <a href="sass.html">About</a>
             </li>
             <li>
-              <a href="badges.html">Components</a>
+              <a href="badges.html">Filmer</a>
             </li>
             <li>
-              <a href="collapsible.html">Logga in</a>
+              <a href="collapsible.html">Medlem</a>
             </li>
           </ul>
+
+          <div class="nav-search">
+             <div class="btn">
+              <i class="material-icons search-icon">search</i>
+            </div>
+            <div class="search-box">
+              <input type="text" class="search-input" placeholder="Search" />
+            </div>
+           
+          </div>
+
+          <a href="#">
+            <i class="material-icons account-icon">account_circle</i>
+          </a>
         </div>
         <div id="mySidenav" class="sidenavmenu">
-          <a href="#"><i class="material-icons account-icon">account_circle</i></a>
+          <a href="#">
+            <i class="material-icons account-icon">account_circle</i>
+          </a>
           <a href="#">About</a>
           <a href="#">Filmer</a>
           <a href="#">Medlem</a>
         </div>
       </nav>
+
+      <div id="mySidenav" class="sidenavmenu">
+        <a href="#">
+          <i class="material-icons account-icon">account_circle</i>
+        </a>
+        <a href="#">About</a>
+        <a href="#">Filmer</a>
+        <a href="#">Medlem</a>
+      </div>
     </header>
 
     <div class="containerapp">
@@ -106,6 +132,8 @@ body {
   color: #2c3e50;
   display: flex;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 header {
   color: #fff;
@@ -116,6 +144,8 @@ header {
   position: fixed;
   z-index: 10;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 nav {
   background-color: #c02215;
@@ -130,6 +160,44 @@ nav {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.nav-search {
+  position:absolute;
+  align-self: center;
+  box-sizing: border-box;
+  left: 10px;
+}
+.search-box {
+  position: relative;
+  display: inline-block;
+  height: 50px; 
+  left:10px; 
+}
+.btn{
+  align-self: center;
+  border-radius: 50%;
+  width: 36px;
+  background: rgba(255, 255, 255, 0.2); 
+  padding: 0px;
+  
+}
+.btn:hover
+{
+background-image:none;
+background-color:rgba(255, 254, 254, 0.4); 
+}
+
+.search-icon{
+  position:absolute;
+  bottom:40%;
+  display: flex; 
+  height: 36px !important; 
+  width: 36px;
+  position:relative;
+  display: flex;
+  justify-content: center;
+}
+
 .containerapp {
   flex-grow: 1;
   display: flex;
@@ -195,6 +263,9 @@ button:focus {
   background-color: transparent;
 }
 @media only screen and (max-width: 992px) {
+  .nav-search{
+    display: none;
+  }
   .hide-on-med-and-down {
     display: none !important;
   }
@@ -211,7 +282,8 @@ button:focus {
   border: none;    
   margin-left: 3%;
 }
-.material-icons {
+
+.menu-button {
     color: white;
 }
 .sidenavmenu {
@@ -247,6 +319,49 @@ button:focus {
 .account-icon{
   font-size: 40px !important;
 }
+
+.overlay{
+  height: 100%;
+  width: 100%;
+  position: fixed; /* Stay in place */
+  z-index: 50; /* Sit on top */
+  left: 0px;
+  top: 0px;
+  background-color: rgb(0,0,0); /* Black fallback color */
+  background-color: rgba(0,0,0, 0.75); /* Black w/opacity */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+.overlay-content {
+  position: relative;
+  top: 25%; /* 25% from the top */
+  width: 100%; /* 100% width */
+  text-align: center; /* Centered text/links */
+  margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+/* The navigation links inside the overlay */
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block; /* Display block instead of inline */
+  transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+/* When you mouse over the navigation links, change their color */
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+/* Position the close button (top right corner) */
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
 </style>
 
 
@@ -260,6 +375,7 @@ export default {
     created(){
           this.$store.dispatch("getMovies")
       },
+
       
     methods:{
           publishMovies(){
@@ -275,7 +391,7 @@ export default {
       document.getElementById("close-menu-button").style.visibility = "visible";
       document.getElementById("mySidenav").style.width = "200px";      
       document.getElementById("show-menu-button").style.display = "none";
-              },
+      },
     closeNavMenu: function(){
     
       document.getElementById("mySidenav").style.width = "0px";
@@ -284,7 +400,5 @@ export default {
       
     }
       },
-      
 }
-  
 </script>

@@ -9,6 +9,10 @@
           <router-link to="/mypage"><a class="waves-effect waves-light btn green">Fortsätt till Minsida</a></router-link>
       </div>
 
+      <!-- TODO Make it occur only on register event. -->
+
+
+
       <div v-if="registered" class="row valign-wrapper">
         <form class="register-form col s12">
           <p style="font-size: 30px">LOGO</p>

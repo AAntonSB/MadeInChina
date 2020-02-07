@@ -4,13 +4,21 @@
     <div class="bg-modal">
       <div class="modal-content">
         <div class="row">
+
+          <!-- TODO Create a logo picture -->
           <i class="material-icons large">account_circle</i>
 
           <h4>Logga in</h4>
           <form action>
             <div class="inputfields">
               <input type="email" placeholder="E-post" v-model="email" />
+                          <p v-if="this.emailError" class="error-message col s12">
+              <i class="material-icons tiny warning-symbol">report_problem</i> Detta fältet är obligatoriskt.
+            </p>
               <input type="password" placeholder="Lösenord" v-model="password" />
+                          <p v-if="this.passwordError" class="error-message col s12">
+              <i class="material-icons tiny warning-symbol">report_problem</i> Detta fältet är obligatoriskt.
+            </p>
             </div>
 
             <br />
@@ -25,13 +33,15 @@
           </form>
           <button @click="socialSignin">Google</button>
           <div class="forgotpassword">
-            <router-link to="">Har du glömt ditt lösenord?</router-link>
+            <!-- <router-link to="">Har du glömt ditt lösenord?</router-link> -->
           </div>
           <span>
             Behöver du ett ett konto?
             <router-link to="/register">Registrera dig här</router-link>.
           </span>
           <span class="col s12 terms-of-service">
+
+            <!-- TODO Create a terms and agreements page popup and condition. -->
             <router-link to="/">Terms</router-link>|
             <router-link to="/">Privacy</router-link>|
             <router-link to="/">Security</router-link>
@@ -50,9 +60,13 @@ export default {
     return {
       email: "",
       password: "",
-      error: ""
+      error: "",
+      emailError: false,
+      passwordError: false
+
     };
   },
+  
   methods: {
     async Signin() {
       try {
@@ -62,7 +76,7 @@ export default {
         console.log(val);
         this.$router.replace({ name: "mypage" });
       } catch (err) {
-        console.log(err);
+        //TODO Handle errors
       }
     },
 

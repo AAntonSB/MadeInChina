@@ -29,10 +29,10 @@
             <br />
             <br />
           </form>
-          <!-- <button @click="socialSignin">
-            <svg @click="socialSignin" src="src\components\GoogleLogo.svg" />
-            Google
-          </button> -->
+          <p class="btn googleSigninButton" @click="socialSignin">
+            <img class="googleLogo" src="../components/GoogleLogo.svg"/>
+            Logga in med google
+          </p>
           <div class="forgotpassword">
             <!-- <router-link to="">Har du glömt ditt lösenord?</router-link> -->
           </div>
@@ -160,6 +160,31 @@ export default {
   margin-bottom: 2.5%;
   padding: 0vh;
 }
+
+.googleLogo{
+  margin-top: 3%;
+  height:15px;
+  width:15px;
+}
+
+.googleSigninButton{
+  background-color: white;
+  color: black;
+  text-transform: none;
+  border-radius: 15px;
+  font-size: 14px;
+  box-shadow: -10px -10px 20px #f3f9ff, 10px 10px 20px #becbd8;
+  transition: 0.3s all ease-in-out;
+}
+
+.googleSigninButton:hover{
+  box-shadow: -10px -10px 30px #f3f9ff, 10px 10px 30px #becbd8;
+  transform: translateY(2px) scale(0.99);
+  font-size: 100%;
+  font:bold;
+}
+
+
 
 @media (max-width: 450px) {
   .bg-modal {

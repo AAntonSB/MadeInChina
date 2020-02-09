@@ -62,7 +62,9 @@
             <p v-if="this.passError == 'auth/required-field'" class="error-message col s12">
               <i class="material-icons tiny warning-symbol">report_problem</i> Dessa fälten är obligatoriska.
             </p>
-            <p class="col s12">Ja! Jag har läst <strong class="termsLink" @click="toggleTermsOfService()" >användarvillkoren.</strong></p>
+            <div><p><label><input type="checkbox" class="filled-in" checked="checked" /></label></p>
+            <p class="col s12">Jag har läst och godkänner alla <strong class="termsLink" @click="toggleTermsOfService()" >användarvillkoren.</strong></p>
+            </div>
             <div class="action-buttons">
               <a class="btn light-blue submit-button" @click="registerAccount()">Skapa Konto</a>
               <strong>
@@ -80,7 +82,7 @@
       </div>
     </div>
     <div v-if="this.termsOfService" class="tos-box">
-      <terms-of-service class="tos" />
+      <terms-of-service class="tos"/>
       <div class="tos-btn-box">
       <a @click="toggleTermsOfService()" class="btn light-blue tos-button">Jag förstår.</a>
       </div>
@@ -239,6 +241,8 @@ export default {
 
 .tos-box {
   position: absolute;
+  border-color: black;
+  border-top: 2%;
 }
 
 .tos-btn-box{
@@ -249,6 +253,10 @@ export default {
 .termsLink{
   cursor: pointer;
   color: #03b6ef;
+}
+
+.tos-button{
+  margin-top: 1%;
 }
 
 @media (max-width: 450px) {
@@ -263,6 +271,9 @@ export default {
   }
   .tos {
     margin-top: 0px;
+  }
+  .tos-button{
+    margin-top: 12%;
   }
 }
 </style>

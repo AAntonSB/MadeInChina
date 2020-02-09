@@ -4,7 +4,6 @@
     <div class="bg-modal">
       <div class="modal-content">
         <div class="row">
-
           <!-- TODO Create a logo picture -->
           <i class="material-icons large">account_circle</i>
 
@@ -12,22 +11,18 @@
           <form action>
             <div class="inputfields">
               <input type="email" placeholder="E-post" v-model="email" />
-                          <p v-if="this.emailError" class="error-message col s12">
-              <i class="material-icons tiny warning-symbol">report_problem</i> Detta fältet är obligatoriskt.
-            </p>
               <input type="password" placeholder="Lösenord" v-model="password" />
-                          <p v-if="this.passwordError" class="error-message col s12">
-              <i class="material-icons tiny warning-symbol">report_problem</i> Detta fältet är obligatoriskt.
-            </p>
+              <p v-if="this.failedLogin" class="error-message col s12">Fel användarnamn eller lösenord.</p>
             </div>
 
             <br />
             <a
               class="waves-effect waves-light btn submit-button"
               @click="Signin"
+              @blur="this.failedLogin == true"
               type="submit"
             >Logga in</a>
-            
+
             <br />
             <br />
           </form>
@@ -40,10 +35,9 @@
             <router-link to="/register">Registrera dig här</router-link>.
           </span>
           <span class="col s12 terms-of-service">
-
             <!-- TODO Create a terms and agreements page popup and condition. -->
-            <router-link to="/">Terms</router-link>|
-            <router-link to="/">Privacy</router-link>|
+            <router-link to="/">Terms</router-link> |
+            <router-link to="/">Privacy</router-link> |
             <router-link to="/">Security</router-link>
           </span>
         </div>
@@ -61,12 +55,10 @@ export default {
       email: "",
       password: "",
       error: "",
-      emailError: false,
-      passwordError: false
-
+      failedLogin: false,
     };
   },
-  
+
   methods: {
     async Signin() {
       try {
@@ -76,24 +68,32 @@ export default {
         console.log(val);
         this.$router.replace({ name: "mypage" });
       } catch (err) {
-        //TODO Handle errors
+      this.failedLogin = true;
       }
     },
 
     async socialSignin() {
-      try{
-                const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
 
-                const result = await firebase.auth().signInWithPopup(provider)
+        const result = await firebase.auth().signInWithPopup(provider);
 
-                this.$router.replace({ name: "mypage" });
-                console.log(result)
-      }catch(err){
-        console.log(err)
+        this.$router.replace({ name: "mypage" });
+        console.log(result);
+      } catch (err) {
+        console.log(err);
       }
-          }
+    }
+  },
+  watch: {
+    email(){
+        this.failedLogin = false;
+    },
+    password(){
+      this.failedLogin = false;
+    }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -142,7 +142,17 @@ export default {
   align-content: center;
 }
 .submit-button {
-  background-color: #03A9F4;
+  background-color: #03a9f4;
+}
+
+.error-message {
+  font-size: 11px;
+  color: red;
+  text-align: center;
+  margin: 0;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+  padding: 0vh;
 }
 
 @media (max-width: 450px) {

@@ -16,7 +16,7 @@
       <div v-if="!registered" class="row valign-wrapper">
         <form class="register-form col s12">
           <p style="font-size: 30px">LOGO</p>
-          <h5>Registrera ett placeholder-konto</h5>
+          <h5>Registrera ett filmvisarna-konto</h5>
           <div class="email">
             <input class="col s11 input" type="email" placeholder="E-Mail" v-model="email" />
             <div>
@@ -62,8 +62,9 @@
             <p v-if="this.passError == 'auth/required-field'" class="error-message col s12">
               <i class="material-icons tiny warning-symbol">report_problem</i> Dessa fälten är obligatoriska.
             </p>
-            <div><p><label><input type="checkbox" class="filled-in" checked="checked" /></label></p>
-            <p class="col s12">Jag har läst och godkänner alla <strong class="termsLink" @click="toggleTermsOfService()" >användarvillkoren.</strong></p>
+            <div><p><input type="checkbox" class="filled-in" checked="checked" /></p>
+            <p class="col s12">Genom att fortsätta godkänner jag alla <strong class="termsLink" @click="toggleTermsOfService()" >användarvillkor.</strong></p>
+            
             </div>
             <div class="action-buttons">
               <a class="btn light-blue submit-button" @click="registerAccount()">Skapa Konto</a>
@@ -196,7 +197,7 @@ export default {
   height: 560px;
 }
 .login-button {
-  margin-top: 3%;
+  margin-top: 8%;
 }
 
 .main-textblock {

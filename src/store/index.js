@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {db} from '@/firebase' // @ = src.
-import { placeholdermovies } from './placeholdermovies.js'
-import { placeholderscreenings } from './placeholderscreenings.js'
-import { placeholderbookings } from './placeholderbookings.js'
+//import { placeholdermovies } from './placeholdermovies.js'
+//import { placeholderscreenings } from './placeholderscreenings.js'
+//import { placeholderbookings } from './placeholderbookings.js'
 
 Vue.use(Vuex)
 
@@ -15,14 +15,16 @@ export default new Vuex.Store({
       movie:[], //denna är konstig, den aktuella movien för varje view borda sättas via computed och hämtas från movies
                 // finns det någon speciell anledning till varför det är ett objekt i en lista och inte bara ett objekt?
 
+      auditoriums: [],
+
       //the placeholders are currently referencing to the other placeholders, not to the movies collection in firebase
-      placeholdermovies: placeholdermovies,
-      placeholderscreenings: placeholderscreenings,
-      placeholderbookings: placeholderbookings,
+      //placeholdermovies: placeholdermovies,
+      //placeholderscreenings: placeholderscreenings,
+      //placeholderbookings: placeholderbookings,
 
 
-      auditoriumStoraSize: 80,
-      auditoriumLillaSize: 40,
+      //auditoriumStoraSize: 80,
+      //auditoriumLillaSize: 40,
       
 
   },
@@ -83,6 +85,12 @@ export default new Vuex.Store({
      },
      publishedMovie(state){
        state.publishedMovie = true
+     },
+
+     setAuditoriums(state, data){
+       //console.log("auditorium setter")
+       //console.log(data)
+       state.auditoriums = data
      }
   },
   actions: {
@@ -99,7 +107,6 @@ export default new Vuex.Store({
           commit('setMovies', data)
 
           }
-
         }, // den här tycker jag ska bort, vi borde använda en getter när vi hämtar data som ska förväntas ligga i state.
         async getMovie({commit},movieId){   // async = möjlighet att vänta på svar.
           let querySnapshot = await db.collection("movies").where("id","==",movieId).get()
@@ -109,7 +116,69 @@ export default new Vuex.Store({
       })
         commit('setMovie', data)
         },
-  },
+
+        publishAuditoriums(){ // async
+
+          //console.log("publishing auditoriums")
+          let documents = require('@/data/auditoriums.json')
+          this.commit('setAuditoriums', documents)
+          //for(let document of documents){
+
+            //cons
+            
+            //this.auditorums.push(document)
+            /*
+            let res = db.collection('foods').add(document)
+            console.log('publishFoods res', res)
+            */
+        },
+
+        publishShowtimes(){
+
+          //3 numbers specify year, month, and day:
+          let startdate = new Date(2020, 2, 2)
+          //console.log(startdate)
+          let data = []
+          for (let i = 0; i < 7; i++) {
+
+            let tempdate = new Date(2020, 2, 2)
+            //console.log(startdate.getDate() + i)
+            tempdate.setDate(startdate.getDate() + i)
+            tempdate.setHours(18)
+            //console.log(tempdate)
+            //data.push(tempdate)
+            let tempshowtime = {}
+            tempshowtime.auditoriumId = 1
+            tempshowtime.movieId = 1
+            tempshowtime.id = i*3 + 1
+            tempshowtime.startDatetime = tempdate
+
+            data.push(tempshowtime)
+
+            //tempdate.setHours(18)
+            let tempshowtime2 = {}
+            tempshowtime2.auditoriumId = 2
+            tempshowtime2.movieId = 2
+            tempshowtime2.id = i*3 + 2
+            tempshowtime2.startDatetime = tempdate
+
+            data.push(tempshowtime2)
+
+            tempdate.setHours(21)
+            tempdate.setMinutes(15)
+            let tempshowtime3 = {}
+            tempshowtime3.auditoriumId = 1
+            tempshowtime3.movieId = 1
+            tempshowtime3.id = i*3 + 3
+            tempshowtime3.startDatetime = tempdate
+            
+            data.push(tempshowtime3)
+          }
+
+          console.log(data)
+
+        },
+        },
   modules: {
   }
 })

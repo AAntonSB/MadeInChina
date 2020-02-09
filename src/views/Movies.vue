@@ -218,12 +218,16 @@ export default {
         //return this.$store.state.movies
     },
     randommovie: function (){
-        return this.$store.state.movie
+        //return this.$store.state.movie
+        return this.$store.getters.getMovieByID(String(Math.floor(Math.random()*(5-1+1)+1)))
     }
   },
   created() {
     this.$store.dispatch("getMovies");
-    this.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
+    
+    this.$store.dispatch("publishAuditoriums")
+    this.$store.dispatch("publishShowtimes")
+    //his.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
   },
   methods: {
     publishMovies() {

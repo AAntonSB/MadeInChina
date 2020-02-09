@@ -12,7 +12,8 @@ export default new Vuex.Store({
     movieID: "1",
     //image: "https://m.media-amazon.com/images/M/MV5BNDhhY2ViYjQtNjNiZC00ZTE0LTkyOWEtZWUzODhkYTVlYTFkXkEyXkFqcGdeQXVyODc2NTcxODU@._V1_UY268_CR242,0,182,268_AL_.jpg",
       movies:[],
-      movie:[],
+      movie:[], //denna är konstig, den aktuella movien för varje view borda sättas via computed och hämtas från movies
+                // finns det någon speciell anledning till varför det är ett objekt i en lista och inte bara ett objekt?
 
       //the placeholders are currently referencing to the other placeholders, not to the movies collection in firebase
       placeholdermovies: placeholdermovies,
@@ -27,12 +28,20 @@ export default new Vuex.Store({
   },
   getters: {
 
-    getBookings: state => {
-        return state.placeholderbookings
+    getMovies: state => { //använd denna hellre än $state.movies
+      return state.movies
     },
 
-    getMovies: state => {
-        return state.placeholdermovies
+    getMovieByID: state => (id) => {
+
+      //console.log(state.movie)
+      //let data = new []
+      //data.push(state.movies.find(product => product.ID === id))
+      return state.movies.filter(product => product.id === id)
+    },
+
+    getBookings: state => {
+        return state.placeholderbookings
     },
 
     getBookingsByID: state => (id) => {
@@ -56,9 +65,7 @@ export default new Vuex.Store({
                 return "Error"
           }             
     },
-    getMovieByID: state => (id) => {
-        return state.placeholdermovies.find(product => product.ID === id)
-        } 
+
   },
   mutations: {
     setMovieID(){
@@ -82,13 +89,18 @@ export default new Vuex.Store({
       // Bind till våra egna metoder 
         //Get data from firebase
         async getMovies({commit}){   // async = möjlighet att vänta på svar.
-          let querySnapshot = await db.collection("movies").get()
-          let data = []
-          querySnapshot.forEach((document) => {
-          data.push(document.data())
-      })
-        commit('setMovies', data)
-        },
+          if (this.state.movies.length === 0){ // om arrayn state.movies är tom, hämta från databasen, här sparar vi en massa fb reads
+            console.log("retrieving movies from DB")
+            let querySnapshot = await db.collection("movies").get()
+            let data = []
+            querySnapshot.forEach((document) => {
+            data.push(document.data())
+        })
+          commit('setMovies', data)
+
+          }
+
+        }, // den här tycker jag ska bort, vi borde använda en getter när vi hämtar data som ska förväntas ligga i state.
         async getMovie({commit},movieId){   // async = möjlighet att vänta på svar.
           let querySnapshot = await db.collection("movies").where("id","==",movieId).get()
           let data = []

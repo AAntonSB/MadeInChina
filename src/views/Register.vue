@@ -9,7 +9,7 @@
           <strong>Filmvisarna AB</strong>
         </h3>
         <router-link to="/mypage">
-          <a class="waves-effect waves-light btn green">Fortsätt till Minsida</a>
+          <a class="waves-effect waves-light btn green">Fortsätt till min sida</a>
         </router-link>
       </div>
 
@@ -62,7 +62,7 @@
             <p v-if="this.passError == 'auth/required-field'" class="error-message col s12">
               <i class="material-icons tiny warning-symbol">report_problem</i> Dessa fälten är obligatoriska.
             </p>
-
+            <p class="col s12">Ja! Jag har läst <strong class="termsLink" @click="toggleTermsOfService()" >användarvillkoren.</strong></p>
             <div class="action-buttons">
               <a class="btn light-blue submit-button" @click="registerAccount()">Skapa Konto</a>
               <strong>
@@ -79,14 +79,21 @@
         </form>
       </div>
     </div>
+    <div v-if="this.termsOfService" class="tos-box">
+      <terms-of-service class="tos" />
+      <div class="tos-btn-box">
+      <a @click="toggleTermsOfService()" class="btn light-blue tos-button">Jag förstår.</a>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import TermsOfService from "../components/TermsOfService";
 export default {
-  components: {},
+  components: { "terms-of-service": TermsOfService },
 
   data() {
     return {
@@ -96,7 +103,8 @@ export default {
       emailError: "",
       passError: "",
       strongPassword: false,
-      registered: false
+      registered: false,
+      termsOfService: false
     };
   },
   watch: {
@@ -129,6 +137,10 @@ export default {
       } else {
         this.registered = false;
       }
+    },
+
+    toggleTermsOfService(){
+      return this.termsOfService = !this.termsOfService;
     },
 
     errorHandling(errorCode) {
@@ -225,6 +237,20 @@ export default {
   background-color: #54c6f3;
 }
 
+.tos-box {
+  position: absolute;
+}
+
+.tos-btn-box{
+  width: 450px;
+  height: 120px;
+}
+
+.termsLink{
+  cursor: pointer;
+  color: #03b6ef;
+}
+
 @media (max-width: 450px) {
   .bg-modal {
     background-color: white;
@@ -234,6 +260,9 @@ export default {
   }
   body {
     background-color: white;
+  }
+  .tos {
+    margin-top: 0px;
   }
 }
 </style>

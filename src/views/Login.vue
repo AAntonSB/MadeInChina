@@ -12,7 +12,10 @@
             <div class="inputfields">
               <input type="email" placeholder="E-post" v-model="email" />
               <input type="password" placeholder="Lösenord" v-model="password" />
-              <p v-if="this.failedLogin" class="error-message col s12">Fel användarnamn eller lösenord.</p>
+              <p
+                v-if="this.failedLogin"
+                class="error-message col s12"
+              >Fel användarnamn eller lösenord.</p>
             </div>
 
             <br />
@@ -26,7 +29,10 @@
             <br />
             <br />
           </form>
-          <button @click="socialSignin">Google</button>
+          <!-- <button @click="socialSignin">
+            <svg @click="socialSignin" src="src\components\GoogleLogo.svg" />
+            Google
+          </button> -->
           <div class="forgotpassword">
             <!-- <router-link to="">Har du glömt ditt lösenord?</router-link> -->
           </div>
@@ -36,8 +42,8 @@
           </span>
           <span class="col s12 terms-of-service">
             <!-- TODO Create a terms and agreements page popup and condition. -->
-            <router-link to="/">Terms</router-link> |
-            <router-link to="/">Privacy</router-link> |
+            <router-link to="/">Terms</router-link>|
+            <router-link to="/">Privacy</router-link>|
             <router-link to="/">Security</router-link>
           </span>
         </div>
@@ -55,7 +61,7 @@ export default {
       email: "",
       password: "",
       error: "",
-      failedLogin: false,
+      failedLogin: false
     };
   },
 
@@ -68,7 +74,7 @@ export default {
         console.log(val);
         this.$router.replace({ name: "mypage" });
       } catch (err) {
-      this.failedLogin = true;
+        this.failedLogin = true;
       }
     },
 
@@ -86,10 +92,10 @@ export default {
     }
   },
   watch: {
-    email(){
-        this.failedLogin = false;
+    email() {
+      this.failedLogin = false;
     },
-    password(){
+    password() {
       this.failedLogin = false;
     }
   }

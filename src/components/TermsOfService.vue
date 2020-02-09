@@ -1,6 +1,5 @@
 <template>
   <div class="tos">
-    <div class="col-xs-12">
       <h5>
         <strong>1.&nbsp;&nbsp;</strong>
         <strong>Allmänt om medlemskapet</strong>
@@ -149,6 +148,18 @@
         Svensk lag tillämpas på medlemskapet och dessa Medlemsvillkor. Tvist hänförlig till medlemskapet eller Medlemsvillkoren ska avgöras av svensk allmän domstol. Du kan också vända dig till Allmänna Reklamationsnämnden, läs mer på
         <a href="http://www.arn.se/">www.arn.se</a>.
       </p>
-    </div>
+      <br>
+      <br>
+      <br>
   </div>
 </template>
+
+<style scoped>
+.tos{
+  width: 450px;
+  height: 560px;
+  overflow: auto;
+  margin-top: 7%;
+  background-color: white;
+}
+</style>

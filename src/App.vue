@@ -92,7 +92,7 @@
             </ul>
           </div>
           <div class="col l4">
-            <h5 class="white-text">Medlemsskap</h5>
+            <h5 class="white-text">Medlem</h5>
             <ul>
               <li>
                 <router-link to="/login"><a class="grey-text text-lighten-3" href="#!">Logga in</a></router-link>
@@ -101,7 +101,7 @@
                 <router-link to="/register"><a class="grey-text text-lighten-3" href="#!">Bli medlem</a></router-link>
               </li>
               <li>
-                <a class="grey-text text-lighten-3" href="#!">Medlemsförmåner</a>
+                <a class="grey-text text-lighten-3" href="#!">Förmåner</a>
               </li>
             </ul>
           </div>
@@ -208,6 +208,12 @@ background-color:rgba(255, 254, 254, 0.4);
   display: flex;
   flex-direction: column;
 }
+
+.flexdirectionrow {
+  display: flex;
+  flex-direction: row;
+}
+
 .flexcenter{
   display: flex;
   flex-direction: column;

@@ -12,7 +12,7 @@
         <div class="poster-info">
         <p>{{movi.genre.toString()}}</p>
         <p class="time-and-age">{{movi.time}} | {{movi.age}} år</p>
-        <a class="waves-effect waves-light btn-large red book-button">Boka</a>
+       <router-link :to="{path: '/bookingpage', query: { showtimeId: 1 }}"><a class="waves-effect waves-light btn-large red book-button">Boka</a></router-link>
       </div>
       </div>
       <div @click="toggleTrailer()" class="overlay" v-if="trailerVisible === true">
@@ -32,8 +32,10 @@
           </div>
         </div>
       </div>
-      <div class="test">
-      <div class="main-info">    
+
+      
+      <div style="width:100%;padding: 10px 50px;">
+      <div class="main-info">
         <p @click="consoleLog(movi.trailer)">{{movi.plot}}</p>
         <p><span style="font-weight: bold;">Regi:</span> {{movi.director.toString()}}</p>
         <p><span style="font-weight: bold;">Skådespelare:</span> {{movi.actors.toString()}}</p>

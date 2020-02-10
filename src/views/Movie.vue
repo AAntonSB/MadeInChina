@@ -35,9 +35,9 @@
       <div class="test">
       <div class="main-info">    
         <p @click="consoleLog(movi.trailer)">{{movi.plot}}</p>
-        <p class="movieInformation"><span style="font-weight: bold;">Regi:</span> {{movi.director.toString()}}</p>
-        <p class="movieInformation"><span style="font-weight: bold;">Skådespelare:</span> {{movi.actors.toString()}}</p>
-        <p class="movieInformation"><span style="font-weight: bold;">Språk:</span> {{movi.language}}</p>
+        <p><span style="font-weight: bold;">Regi:</span> {{movi.director.toString()}}</p>
+        <p><span style="font-weight: bold;">Skådespelare:</span> {{movi.actors.toString()}}</p>
+        <p><span style="font-weight: bold;">Språk:</span> {{movi.language}}</p>
       </div>
       </div>
       <!-- <div class="Booking collection">
@@ -132,8 +132,7 @@ export default {
   padding: 10px 50px;
 }
 
-.movieInformation{
-}
+
 
 .movie-bg-image {
   padding: 0;

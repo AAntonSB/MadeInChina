@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import {db} from '@/firebase' // @ = src.
 //import { placeholdermovies } from './placeholdermovies.js'
 //import { placeholderscreenings } from './placeholderscreenings.js'
-import { placeholderbookings } from './placeholderbookings.js'
+//import { placeholderbookings } from './placeholderbookings.js'
 
 Vue.use(Vuex)
 
@@ -18,10 +18,12 @@ export default new Vuex.Store({
       auditoriums: [],
       showtimes: [],
 
+      booked: null,
+
       //the placeholders are currently referencing to the other placeholders, not to the movies collection in firebase
       //placeholdermovies: placeholdermovies,
       //placeholderscreenings: placeholderscreenings,
-      placeholderbookings: placeholderbookings,
+      //placeholderbookings: placeholderbookings,
 
   },
   getters: {
@@ -32,9 +34,6 @@ export default new Vuex.Store({
 
     getMovieByID: state => (id) => {
 
-      //console.log(state.movie)
-      //let data = new []
-      //data.push(state.movies.find(product => product.ID === id))
       return state.movies.filter(product => product.id === id)
     },
 
@@ -45,43 +44,7 @@ export default new Vuex.Store({
     getShowtimesByMovieId: state => (movieId) => {
       return state.showtimes.filter(show => show.movieId === movieId)
     },
-
-    getBookedSeats: state=> (showtimeId) => {
-
-      let bookings = state.placeholderbookings.filter(booking => booking.showtimeId === showtimeId)
-      
-      let currentshowtime = state.showtimes.find(show => show.id === showtimeId)
-
-      let currentauditorium = state.auditoriums.find(auditorium => auditorium.Id === currentshowtime.auditoriumId)
-
-      let tempseatings = {}
-
-      for (let i = 1; i < currentauditorium.seatsPerRow.length + 1; i++){
-        tempseatings[i] = []
-      }
-
-      for(let document of bookings){
-        tempseatings[document.row].push(document.col)
-      }
-
-      return tempseatings
-
-      //return sho
-
-    },
-
-    getBookings: state => {
-        return state.placeholderbookings
-    },
-
-    getBookingsByID: state => (id) => {
-        return state.placeholderbookings.filter(booking => booking.screeningID == id)
-    },
-
-    getSeatsByID: state => (id) => {
-        return state.placeholderbookings.filter(booking => booking.screeningID == id).map(item => item.seats).reduce((prev, next) => prev + next)
-    },
-
+    /*
     getSeatsLeftByID: state => (id) => {
 
         switch(state.placeholderscreenings.find(screening => screening.screeningID === id).auditoriumName) {
@@ -95,6 +58,7 @@ export default new Vuex.Store({
                 return "Error"
           }             
     },
+    */
 
   },
   mutations: {
@@ -117,6 +81,26 @@ export default new Vuex.Store({
 
      setAuditoriums(state, data){
       state.auditoriums = data
+     },
+
+     setBookings(state, data){
+
+      let currentshowtime = state.showtimes.find(show => show.id === data.showtimeId)
+
+      let currentauditorium = state.auditoriums.find(auditorium => auditorium.Id === currentshowtime.auditoriumId)
+
+      let tempseatings = {}
+
+      for (let i = 1; i < currentauditorium.seatsPerRow.length + 1; i++){
+        tempseatings[i] = []
+      }
+
+      for(let document of data.bookings){
+        tempseatings[document.row].push(document.col)
+      }
+
+      state.booked = tempseatings
+
      },
 
      setShowtimes(state, data){
@@ -174,6 +158,20 @@ export default new Vuex.Store({
           this.commit('setAuditoriums', documents)
         },
 
+        async pullBookings({commit}, payload){
+
+          let querySnapshot = await db.collection("bookings").where("showtimeId","==",payload.showtimeId).get()
+
+          let bookingsdata = []
+
+          querySnapshot.forEach((document) => {
+            bookingsdata.push(document.data())
+          })
+
+          commit('setBookings', {bookings:bookingsdata, showtimeId: payload.showtimeId})
+
+        },
+
         async publishShowtimes(){
 
           let querySnapshot = await db.collection("showtimes").get()
@@ -228,7 +226,6 @@ export default new Vuex.Store({
           }
           */
          this.commit('setShowtimes', showtimesdata)
-
 
         },
         },

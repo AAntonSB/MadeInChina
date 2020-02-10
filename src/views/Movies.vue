@@ -221,15 +221,21 @@ export default {
         //return this.$store.state.movie
         return this.$store.getters.getMovieByID(String(Math.floor(Math.random()*(5-1+1)+1)))
     },
+    /*
     bookedSeats: function (){
       return this.$store.getters.getBookedSeats(2)
     }
+    */
   },
   created() {
     this.$store.dispatch("getMovies");
+
+    //store.dispatch('incrementAsync', {
+    //amount: 10
     
     this.$store.dispatch("publishAuditoriums")
     this.$store.dispatch("publishShowtimes")
+    this.$store.dispatch("pullBookings", {showtimeId: 1})
     //his.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
   },
   methods: {

@@ -221,6 +221,12 @@ export default {
         //return this.$store.state.movie
         return this.$store.getters.getMovieByID(String(Math.floor(Math.random()*(5-1+1)+1)))
     },
+    dateshowtimes: function (){
+
+      let myday = new Date(2020, 2, 2)
+
+      return this.$store.getters.getAllShowtimesByDate(myday)
+    }
     /*
     bookedSeats: function (){
       return this.$store.getters.getBookedSeats(2)

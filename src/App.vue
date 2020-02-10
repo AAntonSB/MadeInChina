@@ -24,7 +24,7 @@
           </ul>
 
           <div class="nav-search">
-            <div class="btn">
+            <div class="nav-search-btn btn">
               <i class="material-icons search-icon">search</i>
             </div>
             <div class="search-box">
@@ -177,7 +177,7 @@ nav {
   height: 50px;
   left: 10px;
 }
-/* .btn{
+ .nav-search-btn{
   align-self: center;
   border-radius: 50%;
   width: 36px;
@@ -185,11 +185,11 @@ nav {
   padding: 0px;
   
 }
-.btn:hover
+.nav-search-btn:hover
 {
 background-image:none;
 background-color:rgba(255, 254, 254, 0.4); 
-} */
+} 
 
 .search-icon {
   position: absolute;

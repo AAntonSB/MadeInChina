@@ -40,12 +40,6 @@
             Behöver du ett ett konto?
             <router-link to="/register">Registrera dig här</router-link>.
           </span>
-          <span class="col s12 terms-of-service">
-            <!-- TODO Create a terms and agreements page popup and condition. -->
-            <router-link to="/">Terms</router-link>|
-            <router-link to="/">Privacy</router-link>|
-            <router-link to="/">Security</router-link>
-          </span>
         </div>
       </div>
     </div>

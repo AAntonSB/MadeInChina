@@ -141,7 +141,7 @@ header {
   flex-direction: row;
   justify-content: flex-end;
   position: fixed;
-  z-index: 10;
+  z-index: 5;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -325,7 +325,7 @@ button:focus {
   height: 100%;
   width: 100%;
   position: fixed; /* Stay in place */
-  z-index: 50; /* Sit on top */
+  z-index: 6; /* Sit on top */
   left: 0px;
   top: 0px;
   background-color: rgb(0, 0, 0); /* Black fallback color */

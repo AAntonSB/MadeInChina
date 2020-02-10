@@ -111,10 +111,11 @@ export default {
     };
   },
   watch: {
-    password(password) {
-      var re = /(?=.\d)(?=.[a-z])(?=.*[A-Z]).{6,}/;
-      //alert(this.password)
-      return (this.strongPassword = re.test(password));
+    password() {
+      return this.passError = "";
+    },
+    email(){
+      return this.emailError = "";
     }
   },
 

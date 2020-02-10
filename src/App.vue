@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header>
+    <header class="navbar-fixed">
       <nav>
         <div class="nav-wrapper">
           <button id="show-menu-button" v-on:click="showNavMenu()">
@@ -12,7 +12,7 @@
 
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-              <a href="sass.html">About</a>
+              <a href="sass.html">Om oss</a>
             </li>
             <li>
               <a href="badges.html">Filmer</a>
@@ -27,13 +27,14 @@
               <i class="material-icons search-icon">search</i>
             </div>
             <div class="search-box">
-              <input type="text" class="search-input" placeholder="Search" />
+              <input type="text" class="search-input" placeholder="Sök" />
             </div>
           </div>
+         <router-link to="/"><div style="font-size: 35px">logo</div></router-link>
 
-          <a href="#">
+          <!-- <a href="#">
             <i class="material-icons account-icon">account_circle</i>
-          </a>
+          </a> -->
         </div>
         <div id="mySidenav" class="sidenavmenu">
           <a href="#">
@@ -121,6 +122,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 #app {
   flex-grow: 1;
@@ -140,7 +142,7 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  position: fixed;
+  
   z-index: 5;
   width: 100%;
   margin: 0;
@@ -201,7 +203,6 @@ background-color:rgba(255, 254, 254, 0.4);
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  margin-top: 65px;
 }
 .flexdirectioncolumn {
   display: flex;

@@ -236,7 +236,7 @@ export default {
     this.$store.dispatch("publishAuditoriums")
     this.$store.dispatch("pullShowtimes")
     this.$store.dispatch("pullBookings", {showtimeId: 1})
-    this.$store.dispatch("publishBookings", {showtimeId: 1})
+    //this.$store.dispatch("publishBookings", {showtimeId: 1})
     
     //his.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
   },

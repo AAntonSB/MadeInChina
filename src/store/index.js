@@ -90,8 +90,13 @@ export default new Vuex.Store({
      },
 
      setBookings(state, data){
+      console.log("data showtimeId is")
+      console.log(data.showtimeId)
+      console.log(state.showtimes)
 
-      let currentshowtime = state.showtimes.find(show => show.id === data.showtimeId)
+      let currentshowtime = state.showtimes.find(show => show.showtimeId === data.showtimeId)
+
+      console.log(currentshowtime)
 
       let currentauditorium = state.auditoriums.find(auditorium => auditorium.Id === currentshowtime.auditoriumId)
 
@@ -119,7 +124,7 @@ export default new Vuex.Store({
         let tempshowtime = {}
         tempshowtime.auditoriumId = document.auditoriumId
         tempshowtime.movieId = document.movieId
-        tempshowtime.id = document.id
+        tempshowtime.showtimeId = document.showtimeId
         tempshowtime.startDatetime = new Date(document.startDatetime*1000)
 
         tempdata.push(tempshowtime)
@@ -166,6 +171,9 @@ export default new Vuex.Store({
 
         async pullBookings({commit}, payload){
 
+          console.log("pulling bookings")
+          console.log(payload.showtimeId)
+
           let querySnapshot = await db.collection("bookings").where("showtimeId","==",payload.showtimeId).get()
 
           let bookingsdata = []
@@ -177,7 +185,7 @@ export default new Vuex.Store({
           commit('setBookings', {bookings:bookingsdata, showtimeId: payload.showtimeId})
 
         },
-
+        /*
         async publishBookings({commit}, payload){
 
           //TODO timestamps?
@@ -193,8 +201,11 @@ export default new Vuex.Store({
           //}
 
         },
+        */
 
         async pullShowtimes(){
+
+          console.log("pulling showtimes")
 
           let querySnapshot = await db.collection("showtimes").get()
 
@@ -206,7 +217,7 @@ export default new Vuex.Store({
 
           /*
           let data = []
-          if (showtimesdata.length === 1){
+          //if (showtimesdata.length === 1){
             //3 numbers specify year, month, and day:
             let startdate = new Date(2020, 2, 2)
             
@@ -239,14 +250,18 @@ export default new Vuex.Store({
               tempshowtime3.showtimeId = i*3 + 3
               tempshowtime3.startDatetime = tempdate.getTime()/1000
               data.push(tempshowtime3)
-            }
+            
           }//
           
           for(let document of data){
             let res = await db.collection('showtimes').add(document)
-            //console.log('publishshowtimes res', res)
+            console.log('publishshowtimes res', res)
           }
+          
+          console.log(data)
           */
+         console.log("showtimes!")
+         console.log(showtimesdata)
          this.commit('setShowtimes', showtimesdata) //commit data instead of showtimesdata
 
         },

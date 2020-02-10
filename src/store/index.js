@@ -40,7 +40,6 @@ export default new Vuex.Store({
 
     getSingleShowtimeById: state=> (showtimeid) => {
       return state.showtimes.find(showtime => showtime.id === showtimeid)
-
     },
 
     getShowtimesByMovieId: state => (movieId) => {
@@ -86,18 +85,40 @@ export default new Vuex.Store({
       state.movie = data
      },
      publishedMovies(state){
-       state.publishedMovies = true
+      state.publishedMovies = true
      },
      publishedMovie(state){
-       state.publishedMovie = true
+      state.publishedMovie = true
      },
 
      setAuditoriums(state, data){
-       state.auditoriums = data
+      state.auditoriums = data
      },
 
      setShowtimes(state, data){
-       state.showtimes = data
+
+      let tempdata = []
+
+      for(let document of data){
+
+
+        let tempshowtime = {}
+        tempshowtime.auditoriumId = document.auditoriumId
+        tempshowtime.movieId = document.movieId
+        tempshowtime.id = document.id
+        tempshowtime.startDatetime = new Date(document.startDatetime*1000)
+
+        tempdata.push(tempshowtime)
+        /*
+        let auditorium = data.auditoriumId
+        let movie = data.movieId
+        let showtime = data.id
+        let startDatetime = data.startDatetime*1000
+        */
+
+      }
+      tempdata.sort((a, b) => Number(a.id) - Number(b.id))
+      state.showtimes = tempdata
      }
   },
   actions: {

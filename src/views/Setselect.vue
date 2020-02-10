@@ -2,7 +2,7 @@
     <div class="flexdirectioncolumn bookingcontainer">
         <div class="flexdirectioncolumn bookingbox">
             <h1>Platser</h1>
-            <div></div>
+            <div>{{getAuditorium[0].seatsPerRow}}</div>
         </div>
     </div>
 </template>
@@ -15,17 +15,24 @@
 
 <script>
 export default {
+  data(){
+    return {
+      showtimeId: this.$route.query.showtimeId
+    }
+  },
   mounted() {
     },
   computed: {
+        getAuditoriumIdByShowtimeId(showtimeId){
+            //return this.$store.state.getAuditoriumIdByShowtimeId(showtimeId)
+            return showtimeId
+        },
         getAuditorium() {
-            //alert()
-            //return this.$store.state.getAuditorium('1')
-            return null
+            return this.$store.getters.getAuditorium(1)
         },
     },
   created() {
-        this.$store.dispatch("auditoriums");
+        //this.$store.dispatch("auditoriums");
     },
   methods: {    
     },

@@ -17,7 +17,7 @@ export const auditoriums = [
     },
     {
       "name": "Lilla Salongen",
-      "auditoriumId": 1,
+      "auditoriumId": 2,
       "seats": 55,
       "row": 6,
       "seatsPerRow": [

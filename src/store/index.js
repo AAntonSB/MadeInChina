@@ -58,6 +58,9 @@ export default new Vuex.Store({
     getAuditorium : state => (auditoriumId) => {
       return state.auditoriums.filter(auditorium => auditorium.auditoriumId == auditoriumId);
     },
+    getAuditoriumIdByShowtimeId : state => (showtimeId) => {
+      return state.db.collection("showtimes").where("showtimeId","==",showtimeId).auditoriumId
+    }
   },
   mutations: {
     setMovieID(){

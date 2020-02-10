@@ -38,8 +38,13 @@ export default new Vuex.Store({
       return state.movies.filter(product => product.id === id)
     },
 
-    getShowtimesById: state => (id) => {
-      return state.showtimes.filter(show => show.movieId === id)
+    getSingleShowtimeById: state=> (showtimeid) => {
+      return state.showtimes.find(showtime => showtime.id === showtimeid)
+
+    },
+
+    getShowtimesByMovieId: state => (movieId) => {
+      return state.showtimes.filter(show => show.movieId === movieId)
     },
 
     getBookings: state => {

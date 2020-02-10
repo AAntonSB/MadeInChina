@@ -1,33 +1,29 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {db} from '@/firebase' // @ = src.
-import { placeholdermovies } from './placeholdermovies.js'
+import {auditoriums} from './auditoriums.js'
+/*import { placeholdermovies } from './placeholdermovies.js'
 import { placeholderscreenings } from './placeholderscreenings.js'
-import { placeholderbookings } from './placeholderbookings.js'
+import { placeholderbookings } from './placeholderbookings.js'*/
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    movieID: "1",
+    //movieID: "1",
     //image: "https://m.media-amazon.com/images/M/MV5BNDhhY2ViYjQtNjNiZC00ZTE0LTkyOWEtZWUzODhkYTVlYTFkXkEyXkFqcGdeQXVyODc2NTcxODU@._V1_UY268_CR242,0,182,268_AL_.jpg",
       movies:[],
       movie:[],
-
       //the placeholders are currently referencing to the other placeholders, not to the movies collection in firebase
-      placeholdermovies: placeholdermovies,
+      /*placeholdermovies: placeholdermovies,
       placeholderscreenings: placeholderscreenings,
-      placeholderbookings: placeholderbookings,
-
-
+      placeholderbookings: placeholderbookings,*/
       auditoriumStoraSize: 80,
       auditoriumLillaSize: 40,
-      
-
+      auditoriums: auditoriums,
   },
   getters: {
-
-    getBookings: state => {
+    /*getBookings: state => {
         return state.placeholderbookings
     },
 
@@ -58,7 +54,10 @@ export default new Vuex.Store({
     },
     getMovieByID: state => (id) => {
         return state.placeholdermovies.find(product => product.ID === id)
-        } 
+        } */
+    getAuditorium : state => (auditoriumId) => {
+      return state.auditoriums.filter(auditorium => auditorium.auditoriumId == auditoriumId);
+    },
   },
   mutations: {
     setMovieID(){
@@ -79,24 +78,24 @@ export default new Vuex.Store({
      }
   },
   actions: {
-      // Bind till våra egna metoder 
-        //Get data from firebase
-        async getMovies({commit}){   // async = möjlighet att vänta på svar.
-          let querySnapshot = await db.collection("movies").get()
-          let data = []
-          querySnapshot.forEach((document) => {
-          data.push(document.data())
+    // Bind till våra egna metoder 
+    //Get data from firebase
+    async getMovies({commit}){   // async = möjlighet att vänta på svar.
+      let querySnapshot = await db.collection("movies").get()
+      let data = []
+      querySnapshot.forEach((document) => {
+      data.push(document.data())
       })
-        commit('setMovies', data)
-        },
-        async getMovie({commit},movieId){   // async = möjlighet att vänta på svar.
-          let querySnapshot = await db.collection("movies").where("id","==",movieId).get()
-          let data = []
-          querySnapshot.forEach((document) => {
-          data.push(document.data())
+      commit('setMovies', data)
+    },
+    async getMovie({commit},movieId){   // async = möjlighet att vänta på svar.
+      let querySnapshot = await db.collection("movies").where("id","==",movieId).get()
+      let data = []
+      querySnapshot.forEach((document) => {
+      data.push(document.data())
       })
-        commit('setMovie', data)
-        },
+      commit('setMovie', data)
+    },
   },
   modules: {
   }

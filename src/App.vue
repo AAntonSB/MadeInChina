@@ -368,6 +368,21 @@ button:focus {
   right: 45px;
   font-size: 60px;
 }
+.bookingcontainer{
+  flex-grow: 1;
+}
+.bookingbox{
+  flex-grow: 1;
+  width: 50%;
+  border-radius: 3px; 
+  padding: 5px 0px 15px 0px;
+  margin: 15px; 
+  background-color: #efefef;
+  justify-content: space-around;
+}
+.bookingbox h2{
+  font-size: 2.56rem;
+}
 </style>
 
 

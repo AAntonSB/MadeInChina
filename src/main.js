@@ -2,8 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import firebase from 'firebase'
+import M from 'materialize-css'
+import * as firebase from 'firebase'
 
+Vue.prototype.$M = M
+Vue.$M = Vue.prototype.$M
 Vue.config.productionTip = false
 
 let app;

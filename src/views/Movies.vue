@@ -220,6 +220,9 @@ export default {
     randommovie: function (){
         //return this.$store.state.movie
         return this.$store.getters.getMovieByID(String(Math.floor(Math.random()*(5-1+1)+1)))
+    },
+    bookedSeats: function (){
+      return this.$store.getters.getBookedSeats(2)
     }
   },
   created() {

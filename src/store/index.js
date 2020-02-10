@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import {db} from '@/firebase' // @ = src.
 //import { placeholdermovies } from './placeholdermovies.js'
 //import { placeholderscreenings } from './placeholderscreenings.js'
-//import { placeholderbookings } from './placeholderbookings.js'
+import { placeholderbookings } from './placeholderbookings.js'
 
 Vue.use(Vuex)
 
@@ -21,7 +21,7 @@ export default new Vuex.Store({
       //the placeholders are currently referencing to the other placeholders, not to the movies collection in firebase
       //placeholdermovies: placeholdermovies,
       //placeholderscreenings: placeholderscreenings,
-      //placeholderbookings: placeholderbookings,
+      placeholderbookings: placeholderbookings,
 
   },
   getters: {
@@ -44,6 +44,30 @@ export default new Vuex.Store({
 
     getShowtimesByMovieId: state => (movieId) => {
       return state.showtimes.filter(show => show.movieId === movieId)
+    },
+
+    getBookedSeats: state=> (showtimeId) => {
+
+      let bookings = state.placeholderbookings.filter(booking => booking.showtimeId === showtimeId)
+      
+      let currentshowtime = state.showtimes.find(show => show.id === showtimeId)
+
+      let currentauditorium = state.auditoriums.find(auditorium => auditorium.Id === currentshowtime.auditoriumId)
+
+      let tempseatings = {}
+
+      for (let i = 1; i < currentauditorium.seatsPerRow.length + 1; i++){
+        tempseatings[i] = []
+      }
+
+      for(let document of bookings){
+        tempseatings[document.row].push(document.col)
+      }
+
+      return tempseatings
+
+      //return sho
+
     },
 
     getBookings: state => {

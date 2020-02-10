@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {db} from '@/firebase' // @ = src.
-//import { placeholdermovies } from './placeholdermovies.js'
-//import { placeholderscreenings } from './placeholderscreenings.js'
-//import { placeholderbookings } from './placeholderbookings.js'
 
 Vue.use(Vuex)
 
@@ -19,11 +16,6 @@ export default new Vuex.Store({
       showtimes: [],
 
       booked: null,
-
-      //the placeholders are currently referencing to the other placeholders, not to the movies collection in firebase
-      //placeholdermovies: placeholdermovies,
-      //placeholderscreenings: placeholderscreenings,
-      //placeholderbookings: placeholderbookings,
 
   },
   getters: {
@@ -50,21 +42,6 @@ export default new Vuex.Store({
     getShowtimesByMovieId: state => (movieId) => {
       return state.showtimes.filter(show => show.movieId === movieId)
     },
-    /*
-    getSeatsLeftByID: state => (id) => {
-
-        switch(state.placeholderscreenings.find(screening => screening.screeningID === id).auditoriumName) {
-            case "Stora":
-                return state.auditoriumStoraSize - state.placeholderbookings.filter(booking => booking.screeningID == id).map(item => item.seats).reduce((prev, next) => prev + next)
-                //break;
-            case "Lilla":
-                return state.auditoriumLillaSize - state.placeholderbookings.filter(booking => booking.screeningID == id).map(item => item.seats).reduce((prev, next) => prev + next)
-                //break;
-            default:
-                return "Error"
-          }             
-    },
-    */
 
   },
   mutations: {
@@ -90,9 +67,6 @@ export default new Vuex.Store({
      },
 
      setBookings(state, data){
-      console.log("data showtimeId is")
-      console.log(data.showtimeId)
-      console.log(state.showtimes)
 
       let currentshowtime = state.showtimes.find(show => show.showtimeId === data.showtimeId)
 

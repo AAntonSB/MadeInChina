@@ -16,16 +16,12 @@ export default new Vuex.Store({
                 // finns det någon speciell anledning till varför det är ett objekt i en lista och inte bara ett objekt?
 
       auditoriums: [],
+      showtimes: [],
 
       //the placeholders are currently referencing to the other placeholders, not to the movies collection in firebase
       //placeholdermovies: placeholdermovies,
       //placeholderscreenings: placeholderscreenings,
       //placeholderbookings: placeholderbookings,
-
-
-      //auditoriumStoraSize: 80,
-      //auditoriumLillaSize: 40,
-      
 
   },
   getters: {
@@ -40,6 +36,10 @@ export default new Vuex.Store({
       //let data = new []
       //data.push(state.movies.find(product => product.ID === id))
       return state.movies.filter(product => product.id === id)
+    },
+
+    getShowtimesById: state => (id) => {
+      return state.showtimes.filter(show => show.movieId === id)
     },
 
     getBookings: state => {
@@ -88,9 +88,11 @@ export default new Vuex.Store({
      },
 
      setAuditoriums(state, data){
-       //console.log("auditorium setter")
-       //console.log(data)
        state.auditoriums = data
+     },
+
+     setShowtimes(state, data){
+       state.showtimes = data
      }
   },
   actions: {
@@ -117,65 +119,66 @@ export default new Vuex.Store({
         commit('setMovie', data)
         },
 
-        publishAuditoriums(){ // async
-
-          //console.log("publishing auditoriums")
+        publishAuditoriums(){
           let documents = require('@/data/auditoriums.json')
           this.commit('setAuditoriums', documents)
-          //for(let document of documents){
-
-            //cons
-            
-            //this.auditorums.push(document)
-            /*
-            let res = db.collection('foods').add(document)
-            console.log('publishFoods res', res)
-            */
         },
 
-        publishShowtimes(){
+        async publishShowtimes(){
 
-          //3 numbers specify year, month, and day:
-          let startdate = new Date(2020, 2, 2)
-          //console.log(startdate)
+          let querySnapshot = await db.collection("showtimes").get()
+
+          let showtimesdata = []
+
+          querySnapshot.forEach((document) => {
+            showtimesdata.push(document.data())
+        })
+
+          /*
           let data = []
-          for (let i = 0; i < 7; i++) {
-
-            let tempdate = new Date(2020, 2, 2)
-            //console.log(startdate.getDate() + i)
-            tempdate.setDate(startdate.getDate() + i)
-            tempdate.setHours(18)
-            //console.log(tempdate)
-            //data.push(tempdate)
-            let tempshowtime = {}
-            tempshowtime.auditoriumId = 1
-            tempshowtime.movieId = 1
-            tempshowtime.id = i*3 + 1
-            tempshowtime.startDatetime = tempdate
-
-            data.push(tempshowtime)
-
-            //tempdate.setHours(18)
-            let tempshowtime2 = {}
-            tempshowtime2.auditoriumId = 2
-            tempshowtime2.movieId = 2
-            tempshowtime2.id = i*3 + 2
-            tempshowtime2.startDatetime = tempdate
-
-            data.push(tempshowtime2)
-
-            tempdate.setHours(21)
-            tempdate.setMinutes(15)
-            let tempshowtime3 = {}
-            tempshowtime3.auditoriumId = 1
-            tempshowtime3.movieId = 1
-            tempshowtime3.id = i*3 + 3
-            tempshowtime3.startDatetime = tempdate
+          if (showtimesdata.length === 1){
+            //3 numbers specify year, month, and day:
+            let startdate = new Date(2020, 2, 2)
             
-            data.push(tempshowtime3)
-          }
+            for (let i = 0; i < 7; i++) {
 
-          console.log(data)
+              let tempdate = new Date(2020, 2, 2)
+              tempdate.setDate(startdate.getDate() + i)
+              tempdate.setHours(18)
+
+              let tempshowtime = {}
+              tempshowtime.auditoriumId = 1
+              tempshowtime.movieId = 1
+              tempshowtime.id = i*3 + 1
+              tempshowtime.startDatetime = tempdate.getTime()/1000 //convert epoch milliseconds to epoch seconds
+              data.push(tempshowtime)
+
+              let tempshowtime2 = {}
+              tempshowtime2.auditoriumId = 2
+              tempshowtime2.movieId = 2
+              tempshowtime2.id = i*3 + 2
+              tempshowtime2.startDatetime = tempdate.getTime()/1000
+              data.push(tempshowtime2)
+
+              tempdate.setHours(21)
+              tempdate.setMinutes(15)
+
+              let tempshowtime3 = {}
+              tempshowtime3.auditoriumId = 1
+              tempshowtime3.movieId = 1
+              tempshowtime3.id = i*3 + 3
+              tempshowtime3.startDatetime = tempdate.getTime()/1000
+              data.push(tempshowtime3)
+            }
+          }//
+          
+          for(let document of data){
+            let res = await db.collection('showtimes').add(document)
+            console.log('publishshowtimes res', res)
+          }
+          */
+         this.commit('setShowtimes', showtimesdata)
+
 
         },
         },

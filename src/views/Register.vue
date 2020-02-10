@@ -72,12 +72,6 @@
                 <router-link class="login-button" to="/login">logga in i stället</router-link>
               </strong>
             </div>
-
-            <span class="col s12 terms-of-service">
-              <router-link to="/">Terms</router-link>|
-              <router-link to="/">Privacy</router-link>|
-              <router-link to="/">Security</router-link>
-            </span>
           </div>
         </form>
       </div>

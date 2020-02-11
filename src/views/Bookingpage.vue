@@ -128,6 +128,9 @@ export default {
       this.retiredTicketCount=0
       this.childTicketCount=0
       this.allTypesCount=0
+      document.getElementById('ordinaryMinusIcon').style.visibility= "hidden";
+      document.getElementById('retiredMinusIcon').style.visibility= "hidden";
+      document.getElementById('childMinusIcon').style.visibility= "hidden";
       document.getElementById('changeBtn').style.visibility= "hidden";
     },
     addSeat(seatId){            

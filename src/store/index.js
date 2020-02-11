@@ -34,6 +34,11 @@ export default new Vuex.Store({
       return state.showtimes.filter(show => show.movieId === movieId)
 
     },
+    getAllShowtimesByDate: state => (datetime) =>{
+
+      return state.showtimes.filter(show => show.startDatetime.getMonth() === datetime.getMonth() && show.startDatetime.getDate() === datetime.getDate())
+
+    },
 
     getAllShowtimesByDate: state => (datetime) =>{
 

@@ -6,7 +6,6 @@ import Login from '@/views/Login'
 import Register from '@/views/Register'
 import MyPage from '@/views/MyPage'
 import Bookingpage from '@/views/Bookingpage.vue'
-import Setselect from '@/views/Setselect.vue'
 
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -25,41 +24,37 @@ const routes = [
     component: Movies
   },
   {
-    path: '/setselect',
-    name: 'setselect',
-    component: Setselect
+    path: '/movie',
+    name: 'movie',
+    component: Movie,
+    props(route) {
+      return {  movieId: route.query.movieId }
+    }
   },
-
   {
     path: '/login',
     name: 'login',
     component: Login
   },
-  {path: '/register',
-  name: 'register',
-  component: Register
-},
-{
-  path: '/mypage',
-  name: 'mypage',
-  component: MyPage,
-  meta: {requiersAuth: true}
-},
-{
-  path: '/movie',
-  component: Movie,
-  props(route) {
-    return {  movieId: route.query.movieId }
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
+  },
+  {
+    path: '/mypage',
+    name: 'mypage',
+    component: MyPage,
+    meta: {requiersAuth: true}
+  },
+  {
+    path: '/bookingpage',
+    component: Bookingpage,
+    name: 'bookingpage',
+    props(route){
+      return { showtimeId: route.query.showtimeId}
+    }
   }
-},
-{
-  path: '/bookingpage',
-  component: Bookingpage,
-  name: 'bookingpage',
-  props(route){
-    return { showtimeId: route.query.showtimeId}
-  }
-},
 ]
 
 const router = new VueRouter({

@@ -231,16 +231,38 @@ export default {
 
   },
   computed: {
-    movies() {
-        return this.$store.state.movies
+    movies() { //ändrad till att använda getter
+        return this.$store.getters.getMovies
+        //return this.$store.state.movies
     },
     randommovie: function (){
-        return this.$store.state.movie
+        //return this.$store.state.movie
+        return this.$store.getters.getMovieByID(String(Math.floor(Math.random()*(5-1+1)+1)))
+    },
+    dateshowtimes: function (){
+
+      let myday = new Date(2020, 2, 2)
+
+      return this.$store.getters.getAllShowtimesByDate(myday)
     }
+    /*
+    bookedSeats: function (){
+      return this.$store.getters.getBookedSeats(2)
+    }
+    */
   },
   created() {
     this.$store.dispatch("getMovies");
-    this.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
+
+    //store.dispatch('incrementAsync', {
+    //amount: 10
+    
+    this.$store.dispatch("publishAuditoriums")
+    this.$store.dispatch("pullShowtimes")
+    this.$store.dispatch("pullBookings", {showtimeId: 1})
+    //this.$store.dispatch("publishBookings", {showtimeId: 1})
+    
+    //his.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
   },
   methods: {
     publishMovies() {

@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Movies from '@/views/Movies.vue'
 import Movie from '@/views/Movie.vue'
 import Bookingpage from '@/views/Bookingpage.vue'
-import Setselect from '@/views/Setselect.vue'
 
 Vue.use(VueRouter)
 
@@ -32,11 +31,6 @@ const routes = [
     props(route){
       return { showtimeId: route.query.showtimeId}
     }
-  },
-  {
-    path: '/setselect',
-    name: 'setselect',
-    component: Setselect
   }
 ]
 

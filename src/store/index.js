@@ -56,10 +56,10 @@ export default new Vuex.Store({
         return state.placeholdermovies.find(product => product.ID === id)
         } */
     getAuditorium : state => (auditoriumId) => {
-      return state.auditoriums.filter(auditorium => auditorium.auditoriumId == auditoriumId);
+      return state.auditoriums.filter(auditorium => auditorium.id == auditoriumId);
     },
     getAuditoriumIdByShowtimeId : state => (showtimeId) => {
-      return state.db.collection("showtimes").where("showtimeId","==",showtimeId).auditoriumId
+      return state.db.collection("showtimes").where("showtimeId","==",showtimeId).showtimeId
     }
   },
   mutations: {

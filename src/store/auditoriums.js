@@ -1,7 +1,7 @@
 export const auditoriums = [
     {
       "name": "Stora Salongen",
-      "auditoriumId": 1,
+      "id": 1,
       "seats": 81,
       "row": 8,
       "seatsPerRow": [
@@ -17,7 +17,7 @@ export const auditoriums = [
     },
     {
       "name": "Lilla Salongen",
-      "auditoriumId": 2,
+      "id": 2,
       "seats": 55,
       "row": 6,
       "seatsPerRow": [

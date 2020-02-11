@@ -155,9 +155,8 @@ export default {
             
         }
       },
-      getAuditoriumIdByShowtimeId(showtimeId){
-            //return this.$store.state.getAuditoriumIdByShowtimeId(showtimeId)
-            return showtimeId
+      getAuditoriumIdByShowtimeId(){
+          return this.$store.getters.getSingleShowtimeById(this.showtimeId)
       },
       getAuditorium() {
            // this.seatsRow = this.$store.getters.getAuditorium(1)[0].seatsPerRow.length

@@ -15,6 +15,7 @@ export default new Vuex.Store({
 
       //auditoriums: [],
       showtimes: [],
+      bookings:[],
       booked: null,
       auditoriums: auditoriums,
   },
@@ -43,7 +44,7 @@ export default new Vuex.Store({
     },
     
     getSingleShowtimeById: state=> (showtimeid) => {
-      return state.showtimes.find(showtime => showtime.id === showtimeid)
+      return state.showtimes.filter(showtime => showtime.showtimeId == showtimeid)
     },
 
     getShowtimesByMovieId: state => (movieId) => {
@@ -154,6 +155,17 @@ export default new Vuex.Store({
             data.push(document.data())
           })
           commit('setShowtimes', data)
+          }
+        },
+        async getBookings({commit}){   // async = möjlighet att vänta på svar.
+          if (this.state.bookings.length === 0){ // om arrayn state.movies är tom, hämta från databasen, här sparar vi en massa fb reads
+            console.log("retrieving bookings from DB")
+            let querySnapshot = await db.collection("bookings").get()
+            let data = []
+            querySnapshot.forEach((document) => {
+            data.push(document.data())
+          })
+          commit('setBookings', data)
           }
         },
   },

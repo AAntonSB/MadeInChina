@@ -6,7 +6,7 @@
                 v-bind:style="{ 'background-image': 'url(' + randommovie[0].videoImage + ')' }"
                 >
                 <div class="bigimginnerbckg">                    
-                      <!-- <div class="searchcontainer">
+                    <div class="searchcontainer">
                         <span class="my-custom-dropdown">
                             <select name="dateDropdown">
                                 <option>Sök via dag</option>
@@ -16,10 +16,15 @@
                         <span class="my-custom-dropdown">
                             <select name="moviesDropdown">
                                 <option>Sök via film</option>
-                                <option  v-for="movie in movies" :id="movie.id" :key="movie.id" >{{movie.title}}</option>
+                                <option  v-for="movie in movies" :id="movie.id" :key="movie.id">{{movie.title}}</option>
                             </select>
                         </span>
-                    </div> -->
+                        <div class="bookingButtonBox">
+                            <router-link :to="{path: '/bookingpage', query: { showtimeId: 1 }}">
+                              <button class="waves-effect waves-light book-btn">Boka</button>
+                            </router-link>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Hooper -->
@@ -194,6 +199,19 @@
 }
 .hooper-next, .hooper-prev {
   padding: 1em 0em !important;
+}
+.bookingButtonBox{
+  display: inline-block;
+  vertical-align: middle;
+  visibility: hidden;
+}
+.book-btn{    
+  width: 200px;
+  padding: 12px;
+  border-radius: 6.35%;
+  background-color: #C62828;
+  color: #fff;
+  border: #C62828;
 }
 </style>
 

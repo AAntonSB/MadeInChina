@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header>
+    <header class="navbar-fixed">
       <nav>
         <div class="nav-wrapper">
           <button id="show-menu-button" v-on:click="showNavMenu()">
@@ -9,10 +9,10 @@
           <button id="close-menu-button" v-on:click="closeNavMenu()">
             <i id="navMenuIcon" class="material-icons menu-button">close</i>
           </button>
-          
+
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-              <a href="sass.html">About</a>
+              <a href="sass.html">Om oss</a>
             </li>
             <li>
               <a href="badges.html">Filmer</a>
@@ -23,18 +23,18 @@
           </ul>
 
           <div class="nav-search">
-             <div class="btn">
+            <div class="nav-search-btn btn">
               <i class="material-icons search-icon">search</i>
             </div>
             <div class="search-box">
-              <input type="text" class="search-input" placeholder="Search" />
+              <input type="text" class="search-input" placeholder="Sök" />
             </div>
-           
           </div>
+         <router-link to="/"><div style="font-size: 35px">logo</div></router-link>
 
-          <a href="#">
+          <!-- <a href="#">
             <i class="material-icons account-icon">account_circle</i>
-          </a>
+          </a> -->
         </div>
         <div id="mySidenav" class="sidenavmenu">
           <a href="#">
@@ -60,57 +60,7 @@
       <router-view :key="$route.fullPath"></router-view>
     </div>
 
-    <footer>
-      <div class>
-        <div class="row">
-          <div class="col l4">
-            <h5 class="white-text">Om oss</h5>
-            <ul>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Kontakta oss</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Jobba hos oss</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Vår historia</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col l4">
-            <h5 class="white-text">Sociala medier</h5>
-            <ul>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Facebook</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Instagram</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Twitter</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col l4">
-            <h5 class="white-text">Medlem</h5>
-            <ul>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Logga in</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Bli medlem</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Förmåner</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-copyright">
-        <div class="container">© 2018 Copyright Text</div>
-      </div>
-    </footer>
+    <Footer />
   </div>
 </template>
 
@@ -122,6 +72,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 #app {
   flex-grow: 1;
@@ -141,8 +92,8 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  position: fixed;
-  z-index: 10;
+  
+  z-index: 5;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -162,7 +113,7 @@ nav {
 }
 
 .nav-search {
-  position:absolute;
+  position: absolute;
   align-self: center;
   box-sizing: border-box;
   left: 10px;
@@ -170,10 +121,10 @@ nav {
 .search-box {
   position: relative;
   display: inline-block;
-  height: 50px; 
-  left:10px; 
+  height: 50px;
+  left: 10px;
 }
-.btn{
+ .nav-search-btn{
   align-self: center;
   border-radius: 50%;
   width: 36px;
@@ -181,19 +132,20 @@ nav {
   padding: 0px;
   
 }
-.btn:hover
+.nav-search-btn:hover
 {
 background-image:none;
 background-color:rgba(255, 254, 254, 0.4); 
-}
+} 
 
-.search-icon{
-  position:absolute;
-  bottom:40%;
-  display: flex; 
-  height: 36px !important; 
+.search-icon {
+  position: absolute;
+  bottom: 40%;
+  display: flex;
+  height: 36px !important;
   width: 36px;
-  position:relative;
+  position: relative;
+  display: flex;
   justify-content: center;
 }
 
@@ -201,7 +153,6 @@ background-color:rgba(255, 254, 254, 0.4);
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  margin-top: 65px;
 }
 .flexdirectioncolumn {
   display: flex;
@@ -261,35 +212,37 @@ footer h5, footer{
   height: 30px;
   fill: red;
 }
-#show-menu-button, #close-menu-button {
+#show-menu-button,
+#close-menu-button {
   visibility: hidden;
 }
 button:focus {
   background-color: transparent;
 }
 @media only screen and (max-width: 992px) {
-  .nav-search{
+  .nav-search {
     display: none;
   }
   .hide-on-med-and-down {
     display: none !important;
   }
-  
-  #show-menu-button{
+
+  #show-menu-button {
     visibility: visible;
   }
 }
-#show-menu-button, #close-menu-button {
+#show-menu-button,
+#close-menu-button {
   float: left;
   height: 50px;
   display: flex;
   background-color: #c02215;
-  border: none;    
+  border: none;
   margin-left: 3%;
 }
 
 .menu-button {
-    color: white;
+  color: white;
 }
 .sidenavmenu {
   width: 0;
@@ -325,15 +278,15 @@ button:focus {
   font-size: 40px !important;
 }
 
-.overlay{
+.overlay {
   height: 100%;
   width: 100%;
   position: fixed; /* Stay in place */
-  z-index: 50; /* Sit on top */
+  z-index: 6; /* Sit on top */
   left: 0px;
   top: 0px;
-  background-color: rgb(0,0,0); /* Black fallback color */
-  background-color: rgba(0,0,0, 0.75); /* Black w/opacity */
+  background-color: rgb(0, 0, 0); /* Black fallback color */
+  background-color: rgba(0, 0, 0, 0.75); /* Black w/opacity */
   overflow-x: hidden; /* Disable horizontal scroll */
   transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 }
@@ -356,7 +309,8 @@ button:focus {
 }
 
 /* When you mouse over the navigation links, change their color */
-.overlay a:hover, .overlay a:focus {
+.overlay a:hover,
+.overlay a:focus {
   color: #f1f1f1;
 }
 
@@ -371,39 +325,55 @@ button:focus {
 
 
 <script>
+import * as firebase from 'firebase'
+import 'firebase/auth'
+import Footer from "@/components/Footer.vue";
 export default {
-    computed: {
-        movies(){
-        return this.$store.state.movies
-        }
-      },
-    created(){
-          this.$store.dispatch("getMovies")
-      },
+  computed: {
+    movies() {
+      return this.$store.state.movies;
+    }
+  },
+  created() {
+    this.$store.dispatch("getMovies");
+    firebase.auth().onAuthStateChanged(user => {
+      this.loggedIn = !!user;
+    });
+  },
 
-      
-    methods:{
-          publishMovies(){
-              this.$store.dispatch("publishMovies")
-          },
-          nextImg: function(){
-            document.getElementById('gallery').scrollLeft += 200;
-          },
-          prevImg: function(){
-            document.getElementById('gallery').scrollLeft -= 200;
-          },
-              showNavMenu: function(){
+  methods: {
+    async signOut() {
+      try {
+        const data = await firebase.auth().signOut();
+        console.log(data);
+        this.$router.replace({ name: "login" });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    publishMovies() {
+      this.$store.dispatch("publishMovies");
+    },
+    nextImg: function() {
+      document.getElementById("gallery").scrollLeft += 200;
+    },
+    prevImg: function() {
+      document.getElementById("gallery").scrollLeft -= 200;
+    },
+    showNavMenu: function() {
       document.getElementById("close-menu-button").style.visibility = "visible";
-      document.getElementById("mySidenav").style.width = "200px";      
+      document.getElementById("mySidenav").style.width = "200px";
       document.getElementById("show-menu-button").style.display = "none";
-      },
-    closeNavMenu: function(){
-    
+    },
+    closeNavMenu: function() {
       document.getElementById("mySidenav").style.width = "0px";
       document.getElementById("show-menu-button").style.display = "block";
       document.getElementById("close-menu-button").style.visibility = "hidden";
-      
     }
-      },
-}
+  },
+  components: {
+    Footer
+  }
+};
 </script>

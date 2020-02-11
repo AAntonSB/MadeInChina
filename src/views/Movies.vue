@@ -6,7 +6,7 @@
                 v-bind:style="{ 'background-image': 'url(' + randommovie[0].videoImage + ')' }"
                 >
                 <div class="bigimginnerbckg">                    
-                      <div class="searchcontainer">
+                    <div class="searchcontainer">
                         <span class="my-custom-dropdown">
                             <select name="dateDropdown">
                                 <option>Sök via dag</option>
@@ -16,9 +16,14 @@
                         <span class="my-custom-dropdown">
                             <select name="moviesDropdown">
                                 <option>Sök via film</option>
-                                <option  v-for="movie in movies" :id="movie.id" :key="movie.id" >{{movie.title}}</option>
+                                <option  v-for="movie in movies" :id="movie.id" :key="movie.id">{{movie.title}}</option>
                             </select>
                         </span>
+                        <div class="bookingButtonBox">
+                            <router-link :to="{path: '/bookingpage', query: { showtimeId: 1 }}">
+                              <button class="waves-effect waves-light book-btn">Boka</button>
+                            </router-link>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -195,6 +200,19 @@
 .hooper-next, .hooper-prev {
   padding: 1em 0em !important;
 }
+.bookingButtonBox{
+  display: inline-block;
+  vertical-align: middle;
+  visibility: hidden;
+}
+.book-btn{    
+  width: 200px;
+  padding: 12px;
+  border-radius: 6.35%;
+  background-color: #C62828;
+  color: #fff;
+  border: #C62828;
+}
 </style>
 
 <script>
@@ -213,16 +231,38 @@ export default {
 
   },
   computed: {
-    movies() {
-        return this.$store.state.movies
+    movies() { //ändrad till att använda getter
+        return this.$store.getters.getMovies
+        //return this.$store.state.movies
     },
     randommovie: function (){
-        return this.$store.state.movie
+        //return this.$store.state.movie
+        return this.$store.getters.getMovieByID(String(Math.floor(Math.random()*(5-1+1)+1)))
+    },
+    dateshowtimes: function (){
+
+      let myday = new Date(2020, 2, 2)
+
+      return this.$store.getters.getAllShowtimesByDate(myday)
     }
+    /*
+    bookedSeats: function (){
+      return this.$store.getters.getBookedSeats(2)
+    }
+    */
   },
   created() {
     this.$store.dispatch("getMovies");
-    this.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
+
+    //store.dispatch('incrementAsync', {
+    //amount: 10
+    
+    this.$store.dispatch("publishAuditoriums")
+    this.$store.dispatch("pullShowtimes")
+    this.$store.dispatch("pullBookings", {showtimeId: 1})
+    //this.$store.dispatch("publishBookings", {showtimeId: 1})
+    
+    //his.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
   },
   methods: {
     publishMovies() {

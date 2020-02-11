@@ -24,9 +24,12 @@ const routes = [
     component: Movies
   },
   {
-    path: '/setselect',
-    name: 'setselect',
-    component: Setselect
+    path: '/movie',
+    name: 'movie',
+    component: Movie,
+    props(route) {
+      return {  movieId: route.query.movieId }
+    }
   },
   {
     path: '/login',
@@ -43,14 +46,6 @@ const routes = [
     name: 'mypage',
     component: MyPage,
     meta: {requiersAuth: true}
-  },
-  {
-    path: '/movie',
-    component: Movie,
-    name: movie,
-    props(route) {
-      return {  movieId: route.query.movieId }
-    }
   },
   {
     path: '/bookingpage',

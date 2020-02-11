@@ -1,18 +1,37 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+
+    <section v-for="movie in movies" v-bind:key="movie.title">
+      <img :src="movie.image" alt="poster" />
+    </section>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
+  computed: {
+    movies() {
+      return this.$store.state.movies;
+    }
+  },
+  created() {
+    this.$store.dispatch("getMovies");
+  },
+  methods: {
+    publishMovies() {
+      this.$store.dispatch("publishMovies");
+    }
   }
-}
+};
 </script>
+
+
+<style>
+.white{
+  color: white;
+  background-color: transparent;
+}
+.poster{
+  cursor: pointer;
+}
+</style>

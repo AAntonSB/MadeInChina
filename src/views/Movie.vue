@@ -42,6 +42,17 @@
         <p><span style="font-weight: bold;">Språk:</span> {{movi.language}}</p>
       </div>
       </div>
+
+<!-- Drop down borrowed from movies -->  
+ <div class="searchcontainer">
+      <span class="my-custom-dropdown">
+      <select name="dateDropdown">
+      <option>Sök via dag</option>
+      <option  v-for="index in 7" :key="index" :value="setDateWithIndex(index)">{{setDateWithIndex(index)}}</option>
+      </select>
+      </span>
+  </div>
+ 
       <!-- <div class="Booking collection">
           <li class="collection-header"><h4>Visningar v.47</h4></li>
           <a href="#!" class="collection-item black"><p class="white-font">Film tid</p></a>
@@ -81,7 +92,41 @@ export default {
       if (e.keyCode === 27 && this.trailerVisible) {
         this.toggleTrailer();
       }
-    }
+    },
+
+    // borrowed from movies 
+    
+     setDateWithIndex: function(x){
+        // Getting required values
+        let today = new Date()
+        let year = today.getFullYear()
+        let month = today.getMonth()
+        let day = today.getDate()
+
+        // Creating a new Date (with the delta)
+        let finalDate = new Date(year, month, day + x-1)
+
+        day = ''+finalDate.getDate();
+        //let monthIndex = finalDate.getMonth();
+        month = ''+(finalDate.getMonth()+1)
+        year = finalDate.getFullYear();
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        let days = [
+        'söndag',
+        'måndag',
+        'tisdag',
+        'onsdag',
+        'torsdag',
+        'fredag',
+        'lördag'
+        ]
+
+        let dayName = days[finalDate.getDay()]
+
+        return day+'/'+month +' '+ ' - '+dayName;
+        }
   },
   watch: {
     trailerVisible(value){
@@ -92,7 +137,8 @@ export default {
         document.body.style.setProperty("height", "100%")
         document.body.style.setProperty("overflow-y", "auto")
       }
-    }
+    },
+
   },
   created() {
     console.log(this.$route.query.movieId);

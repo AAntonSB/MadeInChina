@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {db} from '@/firebase' // @ = src.
-//import {auditoriums} from './auditoriums.js'
+import {auditoriums} from './auditoriums.js'
 
 Vue.use(Vuex)
 
@@ -13,11 +13,12 @@ export default new Vuex.Store({
       movie:[], //denna är konstig, den aktuella movien för varje view borda sättas via computed och hämtas från movies
                 // finns det någon speciell anledning till varför det är ett objekt i en lista och inte bara ett objekt?
 
-      auditoriums: [],
+      //auditoriums: [],
       showtimes: [],
-
       booked: null,
-
+      auditoriumStoraSize: 80,
+      auditoriumLillaSize: 40,
+      auditoriums: auditoriums,
   },
   getters: {
 

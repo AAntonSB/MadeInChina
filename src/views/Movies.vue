@@ -232,8 +232,8 @@ export default {
   },
   computed: {
     movies() { //ändrad till att använda getter
-        return this.$store.getters.getMovies
-        //return this.$store.state.movies
+        //return this.$store.getters.getMovies
+        return this.$store.state.movies
     },
     randommovie: function (){
         //return this.$store.state.movie

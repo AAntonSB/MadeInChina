@@ -33,9 +33,7 @@ export default new Vuex.Store({
     },
 
     getAllShowtimesByMovieId: state => (movieId) => {
-
-      return state.showtimes.filter(show => show.movieId === movieId)
-
+      return state.showtimes.filter(showtime => showtime.movieId == movieId)
     },
     
     getAllShowtimesByDate: state => (datetime) =>{
@@ -43,6 +41,7 @@ export default new Vuex.Store({
       return state.showtimes.filter(show => show.startDatetime.getMonth() === datetime.getMonth() && show.startDatetime.getDate() === datetime.getDate())
 
     },
+    
     getSingleShowtimeById: state=> (showtimeid) => {
       return state.showtimes.find(showtime => showtime.id === showtimeid)
     },
@@ -101,7 +100,9 @@ export default new Vuex.Store({
       state.booked = tempseatings
 
      },
-
+     /*setShowtimes(state, data){
+      state.showtimes = data
+     },*/
      setShowtimes(state, data){
 
       let tempdata = []
@@ -116,12 +117,6 @@ export default new Vuex.Store({
         tempshowtime.startDatetime = new Date(document.startDatetime*1000)
 
         tempdata.push(tempshowtime)
-        /*
-        let auditorium = data.auditoriumId
-        let movie = data.movieId
-        let showtime = data.id
-        let startDatetime = data.startDatetime*1000
-        */
 
       }
       tempdata.sort((a, b) => Number(a.id) - Number(b.id))
@@ -137,19 +132,29 @@ export default new Vuex.Store({
             let querySnapshot = await db.collection("movies").get()
             let data = []
             querySnapshot.forEach((document) => {
-            data.push(document.data())
-        })
-          commit('setMovies', data)
-
+              data.push(document.data())
+            })
+            commit('setMovies', data)
           }
         }, // den här tycker jag ska bort, vi borde använda en getter när vi hämtar data som ska förväntas ligga i state.
         async getMovie({commit},movieId){   // async = möjlighet att vänta på svar.
           let querySnapshot = await db.collection("movies").where("id","==",movieId).get()
           let data = []
           querySnapshot.forEach((document) => {
-          data.push(document.data())
-      })
-        commit('setMovie', data)
+            data.push(document.data())
+          })
+          commit('setMovie', data)
+        },
+        async getShowtimes({commit}){   // async = möjlighet att vänta på svar.
+          if (this.state.showtimes.length === 0){ // om arrayn state.movies är tom, hämta från databasen, här sparar vi en massa fb reads
+            console.log("retrieving showtimes from DB")
+            let querySnapshot = await db.collection("showtimes").get()
+            let data = []
+            querySnapshot.forEach((document) => {
+            data.push(document.data())
+          })
+          commit('setShowtimes', data)
+          }
         },
   },
   modules: {

@@ -16,11 +16,12 @@ export default new Vuex.Store({
       //auditoriums: [],
       showtimes: [],
       booked: null,
-      auditoriumStoraSize: 80,
-      auditoriumLillaSize: 40,
       auditoriums: auditoriums,
   },
   getters: {
+    getMovies: state => { //använd denna hellre än $state.movies
+      return state.movies
+    },
 
     getBookings: state => {
         return state.placeholderbookings
@@ -36,6 +37,7 @@ export default new Vuex.Store({
       return state.showtimes.filter(show => show.movieId === movieId)
 
     },
+    
     getAllShowtimesByDate: state => (datetime) =>{
 
       return state.showtimes.filter(show => show.startDatetime.getMonth() === datetime.getMonth() && show.startDatetime.getDate() === datetime.getDate())

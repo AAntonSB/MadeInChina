@@ -45,17 +45,17 @@
         <div class="flexdirectionrow allTicketSection" v-if="allTypesCount > 0">
             <div id="ticketsPrice" nowrap>{{allTypesCount}} st ( {{ticketsPrice}} kr )</div>
         </div>
-        <div>
+        <div class="buttonsBox">
           <button id="bookingBtn" class="btn-small red" v-on:click="showScene()">Välj platser</button>
-          <button id="changeBtn" class="btn-small grön" v-on:click="showPanel()">Ändra</button>
-        </div>
-        
+          <button id="changeBtn" class="btn-small grön" v-on:click="showPanel()">Ändra</button>          
+          <button id="saveBtn" class="btn-small red" v-on:click="saveBooking()">Spara</button>
+        </div>        
         <div id="scenePanel" class="avoid-clicks">          
           <div class="scene"></div>
           <div v-for="rowindex in seatsRow" :key="rowindex">
             <div class="seatsrow">
               <div class="seatscolumn" v-for="columnindex in getAuditorium[0].seatsPerRow[rowindex-1]" :key="columnindex"  
-              :id="rowindex+'_'+columnindex" v-on:click="addSeat(rowindex+'_'+columnindex)">
+              :id="rowindex+'_'+columnindex" v-on:click="manageSeat(rowindex+'_'+columnindex)">
               </div>
             </div>
             <br>
@@ -106,45 +106,59 @@ export default {
         }
       }
       if (this.ticketsPrice > 0){
-        document.getElementById('bookingBtn').style.visibility= "visible";
+        document.getElementById('bookingBtn').style.display= "block";
       }else{
-        document.getElementById('bookingBtn').style.visibility= "hidden";
-        /*document.getElementById("avoid-clicks").style.opacity = "0.3";
-        document.getElementById("avoid-clicks").style.background = "#111010";
-        document.getElementById("avoid-clicks").style.pointerEvents = "none";*/
+        document.getElementById('bookingBtn').style.display= "none";
         document.getElementById('scenePanel').classList.add('avoid-clicks');
       }
     },
     showScene: function() {
       document.getElementById('scenePanel').classList.remove('avoid-clicks');
       document.getElementById('ticketSelectorSection').classList.add('avoid-clicks');
-      document.getElementById('bookingBtn').style.visibility= "hidden";
-      document.getElementById('changeBtn').style.visibility= "visible";
+      document.getElementById('bookingBtn').style.display= "none";
+      document.getElementById('changeBtn').style.display= "block";
     },
     showPanel: function() {
       document.getElementById('ticketSelectorSection').classList.remove('avoid-clicks');
       document.getElementById('scenePanel').classList.add('avoid-clicks');
+      document.getElementById('saveBtn').style.visibility= "hidden";
       this.ordinaryTicketCount=0
       this.retiredTicketCount=0
       this.childTicketCount=0
       this.allTypesCount=0
+      this.choosenSeatCount=0
+      for(let i = 0; i < this.seats.length; i++){
+        document.getElementById(this.seats[i]).classList.remove('reservedSeat');
+      }
+      this.seats=[]
       document.getElementById('ordinaryMinusIcon').style.visibility= "hidden";
       document.getElementById('retiredMinusIcon').style.visibility= "hidden";
       document.getElementById('childMinusIcon').style.visibility= "hidden";
-      document.getElementById('changeBtn').style.visibility= "hidden";
+      document.getElementById('changeBtn').style.display= "none";
     },
-    addSeat(seatId){            
-      if (this.choosenSeatCount <  (this.ordinaryTicketCount+this.retiredTicketCount+this.childTicketCount)){
-        this.seats.push(seatId);
-        document.getElementById(seatId).style.backgroundColor = "#ff4d4d";
-        this.choosenSeatCount++;
-      }
-      else{
-        alert('Du kan välja max '+(this.ordinaryTicketCount+this.retiredTicketCount+this.childTicketCount))
+    manageSeat(seatId){    
+      if(document.getElementById(seatId).classList.contains("reservedSeat") ){
+        var index = this.seats.indexOf(seatId)
+        this.seats.splice(index, 1)
+        document.getElementById(seatId).classList.remove('reservedSeat');
+        this.choosenSeatCount--;
+      } 
+      else {
+        if (this.choosenSeatCount <  (this.allTypesCount)){
+          this.seats.push(seatId);
+          document.getElementById(seatId).classList.add('reservedSeat');
+          this.choosenSeatCount++;
+          if (this.choosenSeatCount == this.allTypesCount){
+            document.getElementById('saveBtn').style.visibility= "visible";
+          }
+        }
+        else{
+          alert('Du kan välja max '+(this.ordinaryTicketCount+this.retiredTicketCount+this.childTicketCount))
+        }
       }
     },
-    removeSeat(index){
-      this. itemList.splice(index, 1)
+    saveBooking(){
+      alert('coming soon')
     }
   },
   computed: {
@@ -164,8 +178,11 @@ export default {
       getAuditorium() {
            // this.seatsRow = this.$store.getters.getAuditorium(1)[0].seatsPerRow.length
             return this.$store.getters.getAuditorium(1)
-      },  
-  }
+      },
+  },
+  created() {
+    console.log(this.$route.query.showtimeId);
+  },
 };
 </script>
 
@@ -224,11 +241,20 @@ export default {
   display: flex;
   font-weight: 500;
 }
+.buttonsBox{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 #ticketsPrice{
   padding: 0px 15px;
   width: 100%;
 }
 #bookingBtn, #changeBtn{
+  margin: 15px;
+  display: none;
+}
+#saveBtn{
   margin: 15px;
   visibility: hidden;
 }
@@ -290,5 +316,11 @@ export default {
 }
 .allTicketSection{
   margin: 15px 0px 0px 0px;
+}
+.reservedSeat{
+  background-color: #ff4d4d;
+}
+.soldSeat{
+  background-color: #e93030;
 }
 </style>

@@ -21,7 +21,7 @@
                         </span>
                         <div class="bookingButtonBox">
                             <router-link :to="{path: '/bookingpage', query: { showtimeId: 1 }}">
-                              <button class="waves-effect waves-light book-button">Boka</button>
+                              <button class="waves-effect waves-light book-btn">Boka</button>
                             </router-link>
                         </div>
                     </div>
@@ -205,7 +205,7 @@
   vertical-align: middle;
   visibility: hidden;
 }
-.book-button{    
+.book-btn{    
   width: 200px;
   padding: 12px;
   background-color: #C62828;

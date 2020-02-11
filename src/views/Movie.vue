@@ -192,7 +192,7 @@ export default {
 
 .play-button {
   position: absolute;
-  padding-top: 20%;
+  top:20%;
   z-index: 1;
 }
 i.icon-white {
@@ -268,6 +268,7 @@ i.icon-white {
   padding: 2px;
 }
 
+
 @media only screen and (max-width: 950px){
   .box{
     position: relative;
@@ -278,6 +279,9 @@ i.icon-white {
   }
   .main-info{
     max-width: 100%;
+  }
+  .play-button{
+    top: 10%;
   }
 }
 

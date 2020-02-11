@@ -8,6 +8,13 @@
         @click="toggleTrailer()"
         class="material-icons large icon-white valign-wrapper center-align btn-flat play-button"
       >play_circle_filled</i>
+        <div class="box">
+        <div class="poster-info">
+        <p>{{movi.genre.toString()}}</p>
+        <p class="time-and-age">{{movi.time}} | {{movi.age}} år</p>
+       <router-link :to="{path: '/bookingpage', query: { showtimeId: 1 }}"><a class="waves-effect waves-light btn-large red book-button">Boka</a></router-link>
+      </div>
+      </div>
       <div @click="toggleTrailer()" class="overlay" v-if="trailerVisible === true">
         <div class="video-player overlay-content">
           <div class="video-frame">
@@ -26,18 +33,13 @@
         </div>
       </div>
 
-      <div class="poster-info row box">
-        <p>{{movi.genre.toString()}}</p>
-        <p></p>
-        <p class="time-and-age">{{movi.time}} | {{movi.age}} år</p>
-        <a class="waves-effect waves-light btn-large red book-button">Boka</a>
-      </div>
+      
       <div style="width:100%;padding: 10px 50px;">
       <div class="main-info">
         <p @click="consoleLog(movi.trailer)">{{movi.plot}}</p>
-        <p>Regi:{{movi.director.toString()}}</p>
-        <p>Skådespelare: {{movi.actors.toString()}}</p>
-        <p>Språk: {{movi.language}}</p>
+        <p><span style="font-weight: bold;">Regi:</span> {{movi.director.toString()}}</p>
+        <p><span style="font-weight: bold;">Skådespelare:</span> {{movi.actors.toString()}}</p>
+        <p><span style="font-weight: bold;">Språk:</span> {{movi.language}}</p>
       </div>
       </div>
       <!-- <div class="Booking collection">
@@ -81,6 +83,17 @@ export default {
       }
     }
   },
+  watch: {
+    trailerVisible(value){
+      if(value){
+        document.body.style.setProperty("height", "100vh")
+        document.body.style.setProperty("overflow-y", "hidden")
+      }else{
+        document.body.style.setProperty("height", "100%")
+        document.body.style.setProperty("overflow-y", "auto")
+      }
+    }
+  },
   created() {
     console.log(this.$route.query.movieId);
     window.addEventListener("keydown", this.handleKeyPress);
@@ -95,8 +108,8 @@ export default {
 <style>
 .img-bg img {
   justify-content: flex-start;
-  width: 100vw;
-  height: 100vh;
+  max-width: 100%;
+  height: auto;
   -webkit-mask-image: -webkit-gradient(
     linear,
     left top,
@@ -104,25 +117,36 @@ export default {
     from(rgba(0, 0, 0, 1)),
     to(rgba(0, 0, 0, 0))
   );
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.2));
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 0.2));
 }
 
-.img-bg div {
-  width: 100vh;
-  max-height: 100vh;
+.img-bg::after {
+    display: block;
+    position: relative;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #000 100%);
+    height: 150px;
+    margin-top: -150px;
+    width: 100%;
+    content: '';
 }
+.test{
+  width:100%;
+  padding: 10px 50px;
+}
+
+
+
 .movie-bg-image {
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .play-button {
   position: absolute;
-  left: 50%;
-  top: 40%;
-  transform: translate(-50%);
+  padding-top: 20%;
   z-index: 1;
 }
 i.icon-white {
@@ -136,18 +160,30 @@ i.icon-white {
   left: 20%;
   z-index: 5;
 }
-.button {
-  left: 52%;
+.btn-large {
+  display: block;
+}
+.box{
+  position: absolute;
+  width: 200px;
+  top: 40%;
+  right:75vw;
+  background-color: rgb(0, 0, 0, 0.3);
+  display: block;
+  padding: 30px;
+  
 }
 .video-frame {
   width: 920px;
   height: 517.5px;
 }
 .poster-info {
-  position: absolute;
-  left: 10%;
-  top: 50%;
+  position: relative;
+  z-index: 1;
   color: white;
+  text-transform: none;
+  font-size: 15px;
+  display: block;
 }
 .time-and-age {
   color: gray;
@@ -162,15 +198,11 @@ i.icon-white {
   word-wrap: break-all;
   text-align: left;
   max-width: 50%;
+  display: block;
   
 }
 .book-button {
   border-radius: 6.35%;
-}
-.box {
-  background-color: rgba(0, 0, 0, 0.3);
-  width: 20%;
-  padding: 30px;
 }
 .Booking{
   position: absolute;
@@ -188,5 +220,40 @@ i.icon-white {
   color: white;
   margin:0px;
   padding: 2px;
+}
+
+@media only screen and (max-width: 950px){
+  .box{
+    position: relative;
+    left:1%;
+    width: 300px;
+    padding: 0;
+
+  }
+  .main-info{
+    max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 600px)  {
+  .main-info{
+    max-width: 100%;
+  }
+}
+
+@media only screen and ( max-width: 450px){
+  .main-info{
+    max-width: 100%;
+  }
+  .box{
+    position: relative;
+    left:1%;
+  }
+}
+
+@keyframes draw {
+  to{
+    transform: translateY(1);
+  }
 }
 </style>

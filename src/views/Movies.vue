@@ -6,7 +6,7 @@
                 v-bind:style="{ 'background-image': 'url(' + randommovie[0].videoImage + ')' }"
                 >
                 <div class="bigimginnerbckg">                    
-                      <div class="searchcontainer">
+                      <!-- <div class="searchcontainer">
                         <span class="my-custom-dropdown">
                             <select name="dateDropdown">
                                 <option>Sök via dag</option>
@@ -19,7 +19,7 @@
                                 <option  v-for="movie in movies" :id="movie.id" :key="movie.id" >{{movie.title}}</option>
                             </select>
                         </span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <!-- Hooper -->

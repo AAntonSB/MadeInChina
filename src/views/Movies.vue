@@ -208,6 +208,7 @@
 .book-btn{    
   width: 200px;
   padding: 12px;
+  border-radius: 6.35%;
   background-color: #C62828;
   color: #fff;
   border: #C62828;

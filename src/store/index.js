@@ -110,7 +110,6 @@ export default new Vuex.Store({
 
       for(let document of data){
 
-
         let tempshowtime = {}
         tempshowtime.auditoriumId = document.auditoriumId
         tempshowtime.movieId = document.movieId
@@ -120,7 +119,8 @@ export default new Vuex.Store({
         tempdata.push(tempshowtime)
 
       }
-      tempdata.sort((a, b) => Number(a.id) - Number(b.id))
+      //tempdata.sort((a, b) => Number(a.id) - Number(b.id))
+      tempdata.sort((a, b) => Number(a.startDatetime) - Number(b.startDatetime))
       state.showtimes = tempdata
      }
   },

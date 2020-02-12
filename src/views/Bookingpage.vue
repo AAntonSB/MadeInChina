@@ -3,7 +3,7 @@
       <div class="flexdirectioncolumn  bookingbox">
         <div id="ticketSelectorSection">
           <div id="bookingPanel">
-            <h2>Antal biljetter</h2>
+            <h2>Antal biljetter</h2>{{getAuditoriumId()}}
             <!-- Ordinary -->
             <div class="flexdirectionrow ticketSection">
               <div class="ticketTypeTextBox">
@@ -68,7 +68,9 @@
 <script>
 export default {
   data() {
-    return {
+    return {      
+      showtimeId: this.$route.query.showtimeId,
+      auditoriumId: 0,
       ordinaryTicketPris: 85,
       retiredTicketPris: 75,
       childTicketPris: 65,
@@ -76,12 +78,9 @@ export default {
       retiredTicketCount: 0,
       childTicketCount: 0,
       allTypesCount: 0,
-      showtimeId: this.$route.query.showtimeId,
-      seatsRow: this.$store.getters.getAuditorium(1)[0].seatsPerRow.length,
+      seatsRow: 0,
       seats: [],
       choosenSeatCount: 0
-      //bigAuditoriumSize
-      //littleAuditorumSize
     };
   },
   methods: {
@@ -157,6 +156,11 @@ export default {
         }
       }
     },
+    getAuditoriumId(){ 
+        let auditorium = this.$store.getters.getSingleShowtimeById(this.$route.query.showtimeId);
+        this.auditoriumId = auditorium[0].auditoriumId;
+        this.seatsRow = this.$store.getters.getAuditorium(this.auditoriumId)[0].seatsPerRow.length
+    },
     saveBooking(){
       alert('coming soon')
     }
@@ -172,16 +176,19 @@ export default {
             
         }
       },
-      getAuditoriumIdByShowtimeId(){
-          return this.$store.getters.getSingleShowtimeById(this.showtimeId)
-      },
       getAuditorium() {
-           // this.seatsRow = this.$store.getters.getAuditorium(1)[0].seatsPerRow.length
-            return this.$store.getters.getAuditorium(1)
+        if (this.auditoriumId > 0){
+          return this.$store.getters.getAuditorium(this.auditoriumId)
+        }
+        else{
+          return null;
+        }
       },
   },
   created() {
     console.log(this.$route.query.showtimeId);
+    this.$store.dispatch("pullShowtimes");
+    this.$store.dispatch("pullBookings");
   },
 };
 </script>

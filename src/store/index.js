@@ -15,6 +15,7 @@ export default new Vuex.Store({
 
       //auditoriums: [],
       showtimes: [],
+      bookings:[],
       booked: null,
       auditoriums: auditoriums,
   },
@@ -43,7 +44,7 @@ export default new Vuex.Store({
     },
     
     getSingleShowtimeById: state=> (showtimeid) => {
-      return state.showtimes.find(showtime => showtime.id === showtimeid)
+      return state.showtimes.filter(showtime => showtime.showtimeId == showtimeid)
     },
 
     getShowtimesByMovieId: state => (movieId) => {
@@ -53,9 +54,9 @@ export default new Vuex.Store({
     getAuditorium : state => (auditoriumId) => {
       return state.auditoriums.filter(auditorium => auditorium.id == auditoriumId);
     },
-    getAuditoriumIdByShowtimeId : state => (showtimeId) => {
+    /*getAuditoriumIdByShowtimeId : state => (showtimeId) => {
       return state.db.collection("showtimes").where("showtimeId","==",showtimeId).showtimeId
-    }
+    }*/
   },
   mutations: {
     setMovieID(){
@@ -145,7 +146,7 @@ export default new Vuex.Store({
           })
           commit('setMovie', data)
         },
-        async getShowtimes({commit}){   // async = möjlighet att vänta på svar.
+        /*async getShowtimes({commit}){   // async = möjlighet att vänta på svar.
           if (this.state.showtimes.length === 0){ // om arrayn state.movies är tom, hämta från databasen, här sparar vi en massa fb reads
             console.log("retrieving showtimes from DB")
             let querySnapshot = await db.collection("showtimes").get()
@@ -155,6 +156,50 @@ export default new Vuex.Store({
           })
           commit('setShowtimes', data)
           }
+        },*/
+        /*async getBookings({commit}){   // async = möjlighet att vänta på svar.
+          if (this.state.bookings.length === 0){ // om arrayn state.movies är tom, hämta från databasen, här sparar vi en massa fb reads
+            console.log("retrieving bookings from DB")
+            let querySnapshot = await db.collection("bookings").get()
+            let data = []
+            querySnapshot.forEach((document) => {
+            data.push(document.data())
+          })
+          commit('setBookings', data)
+          }
+        },*/
+        /* pullShowtimes och pullBookings försvann med merge. Jag tog tillbaka den från Joakims version. */
+        async pullShowtimes(){
+
+          console.log("pulling showtimes")
+
+          let querySnapshot = await db.collection("showtimes").get()
+
+          let showtimesdata = []
+
+          querySnapshot.forEach((document) => {
+            showtimesdata.push(document.data())
+        })
+        console.log("showtimes!")
+         //console.log(showtimesdata)
+         this.commit('setShowtimes', showtimesdata) //commit data instead of showtimesdata
+
+        },
+        async pullBookings({commit}, payload){
+
+          console.log("pulling bookings")
+          console.log(payload.showtimeId)
+
+          let querySnapshot = await db.collection("bookings").where("showtimeId","==",payload.showtimeId).get()
+
+          let bookingsdata = []
+
+          querySnapshot.forEach((document) => {
+            bookingsdata.push(document.data())
+          })
+
+          commit('setBookings', {bookings:bookingsdata, showtimeId: payload.showtimeId})
+
         },
   },
   modules: {

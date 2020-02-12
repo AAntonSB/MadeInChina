@@ -17,7 +17,7 @@
                             <select id="showtimeSelect" v-on:change="getSelectedShowtimeId()">
                                 <option>Sök via dag</option>
                                 <option  v-for="showtime in showtimesByMovieId" 
-                                  :key="showtime" 
+                                  :key="showtime.showtimeId" 
                                   :id="showtime.showtimeId">
                                   {{getDatum(showtime.startDatetime)}}</option>
                             </select>

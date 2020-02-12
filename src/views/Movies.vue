@@ -316,13 +316,8 @@ export default {
         'lördag'
         ]
       let dayName = days[(showtimestDT.getDay())]
-      let showtimeMinutes=showtimestDT.getMinutes();
-
-      if (showtimeMinutes.toString().length < 2) 
-      {
-        showtimeMinutes = '0' + showtimeMinutes
-      }
-      return (showtimestDT.getDay()+1)+' / '+(showtimestDT.getMonth()+1)+ ' '+showtimestDT.getHours() +':'+showtimeMinutes+' '+dayName;
+      let showtimeMinutes=(showtimestDT.getMinutes() < 10 ? '0' : '') +showtimestDT.getMinutes();      
+      return showtimestDT.getDate()+' / '+(showtimestDT.getMonth()+1)+ ' '+showtimestDT.getHours() +':'+showtimeMinutes+' '+dayName;
     }
     },
   components: {

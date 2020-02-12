@@ -54,7 +54,9 @@
           <div class="scene"></div>
           <div v-for="rowindex in seatsRow" :key="rowindex">
             <div class="seatsrow">
-              <div class="seatscolumn" v-for="columnindex in getAuditorium[0].seatsPerRow[rowindex-1]" :key="columnindex"  
+              <div class="seatscolumn" 
+              v-for="columnindex in auditorium[0].seatsPerRow[rowindex-1]" 
+              :key="columnindex"  
               :id="rowindex+'_'+columnindex" v-on:click="manageSeat(rowindex+'_'+columnindex)">
               </div>
             </div>
@@ -143,6 +145,9 @@ export default {
       document.getElementById('ordinaryMinusIcon').style.visibility= "hidden";
       document.getElementById('retiredMinusIcon').style.visibility= "hidden";
       document.getElementById('childMinusIcon').style.visibility= "hidden";
+      document.getElementById('ordinaryPlusIcon').style.visibility= "visible";
+      document.getElementById('retiredPlusIcon').style.visibility= "visible";
+      document.getElementById('childPlusIcon').style.visibility= "visible";
       document.getElementById('changeBtn').style.display= "none";
     },
     manageSeat(seatId){    
@@ -176,6 +181,9 @@ export default {
       this.bookings=this.$store.getters.getAllBookingsByShowtimeId(this.$route.query.showtimeId);
       this.bookedSeatsCount=this.bookings.length;
     },
+    getAuditorium() {
+      this.auditorium = this.$store.getters.getAuditorium(this.auditoriumId)
+    },
     setBookedSeats(){
         for(let b = 0; b < this.bookings.length; b++){
           let bookedSeatId = this.bookings[b].row+'_'+this.bookings[b].col;
@@ -197,12 +205,10 @@ export default {
         set: function() {            
         }
     },
-    getAuditorium() {
-      return this.$store.getters.getAuditorium(this.auditoriumId)
-    },
   },
   mounted() {
     this.setAuditoriumId();
+    this.getAuditorium();
     this.getBookedSeats();
   },
   updated(){
@@ -326,7 +332,7 @@ export default {
   border-style: solid;
 }
 .seatscolumn:hover{
-  border-color: #ff8383;
+  background-color: #21c02f;
 }
 .scene{
   width: 80%;

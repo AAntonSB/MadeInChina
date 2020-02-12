@@ -187,8 +187,8 @@ export default {
   },
   created() {
     console.log(this.$route.query.showtimeId);
-    this.$store.dispatch("getShowtimes");
-    this.$store.dispatch("getBookings");
+    this.$store.dispatch("pullShowtimes");
+    this.$store.dispatch("pullBookings");
   },
 };
 </script>

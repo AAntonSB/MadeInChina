@@ -16,6 +16,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getMovies");
+    this.$store.dispatch("publishAuditoriums")
   },
   methods: {
     publishMovies() {

@@ -6,20 +6,28 @@
                 v-bind:style="{ 'background-image': 'url(' + randommovie[0].videoImage + ')' }"
                 >
                 <div class="bigimginnerbckg">                    
-                      <!-- <div class="searchcontainer">
+                    <div class="searchcontainer">                        
                         <span class="my-custom-dropdown">
-                            <select name="dateDropdown">
-                                <option>Sök via dag</option>
-                                <option  v-for="index in 7" :key="index" :value="setDateWithIndex(index)">{{setDateWithIndex(index)}}</option>
-                            </select>
-                        </span>
-                        <span class="my-custom-dropdown">
-                            <select name="moviesDropdown">
+                            <select id="moviesDropdown"  v-on:change="getSelectedMovie()">
                                 <option>Sök via film</option>
-                                <option  v-for="movie in movies" :id="movie.id" :key="movie.id" >{{movie.title}}</option>
+                                <option  v-for="movie in movies" :id="movie.id" :key="movie.id">{{movie.title}}</option>
                             </select>
                         </span>
-                    </div> -->
+                        <span id="dateDropdown"  class="my-custom-dropdown">
+                            <select id="showtimeSelect" v-on:change="getSelectedShowtimeId()">
+                                <option>Sök via dag</option>
+                                <option  v-for="showtime in showtimesByMovieId" 
+                                  :key="showtime" 
+                                  :id="showtime.showtimeId">
+                                  {{getDatum(showtime.startDatetime)}}</option>
+                            </select>
+                        </span>
+                        <div id="bookingButton" class="bookingButtonBox">
+                            <router-link :to="{path: '/bookingpage', query: { showtimeId: this.selectedShowtimeId }}">
+                              <button class="waves-effect waves-light book-btn">Boka</button>
+                            </router-link>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Hooper -->
@@ -195,6 +203,24 @@
 .hooper-next, .hooper-prev {
   padding: 1em 0em !important;
 }
+#bookingButton{  
+  visibility: hidden;
+}
+.bookingButtonBox{
+  display: inline-block;
+  vertical-align: middle;
+}
+.book-btn{    
+  width: 200px;
+  padding: 12px;
+  border-radius: 6.35%;
+  background-color: #C62828;
+  color: #fff;
+  border: #C62828;
+}
+#dateDropdown{
+  visibility: hidden;
+}
 </style>
 
 <script>
@@ -209,20 +235,51 @@ import HooperSlider from "@/components/HooperSlider.vue";
 //import func from '../vue-temp/vue-editor-bridge';
 
 export default {
+  data(){
+    return {
+      selectedDate: 0,
+      selectedMovieId: 0,
+      selectedShowtimeId: 0
+    };
+  },
   mounted() {
 
   },
   computed: {
-    movies() {
-        return this.$store.state.movies
+    movies() { //ändrad till att använda getter
+        return this.$store.getters.getMovies
+    },
+    showtimesByMovieId(){
+        return this.$store.getters.getAllShowtimesByMovieId(this.selectedMovieId)
     },
     randommovie: function (){
-        return this.$store.state.movie
+        //return this.$store.state.movie
+        return this.$store.getters.getMovieByID(String(Math.floor(Math.random()*(5-1+1)+1)))
+    },
+    dateshowtimes: function (){
+
+      let myday = new Date(2020, 2, 2)
+
+      return this.$store.getters.getAllShowtimesByDate(myday)
     }
+    /*
+    bookedSeats: function (){
+      return this.$store.getters.getBookedSeats(2)
+    }
+    */
   },
   created() {
     this.$store.dispatch("getMovies");
-    this.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
+    this.$store.dispatch("pullShowtimes");
+    //store.dispatch('incrementAsync', {
+    //amount: 10
+    
+    /*this.$store.dispatch("publishAuditoriums")
+    this.$store.dispatch("pullShowtimes")
+    this.$store.dispatch("pullBookings", {showtimeId: 1})*/
+    //this.$store.dispatch("publishBookings", {showtimeId: 1})
+    
+    //his.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
   },
   methods: {
     publishMovies() {
@@ -238,24 +295,18 @@ export default {
       document.getElementById("close-menu-button").style.visibility = "hidden";
       document.getElementById("show-menu-button").style.display = "block";
     },
-    setDateWithIndex: function(x){
-        // Getting required values
-        let today = new Date()
-        let year = today.getFullYear()
-        let month = today.getMonth()
-        let day = today.getDate()
-
-        // Creating a new Date (with the delta)
-        let finalDate = new Date(year, month, day + x-1)
-
-        day = ''+finalDate.getDate();
-        //let monthIndex = finalDate.getMonth();
-        month = ''+(finalDate.getMonth()+1)
-        year = finalDate.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-
-        let days = [
+    getSelectedShowtimeId: function (){
+      this.selectedShowtimeId = document.getElementById("showtimeSelect").options[document.getElementById("showtimeSelect").selectedIndex].id;
+      document.getElementById('bookingButton').style.visibility= "visible";
+    },
+    getSelectedMovie: function(){
+      this.selectedMovieId = document.getElementById("moviesDropdown").options[document.getElementById("moviesDropdown").selectedIndex].id;
+      if(this.selectedMovieId > 0){
+        document.getElementById('dateDropdown').style.visibility= "visible";
+      }
+    },
+    getDatum: function(showtimestDT){
+      let days = [
         'söndag',
         'måndag',
         'tisdag',
@@ -264,11 +315,15 @@ export default {
         'fredag',
         'lördag'
         ]
+      let dayName = days[(showtimestDT.getDay())]
+      let showtimeMinutes=showtimestDT.getMinutes();
 
-        let dayName = days[finalDate.getDay()]
-
-        return day+'/'+month +' '+ ' - '+dayName;
-        }
+      if (showtimeMinutes.toString().length < 2) 
+      {
+        showtimeMinutes = '0' + showtimeMinutes
+      }
+      return (showtimestDT.getDay()+1)+' / '+(showtimestDT.getMonth()+1)+ ' '+showtimestDT.getHours() +':'+showtimeMinutes+' '+dayName;
+    }
     },
   components: {
     Hooper,

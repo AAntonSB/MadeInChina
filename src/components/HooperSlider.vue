@@ -116,6 +116,14 @@
 
 }
 
+.hooper{
+  outline: none !important;
+  outline-style: none !important;
+  -moz-user-select: none; 
+  -webkit-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;
+}
 /*
 @media only screen and (max-width: 1100px)  {
   .hooper-img{

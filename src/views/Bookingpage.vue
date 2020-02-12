@@ -42,17 +42,15 @@
             </div>          
           </div>
         </div>
-        <div class="flexdirectionrow allTicketSection" v-if="allTypesCount > 0">
-            <div id="ticketsPrice" nowrap>{{allTypesCount}} st ( {{ticketsPrice}} kr )</div>
-        </div>
         <div class="buttonsBox">
           <button id="bookingBtn" class="btn-small red" v-on:click="showScene()">Välj platser</button>
-          <button id="changeBtn" class="btn-small grön" v-on:click="showPanel()">Ändra</button>         
+          <button id="changeBtn" class="btn-small grön" v-on:click="showPanel()">Ändra</button>
+          <div v-if="allTypesCount > 0" id="ticketsPrice" nowrap>{{allTypesCount}} st ({{ticketsPrice}}kr)</div>    
           <button id="saveBtn" class="btn-small red" v-on:click="saveBooking()">Spara</button>
         </div>        
         <div id="scenePanel" class="avoid-clicks">       
-          <div class="scene"></div>
-          <div v-for="rowindex in seatsRow" :key="rowindex">
+          <div class="flexdirectioncolumn" style="margin: 5px 0px;"><div class="scene">BIODUK</div></div>
+          <div style="height: 30px;" v-for="rowindex in seatsRow" :key="rowindex">
             <div class="seatsrow">
               <div class="seatscolumn" 
               v-for="columnindex in auditorium[0].seatsPerRow[rowindex-1]" 
@@ -86,6 +84,7 @@ export default {
       seatsRow: 0,
       seats: [],
       bookings:[],
+      newBooking:[],
       bookedSeatsCount: 0,
       choosenSeatCount: 0
     };
@@ -132,7 +131,7 @@ export default {
     showPanel: function() {
       document.getElementById('ticketSelectorSection').classList.remove('avoid-clicks');
       document.getElementById('scenePanel').classList.add('avoid-clicks');
-      document.getElementById('saveBtn').style.visibility= "hidden";
+      document.getElementById('saveBtn').style.display= "none";
       this.ordinaryTicketCount=0
       this.retiredTicketCount=0
       this.childTicketCount=0
@@ -163,7 +162,7 @@ export default {
           document.getElementById(seatId).classList.add('reservedSeat');
           this.choosenSeatCount++;
           if (this.choosenSeatCount == this.allTypesCount){
-            document.getElementById('saveBtn').style.visibility= "visible";
+            document.getElementById('saveBtn').style.display= "block";
           }
         }
         else{
@@ -191,8 +190,52 @@ export default {
         }
         return null;
     },
-    saveBooking(){
-      alert('coming soon')
+    saveBooking(){      
+      let bookingCount = 0;
+      let underscore = 0;
+      let ticketTypeCount = 0;
+      let ticketType = 0;
+      let ticketPris = 0;
+
+      underscore = this.seats[0].indexOf('_');
+      let bookingNumber = this.showtimeId+this.seats[0].substring(0,underscore)+this.seats[0].substring(underscore+1);
+      //ordinary
+      for(let x = 0; x < 3; x++){
+        if (x == 0){
+          ticketTypeCount = this.ordinaryTicketCount;
+          ticketPris = this.ordinaryTicketPris;
+          ticketType = 1;
+        }
+        else if (x == 1){
+          ticketTypeCount = this.retiredTicketCount;
+          ticketPris = this.retiredTicketPris;
+          ticketType = 2;
+        }
+        else if (x == 2){
+          ticketTypeCount = this.childTicketCount;
+          ticketPris = this.childTicketPris;
+          ticketType = 3;
+        }
+
+        for(let i=0; i < ticketTypeCount; i++){
+          let seatId = this.seats[bookingCount];
+          underscore = seatId.indexOf('_');
+          this.newBooking = {
+                showtimeId: Number(this.showtimeId),
+                ticketType: ticketType.toString(), //ordinary
+                userId: null,
+                bookingNumber: Number(bookingNumber),
+                bookingId: Number(bookingNumber+bookingCount),
+                row: Number(seatId.substring(0,underscore)),
+                col: Number(seatId.substring(underscore+1)),
+                price: ticketPris,
+                bookingDatetime: null
+            }
+          bookingCount++;
+          alert(JSON.stringify(this.newBooking));
+          console.log(this.newBooking);
+        }
+      }      
     }
   },
   computed: {
@@ -251,7 +294,7 @@ export default {
   width: 80%;
   border-radius: 3px; 
   padding: 5px 5px 5px 5px;
-  margin: 15px; 
+  margin: 15px 10px; 
   background-color: #efefef;
   justify-content: space-around;
 }
@@ -284,16 +327,17 @@ export default {
   justify-content: center;
 }
 #ticketsPrice{
-  padding: 0px 15px;
-  width: 100%;
+  margin: auto 0;
+  padding-top: 8px;
+  font-weight: bold;
 }
 #bookingBtn, #changeBtn{
-  margin: 15px;
+  margin: 15px 10px;
   display: none;
 }
 #saveBtn{
-  margin: 15px;
-  visibility: hidden;
+  margin: 15px 10px;
+  display: none;
 }
 #bookingBtn a{  
   color: #fff!important;
@@ -335,10 +379,15 @@ export default {
   border-color: #ff8383;
 }
 .scene{
-  width: 80%;
-  border-color: #000;
-  padding: 3px;
-  height: 5%;
+  height: 50px;
+  width: 250px;
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(rgb(255, 126, 126), rgb(200, 71, 66));
+  opacity: 0.8;
+  border-radius: 5px 5px 0px 0px;
+  color: #FFF;
+  padding-top: 15px;
+  margin-bottom: 10px;
 }
 #scenePanel{
   width: 100%;
@@ -351,14 +400,14 @@ export default {
   background: #111010;
   opacity: 0.5;
 }
-.allTicketSection{
-  margin: 15px 0px 0px 0px;
-}
 .reservedSeat{
   background-color: #ff8383;
 }
 .soldSeat{
   background-color: #e93030;
   pointer-events: none;
+}
+.btn-small{
+  width: 150px;
 }
 </style>

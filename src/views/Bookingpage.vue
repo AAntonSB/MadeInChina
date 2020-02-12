@@ -332,7 +332,7 @@ export default {
   border-style: solid;
 }
 .seatscolumn:hover{
-  background-color: #21c02f;
+  border-color: #ff8383;
 }
 .scene{
   width: 80%;

@@ -143,6 +143,9 @@ export default {
       document.getElementById('ordinaryMinusIcon').style.visibility= "hidden";
       document.getElementById('retiredMinusIcon').style.visibility= "hidden";
       document.getElementById('childMinusIcon').style.visibility= "hidden";
+      document.getElementById('ordinaryPlusIcon').style.visibility= "visible";
+      document.getElementById('retiredPlusIcon').style.visibility= "visible";
+      document.getElementById('childPlusIcon').style.visibility= "visible";
       document.getElementById('changeBtn').style.display= "none";
     },
     manageSeat(seatId){    

@@ -13,6 +13,17 @@
         <p>{{movi.genre.toString()}}</p>
         <p class="time-and-age">{{movi.time}} | {{movi.age}} år</p>
        <router-link :to="{path: '/bookingpage', query: { showtimeId: 1 }}"><a class="waves-effect waves-light btn-large red book-button">Boka</a></router-link>
+       <div class="dropDownMoviePage">
+          <span id="showDateDropdown"  class="my-custom-dropdown">
+              <select id="showtimeSelect">
+                  <option>Välj dag</option>
+                  <option  v-for="showtime in showtimesByMovieId" 
+                    :key="showtime" 
+                    :id="showtime.showtimeId">
+                    {{getDatum(showtime.startDatetime)}}</option>
+              </select>
+          </span>
+        </div>
       </div>
       </div>
       <div @click="toggleTrailer()" class="overlay" v-if="trailerVisible === true">
@@ -42,24 +53,6 @@
         <p><span style="font-weight: bold;">Språk:</span> {{movi.language}}</p>
       </div>
       </div>
-
-<!-- Drop down borrowed from movies -->  
- <div class="searchcontainer">
-      <span class="my-custom-dropdown">
-      <select name="dateDropdown">
-      <option>Sök via dag</option>
-      <option  v-for="index in 7" :key="index" :value="setDateWithIndex(index)">{{setDateWithIndex(index)}}</option>
-      </select>
-      </span>
-  </div>
- 
-      <!-- <div class="Booking collection">
-          <li class="collection-header"><h4>Visningar v.47</h4></li>
-          <a href="#!" class="collection-item black"><p class="white-font">Film tid</p></a>
-          <a href="#!" class="collection-item black white-font"><p class="white-font">Sal 2 17:00</p> <p class="reddd">68 av 68 platser kvar</p></a>
-          <a href="#!" class="collection-item black white-font"><p class="white-font">Film tid</p></a>
-          <a href="#!" class="collection-item black white-font"><p class="white-font">Film tid</p></a>
-      </div> -->
     </section>
   </div>
 </template>
@@ -69,7 +62,8 @@
 export default {
   data() {
     return {
-      trailerVisible: false
+      trailerVisible: false,
+      selectedMovieId: 0
     };
   },
   computed: {
@@ -78,6 +72,9 @@ export default {
       //return this.$store.getters.getMovieByID(this.$route.query.movieId)
 
       return this.$store.getters.getMovieByID(this.$route.query.movieId)
+    },
+      showtimesByMovieId(){
+        return this.$store.getters.getAllShowtimesByMovieId(this.selectedMovieId)
     },
     /*
     movie2() {
@@ -101,28 +98,9 @@ export default {
       if (e.keyCode === 27 && this.trailerVisible) {
         this.toggleTrailer();
       }
-    },
-
-    // borrowed from movies 
-    
-     setDateWithIndex: function(x){
-        // Getting required values
-        let today = new Date()
-        let year = today.getFullYear()
-        let month = today.getMonth()
-        let day = today.getDate()
-
-        // Creating a new Date (with the delta)
-        let finalDate = new Date(year, month, day + x-1)
-
-        day = ''+finalDate.getDate();
-        //let monthIndex = finalDate.getMonth();
-        month = ''+(finalDate.getMonth()+1)
-        year = finalDate.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-
-        let days = [
+    },   
+         getDatum: function(showtimestDT){
+      let days = [
         'söndag',
         'måndag',
         'tisdag',
@@ -131,11 +109,15 @@ export default {
         'fredag',
         'lördag'
         ]
+      let dayName = days[(showtimestDT.getDay())]
+      let showtimeMinutes=showtimestDT.getMinutes();
 
-        let dayName = days[finalDate.getDay()]
-
-        return day+'/'+month +' '+ ' - '+dayName;
-        }
+      if (showtimeMinutes.toString().length < 2) 
+      {
+        showtimeMinutes = '0' + showtimeMinutes
+      }
+      return (showtimestDT.getDay()+1)+' / '+(showtimestDT.getMonth()+1)+ ' '+showtimestDT.getHours() +':'+showtimeMinutes+' '+dayName;
+    }
   },
   watch: {
     trailerVisible(value){
@@ -151,6 +133,7 @@ export default {
   },
   created() {
     console.log(this.$route.query.movieId);
+    this.selectedMovieId = this.$route.query.movieId;
     window.addEventListener("keydown", this.handleKeyPress);
     this.$store.dispatch("getMovie", this.$route.query.movieId); // vi borde inte använda denna, kör på computed gettern ist
   },
@@ -160,7 +143,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .img-bg img {
   justify-content: flex-start;
   max-width: 100%;
@@ -275,6 +258,65 @@ i.icon-white {
   color: white;
   margin:0px;
   padding: 2px;
+}
+.dropDownMoviePage{
+}
+.my-custom-dropdown {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 10px; /* demo only */
+}
+
+.my-custom-dropdown select {
+    background-color: #C62828;
+    color: #fff;
+    font-size: inherit;
+    padding: .5em;
+    padding-right: 2.5em;
+    margin: 0;
+    border-radius: 3px;
+    text-indent: 0.01px;
+    text-overflow: '';
+    -webkit-appearance: button; /* hide default arrow in chrome OSX */
+    display: block;
+    border: none;
+    border-radius: 2px;
+}
+.my-custom-dropdown::before,
+.my-custom-dropdown::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border: none;
+}
+
+.my-custom-dropdown::before { /*  Custom dropdown arrow cover */
+  width: 2em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+.my-custom-dropdown select[disabled] {
+  color: rgba(0,0,0,.3);
+}
+
+.my-custom-dropdown select[disabled]::after {
+  color: rgba(0,0,0,.1);
+}
+
+.my-custom-dropdown::before {
+  background-color: rgba(0,0,0,.15);
+}
+
+.my-custom-dropdown::after {
+  color: rgba(0,0,0,.4);
+}
+
+.my-custom-dropdown select:focus{
+    outline: none; 
 }
 
 

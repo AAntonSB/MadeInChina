@@ -459,8 +459,9 @@ export default {
 }
 #emailInput{
   width: 200px;
+  height: 30px;
   display: none;
-  border: 1px solid rgb(192, 34, 21);
+  border: 1px solid #9da79e;
   border-radius: 4px;
   margin: auto 5px;
   padding-left: 5px;

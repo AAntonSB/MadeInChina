@@ -96,9 +96,8 @@ export default new Vuex.Store({
 
       let tempseatings = {seats: {}, occupiedSeats: data.bookings.length, availableSeats: data.currentauditorium.seats - data.bookings.length}
 
-      let seatsleft = data.currentauditorium.seats - data.bookings.length
 
-      console.log("number of seats left " + seatsleft)
+      //console.log("number of seats left " + seatsleft)
 
       for (let i = 1; i < data.currentauditorium.seatsPerRow.length + 1; i++){
         tempseatings.seats[i] = []
@@ -222,6 +221,19 @@ export default new Vuex.Store({
           commit('setBookings', {bookings:bookingsdata, currentauditorium: currentauditorium})
 
         },
+
+        async publishBookings({commit}, payload){
+          console.log("publishing Bookings")
+          console.log(payload)
+
+          for(let document of payload.bookings){
+            await db.collection('bookings').add(document)
+          }
+
+          let concatedBookings = this.state.bookings.concat(payload.bookings)
+
+          commit('setBookingsA', concatedBookings)
+        }
   },
   modules: {
   }

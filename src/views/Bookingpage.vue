@@ -45,7 +45,8 @@
         <div class="buttonsBox">
           <button id="bookingBtn" class="btn-small red" v-on:click="showScene()">Välj platser</button>
           <button id="changeBtn" class="btn-small grön" v-on:click="showPanel()">Ändra</button>
-          <div v-if="allTypesCount > 0" id="ticketsPrice" nowrap>{{allTypesCount}} st ({{ticketsPrice}}kr)</div>    
+          <div v-if="allTypesCount > 0" id="ticketsPrice" nowrap>{{allTypesCount}} st ({{ticketsPrice}}kr)</div>
+          <input id="emailInput" type="text" placeholder="Email adress"> 
           <button id="saveBtn" class="btn-small red" v-on:click="saveBooking()">Spara</button>
         </div>        
         <div id="scenePanel" class="avoid-clicks">       
@@ -196,7 +197,13 @@ export default {
       let ticketTypeCount = 0;
       let ticketType = 0;
       let ticketPris = 0;
+      let userId=0;
 
+      if(userId==0){
+        document.getElementById('changeBtn').style.display="none";
+        document.getElementById('emailInput').style.display="block";
+
+      }
       underscore = this.seats[0].indexOf('_');
       let bookingNumber = this.showtimeId+this.seats[0].substring(0,underscore)+this.seats[0].substring(underscore+1);
       //ordinary
@@ -409,5 +416,13 @@ export default {
 }
 .btn-small{
   width: 150px;
+}
+#emailInput{
+  width: 200px;
+  display: none;
+  border: 1px solid rgb(192, 34, 21);
+  border-radius: 4px;
+  margin: auto 5px;
+  padding-left: 5px;
 }
 </style>

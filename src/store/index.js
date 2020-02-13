@@ -20,6 +20,12 @@ export default new Vuex.Store({
       auditoriums: auditoriums,
   },
   getters: {
+
+    getBooked: state => {
+      return state.booked
+
+    },
+
     getMovies: state => { //använd denna hellre än $state.movies
       return state.movies
     },
@@ -88,20 +94,17 @@ export default new Vuex.Store({
      },
      setBookings(state, data){
 
-      let currentshowtime = state.showtimes.find(show => show.showtimeId === data.showtimeId)
+      let tempseatings = {seats: {}, occupiedSeats: data.bookings.length, availableSeats: data.currentauditorium.seats - data.bookings.length}
 
-      console.log(currentshowtime)
 
-      let currentauditorium = state.auditoriums.find(auditorium => auditorium.Id === currentshowtime.auditoriumId)
+      //console.log("number of seats left " + seatsleft)
 
-      let tempseatings = {}
-
-      for (let i = 1; i < currentauditorium.seatsPerRow.length + 1; i++){
-        tempseatings[i] = []
+      for (let i = 1; i < data.currentauditorium.seatsPerRow.length + 1; i++){
+        tempseatings.seats[i] = []
       }
 
       for(let document of data.bookings){
-        tempseatings[document.row].push(document.col)
+        tempseatings.seats[document.row].push(document.col)
       }
 
       state.booked = tempseatings
@@ -131,6 +134,7 @@ export default new Vuex.Store({
      }
   },
   actions: {
+    
       // Bind till våra egna metoder 
         //Get data from firebase
         async getMovies({commit}){   // async = möjlighet att vänta på svar.
@@ -193,8 +197,8 @@ export default new Vuex.Store({
         },
         async pullBookings({commit}, payload){
 
-          console.log("pulling bookings")
-          //console.log(payload.showtimeId)
+          console.log("pulling bookings for :" + payload.showtimeId)
+          //console.log(payload)
 
           let querySnapshot = await db.collection("bookings").where("showtimeId","==",payload.showtimeId).get()
 
@@ -204,9 +208,32 @@ export default new Vuex.Store({
             bookingsdata.push(document.data())
           })
 
-          commit('setBookings', {bookings:bookingsdata, showtimeId: payload.showtimeId})
+          let currentshowtime = this.state.showtimes.find(show => show.showtimeId === payload.showtimeId)
+
+          let currentauditorium = null //this.state.auditoriums.find(auditorium => auditorium.Id === currentshowtime.auditoriumId)
+
+          for(let auditorium of this.state.auditoriums){
+            if(auditorium.id == currentshowtime.auditoriumId){
+              currentauditorium = auditorium
+            }
+          }
+
+          commit('setBookings', {bookings:bookingsdata, currentauditorium: currentauditorium})
 
         },
+
+        async publishBookings({commit}, payload){
+          console.log("publishing Bookings")
+          console.log(payload)
+
+          for(let document of payload.bookings){
+            await db.collection('bookings').add(document)
+          }
+
+          let concatedBookings = this.state.bookings.concat(payload.bookings)
+
+          commit('setBookingsA', concatedBookings)
+        }
   },
   modules: {
   }

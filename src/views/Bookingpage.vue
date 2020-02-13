@@ -66,6 +66,7 @@
 </template>
     
 <script>
+import {db} from '@/firebase'
 
 export default {
   data() {
@@ -86,10 +87,18 @@ export default {
       bookings:[],
       newBooking:[],
       bookedSeatsCount: 0,
-      choosenSeatCount: 0
+      choosenSeatCount: 0,
     };
   },
   methods: {
+
+    uploadBookings: function(arrayOfTickets)  { //Use this to upload the tickets.
+
+      for(let ticket of arrayOfTickets){
+        db.collection('bookings').add(ticket)
+      }
+    },
+
     checkCounter: function(ticketType){
       if(ticketType == 'ordinary'){
         if(this.ordinaryTicketCount == 0){
@@ -239,6 +248,13 @@ export default {
     }
   },
   computed: {
+
+    bookingsobject() {
+
+      return this.$store.getters.getBooked
+
+    }, 
+
     ticketsPrice: { 
         get: function() {          
             return (this.ordinaryTicketCount*this.ordinaryTicketPris)
@@ -260,8 +276,10 @@ export default {
   created() {
     console.log('bookingpage:'+this.$route.query.showtimeId);
     this.$store.dispatch("pullShowtimes");
-    this.$store.dispatch("pullBookings");
+    this.$store.dispatch("pullBookings", {showtimeId: this.$route.query.showtimeId});
     this.$store.dispatch("getBookings");
+    //publish bookings have been tested, it takes a payload object with the attribute bookings which is a list of bookings objects
+    //this.$store.dispatch("publishBookings", {bookings:[{bookingDatetime: null, bookingId: 8, bookingNumber: 1004, col: 2, price: 85, row: 3, showtimeId: 1, tickeType: "1", userId: "null"}]})
   },
 };
 </script>

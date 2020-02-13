@@ -67,6 +67,8 @@
 </template>
     
 <script>
+import * as firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
   data() {
@@ -84,9 +86,9 @@ export default {
       allTypesCount: 0,
       seatsRow: 0,
       seats: [],
-      bookings:[],
+      //bookings:[],
       newBooking:[],
-      bookedSeatsCount: 0,
+      //bookedSeatsCount: 0,
       choosenSeatCount: 0
     };
   },
@@ -177,15 +179,11 @@ export default {
         this.seatsRow = this.$store.getters.getAuditorium(this.auditoriumId)[0].seatsPerRow.length;
         this.auditoriumSize = this.$store.getters.getAuditorium(this.auditoriumId)[0].seats;
     },
-    getBookedSeats(){
-      this.bookings=this.$store.getters.getAllBookingsByShowtimeId(this.$route.query.showtimeId);
-      this.bookedSeatsCount=this.bookings.length;
-    },
     getAuditorium() {
       this.auditorium = this.$store.getters.getAuditorium(this.auditoriumId)
     },
     setBookedSeats(){
-        for(let b = 0; b < this.bookings.length; b++){
+        for(let b = 0; b < this.bookedSeatsCount; b++){
           let bookedSeatId = this.bookings[b].row+'_'+this.bookings[b].col;
           document.getElementById(bookedSeatId).classList.add("soldSeat");
         }
@@ -197,55 +195,73 @@ export default {
       let ticketTypeCount = 0;
       let ticketType = 0;
       let ticketPris = 0;
-      let userId=0;
+      //let userId=0;
 
-      if(userId==0){
+      var user = firebase.auth().currentUser;
+
+      if (user || document.getElementById('emailInput').value.length > 0) {
+        // User is signed in.
+        underscore = this.seats[0].indexOf('_');
+        let bookingNumber = this.showtimeId+this.seats[0].substring(0,underscore)+this.seats[0].substring(underscore+1);
+        //ordinary
+        for(let x = 0; x < 3; x++){
+          if (x == 0){
+            ticketTypeCount = this.ordinaryTicketCount;
+            ticketPris = this.ordinaryTicketPris;
+            ticketType = 1;
+          }
+          else if (x == 1){
+            ticketTypeCount = this.retiredTicketCount;
+            ticketPris = this.retiredTicketPris;
+            ticketType = 2;
+          }
+          else if (x == 2){
+            ticketTypeCount = this.childTicketCount;
+            ticketPris = this.childTicketPris;
+            ticketType = 3;
+          }
+
+          for(let i=0; i < ticketTypeCount; i++){
+            let seatId = this.seats[bookingCount];
+            underscore = seatId.indexOf('_');
+            this.newBooking = {
+                  showtimeId: Number(this.showtimeId),
+                  ticketType: ticketType.toString(), //ordinary
+                  userId: null,
+                  bookingNumber: Number(bookingNumber),
+                  bookingId: Number(bookingNumber+bookingCount),
+                  row: Number(seatId.substring(0,underscore)),
+                  col: Number(seatId.substring(underscore+1)),
+                  price: ticketPris,
+                  bookingDatetime: null
+              }
+            bookingCount++;
+            alert(JSON.stringify(this.newBooking));
+            console.log(this.newBooking);
+          }
+        }
+      } else {
+        // No user is signed in.
         document.getElementById('changeBtn').style.display="none";
         document.getElementById('emailInput').style.display="block";
-
-      }
-      underscore = this.seats[0].indexOf('_');
-      let bookingNumber = this.showtimeId+this.seats[0].substring(0,underscore)+this.seats[0].substring(underscore+1);
-      //ordinary
-      for(let x = 0; x < 3; x++){
-        if (x == 0){
-          ticketTypeCount = this.ordinaryTicketCount;
-          ticketPris = this.ordinaryTicketPris;
-          ticketType = 1;
-        }
-        else if (x == 1){
-          ticketTypeCount = this.retiredTicketCount;
-          ticketPris = this.retiredTicketPris;
-          ticketType = 2;
-        }
-        else if (x == 2){
-          ticketTypeCount = this.childTicketCount;
-          ticketPris = this.childTicketPris;
-          ticketType = 3;
-        }
-
-        for(let i=0; i < ticketTypeCount; i++){
-          let seatId = this.seats[bookingCount];
-          underscore = seatId.indexOf('_');
-          this.newBooking = {
-                showtimeId: Number(this.showtimeId),
-                ticketType: ticketType.toString(), //ordinary
-                userId: null,
-                bookingNumber: Number(bookingNumber),
-                bookingId: Number(bookingNumber+bookingCount),
-                row: Number(seatId.substring(0,underscore)),
-                col: Number(seatId.substring(underscore+1)),
-                price: ticketPris,
-                bookingDatetime: null
-            }
-          bookingCount++;
-          alert(JSON.stringify(this.newBooking));
-          console.log(this.newBooking);
-        }
       }      
     }
   },
   computed: {
+    bookings: {
+      get: function() {            
+          return this.$store.getters.getAllBookingsByShowtimeId(this.$route.query.showtimeId);
+        },
+        set: function() {            
+        }
+    },
+    bookedSeatsCount:{
+      get: function() {            
+          return this.$store.getters.getAllBookingsByShowtimeId(this.$route.query.showtimeId).length;
+        },
+        set: function() {            
+        }
+    },
     ticketsPrice: { 
         get: function() {          
             return (this.ordinaryTicketCount*this.ordinaryTicketPris)

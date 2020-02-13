@@ -1,5 +1,5 @@
 <template>
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; flex-grow: 1;" class="">      
+    <div style="display: flex; flex-wrap: wrap; justify-content: center;" class="">      
       <div class="flexdirectioncolumn  bookingbox">
         <div id="ticketSelectorSection">
           <div id="bookingPanel">
@@ -42,7 +42,8 @@
             </div>          
           </div>
         </div>
-        <div class="buttonsBox">
+        <div id="buttons" class="buttonsBox">          
+          <div id="finishedText">Klar med bokningen.</div>
           <button id="bookingBtn" class="btn-small red" v-on:click="showScene()">Välj platser</button>
           <button id="changeBtn" class="btn-small grön" v-on:click="showPanel()">Ändra</button>
           <div v-if="allTypesCount > 0" id="ticketsPrice" nowrap>{{allTypesCount}} st ({{ticketsPrice}}kr)</div>
@@ -205,7 +206,7 @@ export default {
       let ticketType = 0;
       let ticketPris = 0;
       //let userId=0;
-
+      document.getElementById('scenePanel').classList.add('avoid-clicks');
       var user = firebase.auth().currentUser;
 
       if (user || document.getElementById('emailInput').value.length > 0) {
@@ -244,9 +245,22 @@ export default {
                   price: ticketPris,
                   bookingDatetime: null
               }
+            this.$store.dispatch("publishBookings", {bookings:[{bookingDatetime: null, 
+                                                                bookingId: Number(bookingNumber+bookingCount), 
+                                                                bookingNumber: Number(bookingNumber), 
+                                                                col: Number(seatId.substring(underscore+1)), 
+                                                                price: ticketPris, 
+                                                                row: Number(seatId.substring(0,underscore)), 
+                                                                showtimeId: Number(this.showtimeId), 
+                                                                tickeType: ticketType.toString(), 
+                                                                userId: "null"}]})
             bookingCount++;
-            alert(JSON.stringify(this.newBooking));
+            //alert(JSON.stringify(this.newBooking));
             console.log(this.newBooking);
+            document.getElementById('emailInput').style.display='none';
+            document.getElementById('saveBtn').style.display='none';
+            document.getElementById('buttons').style.backgroundColor='#53ba4c';
+            document.getElementById('finishedText').style.display='block';
           }
         }
       } else {
@@ -284,7 +298,6 @@ export default {
   mounted() {
     this.setAuditoriumId();
     this.getAuditorium();
-    this.getBookedSeats();
   },
   updated(){
     this.setBookedSeats();
@@ -451,5 +464,11 @@ export default {
   border-radius: 4px;
   margin: auto 5px;
   padding-left: 5px;
+}
+#finishedText{
+  display: none;
+  margin: 15px 15px 10px 15px;
+  font-weight: bold;
+  font-size: 20px;
 }
 </style>

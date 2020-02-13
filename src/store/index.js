@@ -43,8 +43,8 @@ export default new Vuex.Store({
 
     },
     
-    getSingleShowtimeById: state=> (showtimeid) => {
-      return state.showtimes.filter(showtime => showtime.showtimeId == showtimeid)
+    getSingleShowtimeById: state=> (showtimeId) => {
+      return state.showtimes.filter(showtime => showtime.showtimeId == showtimeId)
     },
 
     getShowtimesByMovieId: state => (movieId) => {
@@ -53,6 +53,10 @@ export default new Vuex.Store({
 
     getAuditorium : state => (auditoriumId) => {
       return state.auditoriums.filter(auditorium => auditorium.id == auditoriumId);
+    },
+
+    getAllBookingsByShowtimeId: state => (showtimeId) => {
+      return state.bookings.filter(bookings => bookings.showtimeId == showtimeId)
     },
     /*getAuditoriumIdByShowtimeId : state => (showtimeId) => {
       return state.db.collection("showtimes").where("showtimeId","==",showtimeId).showtimeId
@@ -79,7 +83,9 @@ export default new Vuex.Store({
      setAuditoriums(state, data){
       state.auditoriums = data
      },
-
+     setBookingsA(state, data){
+      state.bookings = data
+     },
      setBookings(state, data){
 
       let currentshowtime = state.showtimes.find(show => show.showtimeId === data.showtimeId)
@@ -157,7 +163,7 @@ export default new Vuex.Store({
           commit('setShowtimes', data)
           }
         },*/
-        /*async getBookings({commit}){   // async = möjlighet att vänta på svar.
+        async getBookings({commit}){   // async = möjlighet att vänta på svar.
           if (this.state.bookings.length === 0){ // om arrayn state.movies är tom, hämta från databasen, här sparar vi en massa fb reads
             console.log("retrieving bookings from DB")
             let querySnapshot = await db.collection("bookings").get()
@@ -165,9 +171,9 @@ export default new Vuex.Store({
             querySnapshot.forEach((document) => {
             data.push(document.data())
           })
-          commit('setBookings', data)
+          commit('setBookingsA', data)
           }
-        },*/
+        },
         /* pullShowtimes och pullBookings försvann med merge. Jag tog tillbaka den från Joakims version. */
         async pullShowtimes(){
 
@@ -188,7 +194,7 @@ export default new Vuex.Store({
         async pullBookings({commit}, payload){
 
           console.log("pulling bookings")
-          console.log(payload.showtimeId)
+          //console.log(payload.showtimeId)
 
           let querySnapshot = await db.collection("bookings").where("showtimeId","==",payload.showtimeId).get()
 

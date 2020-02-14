@@ -205,6 +205,8 @@ export default {
       let ticketTypeCount = 0;
       let ticketType = 0;
       let ticketPris = 0;
+      let email = null;
+      let userId = null;
       //let userId=0;
       document.getElementById('scenePanel').classList.add('avoid-clicks');
       var user = firebase.auth().currentUser;
@@ -212,6 +214,11 @@ export default {
       if (user || document.getElementById('emailInput').value.length > 0) {
         // User is signed in.
         underscore = this.seats[0].indexOf('_');
+        if (user){
+          userId = user.uid;
+        } else {
+          email = document.getElementById('emailInput').value;
+        }
         let bookingNumber = this.showtimeId+this.seats[0].substring(0,underscore)+this.seats[0].substring(underscore+1);
         //ordinary
         for(let x = 0; x < 3; x++){
@@ -237,14 +244,16 @@ export default {
             this.newBooking = {
                   showtimeId: Number(this.showtimeId),
                   ticketType: ticketType.toString(), //ordinary
-                  userId: null,
+                  userId: userId,
                   bookingNumber: Number(bookingNumber),
                   bookingId: Number(bookingNumber+bookingCount),
                   row: Number(seatId.substring(0,underscore)),
                   col: Number(seatId.substring(underscore+1)),
                   price: ticketPris,
-                  bookingDatetime: null
+                  bookingDatetime: null,
+                  email: email
               }
+
             this.$store.dispatch("publishBookings", {bookings:[{bookingDatetime: null, 
                                                                 bookingId: Number(bookingNumber+bookingCount), 
                                                                 bookingNumber: Number(bookingNumber), 
@@ -253,7 +262,8 @@ export default {
                                                                 row: Number(seatId.substring(0,underscore)), 
                                                                 showtimeId: Number(this.showtimeId), 
                                                                 tickeType: ticketType.toString(), 
-                                                                userId: "null"}]})
+                                                                userId: userId,
+                                                                email: email}]})
             bookingCount++;
             //alert(JSON.stringify(this.newBooking));
             console.log(this.newBooking);
@@ -261,6 +271,7 @@ export default {
             document.getElementById('saveBtn').style.display='none';
             document.getElementById('buttons').style.backgroundColor='#53ba4c';
             document.getElementById('finishedText').style.display='block';
+            document.getElementById('changeBtn').style.display="none";
           }
         }
       } else {

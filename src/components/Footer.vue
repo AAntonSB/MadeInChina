@@ -3,7 +3,8 @@
       <div class>
         <div class="row">
           <div class="col l4">
-            <h5 class="white-text">Om oss</h5>
+            <h5 class="white-text">
+              <router-link :to="{path: '/omoss'}">Om oss</router-link></h5>
             <ul>
               <li>
                 <a class="grey-text text-lighten-3" href="#!">Kontakta oss</a>

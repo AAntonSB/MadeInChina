@@ -1,5 +1,5 @@
 <template>
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; flex-grow: 1;" class="">      
+    <div style="display: flex; flex-wrap: wrap; justify-content: center;" class="">      
       <div class="flexdirectioncolumn  bookingbox">
         <div id="ticketSelectorSection">
           <div id="bookingPanel">
@@ -42,7 +42,8 @@
             </div>          
           </div>
         </div>
-        <div class="buttonsBox">
+        <div id="buttons" class="buttonsBox">          
+          <div id="finishedText">Klar med bokningen.</div>
           <button id="bookingBtn" class="btn-small red" v-on:click="showScene()">Välj platser</button>
           <button id="changeBtn" class="btn-small grön" v-on:click="showPanel()">Ändra</button>
           <div v-if="allTypesCount > 0" id="ticketsPrice" nowrap>{{allTypesCount}} st ({{ticketsPrice}}kr)</div>
@@ -67,6 +68,9 @@
 </template>
     
 <script>
+import * as firebase from "firebase/app";
+import "firebase/auth";
+import {db} from '@/firebase'
 
 export default {
   data() {
@@ -84,13 +88,21 @@ export default {
       allTypesCount: 0,
       seatsRow: 0,
       seats: [],
-      bookings:[],
+      //bookings:[],
       newBooking:[],
-      bookedSeatsCount: 0,
+      //bookedSeatsCount: 0,
       choosenSeatCount: 0
     };
   },
   methods: {
+
+    uploadBookings: function(arrayOfTickets)  { //Use this to upload the tickets.
+
+      for(let ticket of arrayOfTickets){
+        db.collection('bookings').add(ticket)
+      }
+    },
+
     checkCounter: function(ticketType){
       if(ticketType == 'ordinary'){
         if(this.ordinaryTicketCount == 0){
@@ -177,15 +189,11 @@ export default {
         this.seatsRow = this.$store.getters.getAuditorium(this.auditoriumId)[0].seatsPerRow.length;
         this.auditoriumSize = this.$store.getters.getAuditorium(this.auditoriumId)[0].seats;
     },
-    getBookedSeats(){
-      this.bookings=this.$store.getters.getAllBookingsByShowtimeId(this.$route.query.showtimeId);
-      this.bookedSeatsCount=this.bookings.length;
-    },
     getAuditorium() {
       this.auditorium = this.$store.getters.getAuditorium(this.auditoriumId)
     },
     setBookedSeats(){
-        for(let b = 0; b < this.bookings.length; b++){
+        for(let b = 0; b < this.bookedSeatsCount; b++){
           let bookedSeatId = this.bookings[b].row+'_'+this.bookings[b].col;
           document.getElementById(bookedSeatId).classList.add("soldSeat");
         }
@@ -197,55 +205,86 @@ export default {
       let ticketTypeCount = 0;
       let ticketType = 0;
       let ticketPris = 0;
-      let userId=0;
+      //let userId=0;
+      document.getElementById('scenePanel').classList.add('avoid-clicks');
+      var user = firebase.auth().currentUser;
 
-      if(userId==0){
+      if (user || document.getElementById('emailInput').value.length > 0) {
+        // User is signed in.
+        underscore = this.seats[0].indexOf('_');
+        let bookingNumber = this.showtimeId+this.seats[0].substring(0,underscore)+this.seats[0].substring(underscore+1);
+        //ordinary
+        for(let x = 0; x < 3; x++){
+          if (x == 0){
+            ticketTypeCount = this.ordinaryTicketCount;
+            ticketPris = this.ordinaryTicketPris;
+            ticketType = 1;
+          }
+          else if (x == 1){
+            ticketTypeCount = this.retiredTicketCount;
+            ticketPris = this.retiredTicketPris;
+            ticketType = 2;
+          }
+          else if (x == 2){
+            ticketTypeCount = this.childTicketCount;
+            ticketPris = this.childTicketPris;
+            ticketType = 3;
+          }
+
+          for(let i=0; i < ticketTypeCount; i++){
+            let seatId = this.seats[bookingCount];
+            underscore = seatId.indexOf('_');
+            this.newBooking = {
+                  showtimeId: Number(this.showtimeId),
+                  ticketType: ticketType.toString(), //ordinary
+                  userId: null,
+                  bookingNumber: Number(bookingNumber),
+                  bookingId: Number(bookingNumber+bookingCount),
+                  row: Number(seatId.substring(0,underscore)),
+                  col: Number(seatId.substring(underscore+1)),
+                  price: ticketPris,
+                  bookingDatetime: null
+              }
+            this.$store.dispatch("publishBookings", {bookings:[{bookingDatetime: null, 
+                                                                bookingId: Number(bookingNumber+bookingCount), 
+                                                                bookingNumber: Number(bookingNumber), 
+                                                                col: Number(seatId.substring(underscore+1)), 
+                                                                price: ticketPris, 
+                                                                row: Number(seatId.substring(0,underscore)), 
+                                                                showtimeId: Number(this.showtimeId), 
+                                                                tickeType: ticketType.toString(), 
+                                                                userId: "null"}]})
+            bookingCount++;
+            //alert(JSON.stringify(this.newBooking));
+            console.log(this.newBooking);
+            document.getElementById('emailInput').style.display='none';
+            document.getElementById('saveBtn').style.display='none';
+            document.getElementById('buttons').style.backgroundColor='#53ba4c';
+            document.getElementById('finishedText').style.display='block';
+          }
+        }
+      } else {
+        // No user is signed in.
         document.getElementById('changeBtn').style.display="none";
         document.getElementById('emailInput').style.display="block";
-
-      }
-      underscore = this.seats[0].indexOf('_');
-      let bookingNumber = this.showtimeId+this.seats[0].substring(0,underscore)+this.seats[0].substring(underscore+1);
-      //ordinary
-      for(let x = 0; x < 3; x++){
-        if (x == 0){
-          ticketTypeCount = this.ordinaryTicketCount;
-          ticketPris = this.ordinaryTicketPris;
-          ticketType = 1;
-        }
-        else if (x == 1){
-          ticketTypeCount = this.retiredTicketCount;
-          ticketPris = this.retiredTicketPris;
-          ticketType = 2;
-        }
-        else if (x == 2){
-          ticketTypeCount = this.childTicketCount;
-          ticketPris = this.childTicketPris;
-          ticketType = 3;
-        }
-
-        for(let i=0; i < ticketTypeCount; i++){
-          let seatId = this.seats[bookingCount];
-          underscore = seatId.indexOf('_');
-          this.newBooking = {
-                showtimeId: Number(this.showtimeId),
-                ticketType: ticketType.toString(), //ordinary
-                userId: null,
-                bookingNumber: Number(bookingNumber),
-                bookingId: Number(bookingNumber+bookingCount),
-                row: Number(seatId.substring(0,underscore)),
-                col: Number(seatId.substring(underscore+1)),
-                price: ticketPris,
-                bookingDatetime: null
-            }
-          bookingCount++;
-          alert(JSON.stringify(this.newBooking));
-          console.log(this.newBooking);
-        }
       }      
     }
   },
   computed: {
+    bookings: {
+      get: function() {            
+          return this.$store.getters.getAllBookingsByShowtimeId(this.$route.query.showtimeId);
+        },
+        set: function() {            
+        }
+    },
+    bookedSeatsCount:{
+      get: function() {            
+          return this.$store.getters.getAllBookingsByShowtimeId(this.$route.query.showtimeId).length;
+        },
+        set: function() {            
+        }
+    },
     ticketsPrice: { 
         get: function() {          
             return (this.ordinaryTicketCount*this.ordinaryTicketPris)
@@ -259,7 +298,6 @@ export default {
   mounted() {
     this.setAuditoriumId();
     this.getAuditorium();
-    this.getBookedSeats();
   },
   updated(){
     this.setBookedSeats();
@@ -267,8 +305,10 @@ export default {
   created() {
     console.log('bookingpage:'+this.$route.query.showtimeId);
     this.$store.dispatch("pullShowtimes");
-    this.$store.dispatch("pullBookings");
+    this.$store.dispatch("pullBookings", {showtimeId: this.$route.query.showtimeId});
     this.$store.dispatch("getBookings");
+    //publish bookings have been tested, it takes a payload object with the attribute bookings which is a list of bookings objects
+    //this.$store.dispatch("publishBookings", {bookings:[{bookingDatetime: null, bookingId: 8, bookingNumber: 1004, col: 2, price: 85, row: 3, showtimeId: 1, tickeType: "1", userId: "null"}]})
   },
 };
 </script>
@@ -419,10 +459,17 @@ export default {
 }
 #emailInput{
   width: 200px;
+  height: 30px;
   display: none;
-  border: 1px solid rgb(192, 34, 21);
+  border: 1px solid #9da79e;
   border-radius: 4px;
   margin: auto 5px;
   padding-left: 5px;
+}
+#finishedText{
+  display: none;
+  margin: 15px 15px 10px 15px;
+  font-weight: bold;
+  font-size: 20px;
 }
 </style>

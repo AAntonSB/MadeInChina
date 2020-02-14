@@ -23,6 +23,9 @@ export default new Vuex.Store({
     getMovies: state => { //använd denna hellre än $state.movies
       return state.movies
     },
+    getShowTimes: state => {
+      return state.showtimes
+    },
 
     getBookings: state => {
         return state.placeholderbookings

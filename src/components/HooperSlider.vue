@@ -124,23 +124,6 @@
   -ms-user-select: none; 
   user-select: none;
 }
-/*
-@media only screen and (max-width: 1100px)  {
-  .hooper-img{
-    height: 90%!important;
-    }  
-}
-@media only screen and (max-width: 850px)  {
-  .hooper-img{
-    height: 80%!important;
-    }  
-}
-@media only screen and (max-width: 700px)  {
-  .hooper-img{
-    height: 70%!important;
-    }  
-}
-*/
 
 </style>
  <script>

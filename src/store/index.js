@@ -92,6 +92,9 @@ export default new Vuex.Store({
      setBookingsA(state, data){
       state.bookings = data
      },
+     setshowtimesA(state, data){
+      state.showtimes = data
+     },
      setBookings(state, data){
 
       let tempseatings = {seats: {}, occupiedSeats: data.bookings.length, availableSeats: data.currentauditorium.seats - data.bookings.length}
@@ -233,6 +236,16 @@ export default new Vuex.Store({
           let concatedBookings = this.state.bookings.concat(payload.bookings)
 
           commit('setBookingsA', concatedBookings)
+        },
+        async publishShowtimes({commit}, payload){
+
+          for(let document of payload.showtimes){
+            await db.collection('showtimes').add(document)
+          }
+        
+          let concatedShowtimes = this.state.showtimes.concat(payload.showtimes)
+        
+          commit('setShowtimesA', concatedShowtimes)
         }
   },
   modules: {

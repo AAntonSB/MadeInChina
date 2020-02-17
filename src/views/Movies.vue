@@ -239,7 +239,8 @@ export default {
     return {
       selectedDate: 0,
       selectedMovieId: 0,
-      selectedShowtimeId: 0
+      selectedShowtimeId: 0,
+      currentDate: new Date()
     };
   },
   mounted() {
@@ -250,7 +251,7 @@ export default {
         return this.$store.getters.getMovies
     },
     showtimesByMovieId(){
-        return this.$store.getters.getAllShowtimesByMovieId(this.selectedMovieId)
+        return this.$store.getters.getAllShowtimesByMovieId(this.selectedMovieId).filter(showtime => showtime.startDatetime > this.currentDate)
     },
     randommovie: function (){
         //return this.$store.state.movie

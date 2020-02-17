@@ -1,7 +1,6 @@
-
 <template>
   <div id="app">
-    <header>
+    <header class="navbar-fixed">
       <nav>
         <div class="nav-wrapper">
           <button id="show-menu-button" v-on:click="showNavMenu()">
@@ -13,7 +12,7 @@
 
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-              <a href="sass.html">Om Oss</a>
+              <a href="sass.html">Om oss</a>
             </li>
             <li>
               <a href="badges.html">Filmer</a>
@@ -24,34 +23,24 @@
           </ul>
 
           <div class="nav-search">
-            <div class="btn">
+            <div class="nav-search-btn btn">
               <i class="material-icons search-icon">search</i>
             </div>
-            <div id="search-box" v-on:click="dropdownFunction()">
-              <input
-                type="text"
-                class="search-input"
-                placeholder="Sök"
-                v-on:keyup="filterFunction()"
-              />
-              <div id="dropdown-content">
-               <a href="#movieTitle" v-for="movie in movies" v-bind:key="movie.id">{{movie.title}}</a>
-              </div>
-              <!-- <a href="#base">Base</a>
-              <a href="#blog">Blog</a>
-              <a href="#contact">Contact</a>
-              <a href="#custom">Custom</a>
-              <a href="#support">Support</a>
-              <a href="#tools">Tools</a>  -->
+            <div class="search-box">
+              <input type="text" class="search-input" placeholder="Sök" />
             </div>
           </div>
+         <router-link to="/"><div style="font-size: 35px">logo</div></router-link>
 
+          <!-- <a href="#">
+            <i class="material-icons account-icon">account_circle</i>
+          </a> -->
         </div>
         <div id="mySidenav" class="sidenavmenu">
           <a href="#">
             <i class="material-icons account-icon">account_circle</i>
           </a>
-          <a href="#">Om Oss</a>
+          <a href="#">About</a>
           <a href="#">Filmer</a>
           <a href="#">Medlem</a>
         </div>
@@ -71,57 +60,7 @@
       <router-view :key="$route.fullPath"></router-view>
     </div>
 
-    <footer>
-      <div class>
-        <div class="row">
-          <div class="col l4">
-            <h5 class="white-text">Om oss</h5>
-            <ul>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Kontakta oss</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Jobba hos oss</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Vår historia</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col l4">
-            <h5 class="white-text">Sociala medier</h5>
-            <ul>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Facebook</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Instagram</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Twitter</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col l4">
-            <h5 class="white-text">Medlemsskap</h5>
-            <ul>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Logga in</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Bli medlem</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Medlemsförmåner</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-copyright">
-        <div class="container">© 2018 Copyright Text</div>
-      </div>
-    </footer>
+    <Footer />
   </div>
 </template>
 
@@ -133,8 +72,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
-
 #app {
   flex-grow: 1;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -147,15 +86,14 @@ body {
   margin: 0;
   padding: 0;
 }
-
 header {
   color: #fff;
   height: 10%;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  position: fixed;
-  z-index: 10;
+  
+  z-index: 5;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -166,12 +104,10 @@ nav {
 #nav {
   padding: 30px;
 }
-
 #nav a {
   font-weight: bold;
   color: #2c3e50;
 }
-
 #nav a.router-link-exact-active {
   color: #42b983;
 }
@@ -182,24 +118,25 @@ nav {
   box-sizing: border-box;
   left: 10px;
 }
-#search-box {
+.search-box {
   position: relative;
   display: inline-block;
   height: 50px;
   left: 10px;
-  flex-direction: column;
 }
-.btn {
+ .nav-search-btn{
   align-self: center;
   border-radius: 50%;
   width: 36px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2); 
   padding: 0px;
+  
 }
-.btn:hover {
-  background-image: none;
-  background-color: rgba(255, 254, 254, 0.4);
-}
+.nav-search-btn:hover
+{
+background-image:none;
+background-color:rgba(255, 254, 254, 0.4); 
+} 
 
 .search-icon {
   position: absolute;
@@ -212,40 +149,26 @@ nav {
   justify-content: center;
 }
 
-.search-input:focus{
-  border-bottom: none !important;
- 
-}
-a #movieTitle{
-  display: flex; 
-  flex-direction: row;
-}
-#dropdown-content {
-  visibility: hidden;
-  position: absolute;
-  background-color: #f6f6f6;
-  min-width: 230px;
-  border: 1px solid #ddd;
-  z-index: 1;
-}
-
 .containerapp {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  margin-top: 65px;
 }
-
 .flexdirectioncolumn {
   display: flex;
   flex-direction: column;
 }
 
-.flexcenter {
+.flexdirectionrow {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
 }
 
+.flexcenter{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .imgholder {
   max-height: 300px;
   width: fit-content;
@@ -268,31 +191,20 @@ a #movieTitle{
   border: none;
   border-radius: 50%;
 }
-
 footer {
   background-color: #c02215;
   color: #fff;
 }
+footer h5, footer{
+  font-size: 12px!important;
+}
+@media  (min-width: 1000px) {
+  footer h5, footer{
+    font-size: 18px!important;
+  }
+}
 .row .col {
   width: 33%;
-}
-.hooper {
-  margin: 15px;
-}
-
-.hooper span {
-  color: #c21c1c;
-  font-size: 14px;
-  margin-bottom: 5px;
-  max-width: 160px;
-}
-.hooper img {
-  height: 100%;
-  border-radius: 5px;
-}
-.hooper-next,
-.hooper-prev {
-  padding: 1em 0em !important;
 }
 
 .icon {
@@ -307,7 +219,6 @@ footer {
 button:focus {
   background-color: transparent;
 }
-
 @media only screen and (max-width: 992px) {
   .nav-search {
     display: none;
@@ -333,7 +244,6 @@ button:focus {
 .menu-button {
   color: white;
 }
-
 .sidenavmenu {
   width: 0;
   position: fixed;
@@ -346,7 +256,6 @@ button:focus {
   color: #fff;
   margin-top: 55px;
 }
-
 .sidenavmenu a {
   padding: 8px;
   text-decoration: none;
@@ -355,11 +264,9 @@ button:focus {
   display: block;
   transition: 0.3s;
 }
-
 .sidenavmenu a:hover {
   background-color: #9f2727;
 }
-
 .sidenavmenu .closebtn {
   position: absolute;
   top: 0;
@@ -367,8 +274,7 @@ button:focus {
   font-size: 36px;
   margin-left: 50px;
 }
-
-.account-icon {
+.account-icon{
   font-size: 40px !important;
 }
 
@@ -376,7 +282,7 @@ button:focus {
   height: 100%;
   width: 100%;
   position: fixed; /* Stay in place */
-  z-index: 50; /* Sit on top */
+  z-index: 6; /* Sit on top */
   left: 0px;
   top: 0px;
   background-color: rgb(0, 0, 0); /* Black fallback color */
@@ -419,6 +325,9 @@ button:focus {
 
 
 <script>
+import * as firebase from 'firebase'
+import 'firebase/auth'
+import Footer from "@/components/Footer.vue";
 export default {
   computed: {
     movies() {
@@ -427,9 +336,22 @@ export default {
   },
   created() {
     this.$store.dispatch("getMovies");
+    firebase.auth().onAuthStateChanged(user => {
+      this.loggedIn = !!user;
+    });
   },
 
   methods: {
+    async signOut() {
+      try {
+        const data = await firebase.auth().signOut();
+        console.log(data);
+        this.$router.replace({ name: "login" });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     publishMovies() {
       this.$store.dispatch("publishMovies");
     },
@@ -448,13 +370,10 @@ export default {
       document.getElementById("mySidenav").style.width = "0px";
       document.getElementById("show-menu-button").style.display = "block";
       document.getElementById("close-menu-button").style.visibility = "hidden";
-    },
-     dropdownFunction: function() {
-       document.getElementById("dropdown-content").style.visibility = "visible";
-    },
-    filterFunction: function() {
-      console.log("filterFunction");
     }
+  },
+  components: {
+    Footer
   }
 };
 </script>

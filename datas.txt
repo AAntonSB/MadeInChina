@@ -19,7 +19,6 @@ plot: 'Varför föddes Elsa med magiska krafter? Svaret hotar hennes kungarike. 
 time: 1 tim 43 min, 
 title: 'Frozen 2', 
 trailer: 'Zi4LMpSDccc',
-tillräckliga.',
 videoImage: 'https://wallpapercave.com/wp/wp3968984.jpg'
 
 movieId: 3,

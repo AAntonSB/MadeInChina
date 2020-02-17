@@ -21,10 +21,11 @@
         </svg> -->
        
             <div class="row">
-            <h6 class="col s12">Mån 3/4</h6>
-            <h6 class="col s12">>Tid: 18:00</h6>
+            
+            <h6 class="col s12">{{show.title}} {{show.dateformat}}</h6>
+            <h6 class="col s12">>Tid: {{show.timeformat}}  </h6>
             <h6 class="col s12">Stolsnummer: rad 4, stol 5</h6>
-            <h6>>Bokningsnummer: #213242545</h6>
+            <h6>>Bokningsnummer: #{{show.bookingnumber}}</h6>
             <h6>>Pris: 85:-</h6>
             </div>
         </div> 
@@ -34,6 +35,7 @@
 
 </template>
 <script>
+
 //import { functions } from 'firebase'
 //import * as firebase from "firebase/app";
 //import "firebase/auth";
@@ -51,7 +53,7 @@ export default {
                     auditoriumName: "Stora salongen",
                     movieID: 1001,
                     length: 122,
-                    date: new Date(2020, 2, 2, 19, 0),
+                    startDatetime: new Date(2020, 2, 2, 19, 0),
                     film: "Joker",
                 },
                 {   
@@ -59,7 +61,7 @@ export default {
                     auditoriumName: "Lilla salongen",
                     movieID: 1002,
                     length: 103,
-                    date: new Date(2020, 2, 2, 19, 0),
+                    startDatetime: new Date(2020, 2, 2, 19, 0),
                     film: "Frozen 2",
                 },
 
@@ -159,8 +161,8 @@ created(){
     //this.$store.dispatch("getShowTimes")
     //this.$store.dispatch("pullShowtimes")
     console.log("Creating mypage")
-    console.log(this.getuniquebookings())
-    //this.groups = this.createBookingGroups()
+    //console.log(this.getuniquebookings())
+    this.groups = this.getuniquebookings()
     //this.user.email = firebase.auth().currentUser.email
     //console.log(firebase.auth().currentUser.email)
     //console.log(this.user.email)
@@ -169,69 +171,12 @@ created(){
 },
 methods:{
 
-    createBookingGroups: function(){
-
-        let bookingNumbers = this.getuniquebookings()
-
-        let groups = {}
-
-        for (let booking in bookingNumbers){
-
-            //console.log(this.bookings.filter(ticket => ticket.bookingNumber == bookingNumbers[booking]))
-
-            groups[bookingNumbers[booking]] = this.bookings.filter(ticket => ticket.bookingNumber == bookingNumbers[booking].bookingnumber)
-            
-        }
-
-        return groups
-
-    },
-
     getuniquebookings: function(){
 
-        //let bookingids = this.showtimes.map( show => { return show.bookingNumber })
-        let uniquebookigns = []
+        let uniquebookings = []
         let templist = []
-        //console.log(templ)
 
-        for (let id in this.bookings){
-
-            //console.log("ID is " + id)
-
-            
-
-            if (uniquebookigns.includes(this.bookings[id].bookingNumber) == false){
-
-                console.log(this.bookings.filter(ticket => ticket.bookingNumber == this.bookings[id].bookingNumber).map(
-                    ticket => { return {row: ticket.row, col: ticket.col}}
-                ))
-
-                uniquebookigns.push(this.bookings[id].bookingNumber)
-                templist.push({bookingnumber: this.bookings[id].bookingNumber,
-                             showtimeId: this.bookings[id].showtimeId,
-                             })
-            }
-        }
-        return templist//this.showtimes.map( show => { return show.bookingNumber })
-    },
-    setDateWithIndex: function(x){
-        // Getting required values
-        let today = new Date()
-        let year = today.getFullYear()
-        let month = today.getMonth()
-        let day = today.getDate()
-
-        // Creating a new Date (with the delta)
-        let finalDate = new Date(year, month, day + x-1)
-
-        day = ''+finalDate.getDate();
-        //let monthIndex = finalDate.getMonth();
-        month = ''+(finalDate.getMonth()+1)
-        year = finalDate.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-
-        let days = [
+        let swedishweek = [
         'söndag',
         'måndag',
         'tisdag',
@@ -241,10 +186,54 @@ methods:{
         'lördag'
         ]
 
-        let dayName = days[finalDate.getDay()]
+        for (let id in this.bookings){
 
-        return day+'/'+month +' '+ ' - '+dayName;
+            if (uniquebookings.includes(this.bookings[id].bookingNumber) == false){
+
+                uniquebookings.push(this.bookings[id].bookingNumber)
+
+                let bookedtickets = this.bookings.filter(ticket => ticket.bookingNumber == this.bookings[id].bookingNumber)
+
+                let data = {}
+
+                let currentshowtime = this.showtimes.find(show => show.showtimeId == this.bookings[id].showtimeId)
+
+                let month = currentshowtime.startDatetime.getMonth()
+                let day = currentshowtime.startDatetime.getDay()
+                let weekday = swedishweek[currentshowtime.startDatetime.getDay()]
+                let hour = "" + currentshowtime.startDatetime.getHours()
+                let minutes = "" + currentshowtime.startDatetime.getMinutes()
+
+                if (hour.length < 2){
+                    hour = "0" + hour
+                }
+
+                if (minutes.length < 2){
+                    minutes = "0" + minutes
+                }
+
+                data.bookingnumber = this.bookings[id].bookingNumber
+                data.showtimeId = this.bookings[id].showtimeId
+                data.title = currentshowtime.film
+                data.dateformat = weekday+ " " + day + "/" + month
+                data.timeformat = hour + ":" + minutes
+
+                let ticketsprice = bookedtickets.map(ticket => ticket.price).reduce((prev, next) => prev + next)
+
+                data.price = ticketsprice
+
+                let seats = bookedtickets.map(ticket => { return {row: ticket.row, col: ticket.col}})
+
+                data.seats = seats
+
+                templist.push(data)
+
+
+            }
         }
+        return templist
+    },
+
 }   
 
 }

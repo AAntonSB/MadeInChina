@@ -57,6 +57,38 @@
     </div>
 </template>
 
+<script>
+
+export default {
+    data() {
+        return {      
+            typeId: this.$route.query.typeId,
+        }
+    },
+    methods:{
+        setPanel(){
+            if (this.$route.query.typeId == 1){
+                document.getElementById('kontaktPanel').style.display='flex';
+                document.getElementById('jobbPanel').style.display='flex';
+                document.getElementById('historyPanel').style.display='flex';
+            } else if (this.$route.query.typeId == 2){
+                document.getElementById('kontaktPanel').style.display='flex';
+            } else if (this.$route.query.typeId == 3){
+                document.getElementById('jobbPanel').style.display='flex';
+            }  else if (this.$route.query.typeId == 4){
+                document.getElementById('historyPanel').style.display='flex';
+            }
+        }
+    },
+    created() {
+        console.log('omoss:'+this.$route.query.typeId);
+    },
+    mounted(){
+        this.setPanel();
+    }
+}
+</script>
+
 <style scoped>
 #kontaktPanel, #jobbPanel, #historyPanel{
     width: 95%;
@@ -68,8 +100,8 @@
     text-align: center;
     font-style: normal;
     font-size: 14,5;
-    display: flex; 
     justify-content: center;
+    display: none;
 }
 .mapbox{
     width: 200px;

@@ -59,7 +59,10 @@ const routes = [
   {
     path: '/omoss',
     name: 'omoss',
-    component: Omoss
+    component: Omoss,
+    props(route){
+      return { typeId: route.query.typeId}
+    }
   },
 ]
 

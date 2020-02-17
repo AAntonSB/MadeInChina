@@ -12,10 +12,9 @@
         <div class="poster-info">
         <p>{{movi.genre.toString()}}</p>
         <p class="time-and-age">{{movi.time}} | {{movi.age}} år</p>
-       <router-link :to="{path: '/bookingpage', query: { showtimeId: 1 }}"><a class="waves-effect waves-light btn-large red book-button">Boka</a></router-link>
        <div class="dropDownMoviePage">
           <span id="showDateDropdown"  class="my-custom-dropdown">
-              <select id="showtimeSelect">
+              <select id="showtimeSelect" v-on:change="getSelectedShowtimeId()">
                   <option>Välj dag</option>
                   <option  v-for="showtime in showtimesByMovieId" 
                     :key="showtime" 
@@ -23,6 +22,7 @@
                     {{getDatum(showtime.startDatetime)}}</option>
               </select>
           </span>
+          <router-link :to="{path: '/bookingpage', query: { showtimeId: selectedShowtimeId }}"><a class="waves-effect waves-light btn-large red book-button">Boka</a></router-link>
         </div>
       </div>
       </div>
@@ -63,7 +63,9 @@ export default {
   data() {
     return {
       trailerVisible: false,
-      selectedMovieId: 0
+      selectedDate: 0,
+      selectedMovieId: 0,
+      selectedShowtimeId: 0
     };
   },
   computed: {
@@ -84,6 +86,10 @@ export default {
     */
   },
   methods: {
+    getSelectedShowtimeId: function (){
+      this.selectedShowtimeId = document.getElementById("showtimeSelect").options[document.getElementById("showtimeSelect").selectedIndex].id;
+      document.getElementById('book-button').style.visibility= "visible";
+    },
     consoleLog(trailer){
       console.log(trailer.toString());
     },
@@ -134,6 +140,7 @@ export default {
   created() {
     console.log(this.$route.query.movieId);
     this.selectedMovieId = this.$route.query.movieId;
+    console.log(this.selectedShowtimeId + "test");
     window.addEventListener("keydown", this.handleKeyPress);
     this.$store.dispatch("getMovie", this.$route.query.movieId); // vi borde inte använda denna, kör på computed gettern ist
   },

@@ -19,7 +19,7 @@
                                 <option  v-for="showtime in showtimesByMovieId" 
                                   :key="showtime.showtimeId" 
                                   :id="showtime.showtimeId">
-                                  {{getDatum(showtime.startDatetime)}}</option>
+                                  {{getDatum(showtime.startDatetime)}} (salong {{showtime.auditoriumId}})</option>
                             </select>
                         </span>
                         <div id="bookingButton" class="bookingButtonBox">

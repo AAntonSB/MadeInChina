@@ -111,7 +111,6 @@ nav {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-
 .nav-search {
   position: absolute;
   align-self: center;

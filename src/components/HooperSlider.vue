@@ -158,9 +158,9 @@ export default {
     msg: String
   },
   computed: {
-    movies() {
-      return this.$store.state.movies;
-    }
+    movies() { //ändrad till att använda getter
+        return this.$store.getters.getMovies
+    },
   },
   components: { Hooper,
     Slide,

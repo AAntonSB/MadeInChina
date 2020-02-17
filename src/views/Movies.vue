@@ -256,12 +256,12 @@ export default {
         //return this.$store.state.movie
         return this.$store.getters.getMovieByID(String(Math.floor(Math.random()*(5-1+1)+1)))
     },
-    dateshowtimes: function (){
+    /*dateshowtimes: function (){
 
       let myday = new Date(2020, 2, 2)
 
       return this.$store.getters.getAllShowtimesByDate(myday)
-    }
+    }*/
     /*
     bookedSeats: function (){
       return this.$store.getters.getBookedSeats(2)
@@ -282,9 +282,9 @@ export default {
     //his.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
   },
   methods: {
-    publishMovies() {
+    /*publishMovies() {
       this.$store.dispatch("publishMovies");
-    },
+    },*/
     showNavMenu: function() {
       document.getElementById("mySidenav").style.width = "200px";
       document.getElementById("close-menu-button").style.visibility = "visible";
@@ -304,6 +304,7 @@ export default {
       if(this.selectedMovieId > 0){
         document.getElementById('dateDropdown').style.visibility= "visible";
       }
+      document.getElementById('bookingButton').style.visibility= "hidden";
     },
     getDatum: function(showtimestDT){
       let days = [

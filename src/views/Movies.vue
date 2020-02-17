@@ -23,7 +23,7 @@
                             </select>
                         </span>
                         <div id="bookingButton" class="bookingButtonBox">
-                            <router-link :to="{path: '/bookingpage', query: { showtimeId: this.selectedShowtimeId }}">
+                            <router-link :to="{path: '/bookingpage', query: { showtimeId: selectedShowtimeId }}">
                               <button class="waves-effect waves-light book-btn">Boka</button>
                             </router-link>
                         </div>

@@ -10,31 +10,19 @@
             <i id="navMenuIcon" class="material-icons menu-button">close</i>
           </button>
 
+          <div id="rightMenu">
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-              <a href="sass.html">Om oss</a>
+              <router-link :to="{path: '/omoss', query: { typeId: 1 }}">Om oss</router-link>
             </li>
             <li>
-              <a href="badges.html">Filmer</a>
-            </li>
-            <li>
-              <a href="collapsible.html">Medlem</a>
+              <router-link :to="{path: '/login', query: { typeId: 1 }}"><i class="material-icons account-icon">account_circle</i></router-link>
             </li>
           </ul>
-
-          <div class="nav-search">
-            <div class="nav-search-btn btn">
-              <i class="material-icons search-icon">search</i>
-            </div>
-            <div class="search-box">
-              <input type="text" class="search-input" placeholder="Sök" />
-            </div>
           </div>
-         <router-link to="/"><div style="font-size: 35px">logo</div></router-link>
 
-          <!-- <a href="#">
-            <i class="material-icons account-icon">account_circle</i>
-          </a> -->
+         <router-link to="/"><i class="material-icons logo-icon">movie_filter</i></router-link>
+
         </div>
         <div id="mySidenav" class="sidenavmenu">
           <a href="#">
@@ -60,6 +48,7 @@
       <router-view :key="$route.fullPath"></router-view>
     </div>
 
+<div id="footerAnchor"> </div>
     <Footer />
   </div>
 </template>
@@ -111,41 +100,16 @@ nav {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-.nav-search {
-  position: absolute;
-  align-self: center;
-  box-sizing: border-box;
-  left: 10px;
-}
-.search-box {
-  position: relative;
-  display: inline-block;
-  height: 50px;
-  left: 10px;
-}
- .nav-search-btn{
-  align-self: center;
-  border-radius: 50%;
-  width: 36px;
-  background: rgba(255, 255, 255, 0.2); 
-  padding: 0px;
-  
-}
-.nav-search-btn:hover
-{
-background-image:none;
-background-color:rgba(255, 254, 254, 0.4); 
-} 
 
-.search-icon {
-  position: absolute;
-  bottom: 40%;
+.logo-icon{
   display: flex;
-  height: 36px !important;
-  width: 36px;
-  position: relative;
-  display: flex;
+  align-self: center;
   justify-content: center;
+  font-size: 50px !important;
+}
+
+#rightMenu{
+  margin-right: 20px;
 }
 
 .containerapp {

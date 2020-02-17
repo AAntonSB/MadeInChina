@@ -2,7 +2,7 @@
 <div class="row">
        <!-- <section v-for="movie in movies" v-bind:key="movie.title"> -->
            
- <section v-for="show in showtimes" v-bind:key="show">
+ <section v-for="show in groups" v-bind:key="show">
     
     <div class="main-body row">
        <div class="relative">
@@ -34,30 +34,186 @@
 
 </template>
 <script>
+//import { functions } from 'firebase'
+//import * as firebase from "firebase/app";
+//import "firebase/auth";
+//import { db} from '@/firebase';
 export default {
     data(){
         return{
 
+            groups: null,
+
+            showtimes: [
+
+                {   
+                    showtimeId: 1,
+                    auditoriumName: "Stora salongen",
+                    movieID: 1001,
+                    length: 122,
+                    date: new Date(2020, 2, 2, 19, 0),
+                    film: "Joker",
+                },
+                {   
+                    showtimeId: 2,
+                    auditoriumName: "Lilla salongen",
+                    movieID: 1002,
+                    length: 103,
+                    date: new Date(2020, 2, 2, 19, 0),
+                    film: "Frozen 2",
+                },
+
+            ],
+
+            bookings: [
+                {
+                    bookingId: 1,
+                    showtimeId: 1,
+                    row: 1,
+                    col: 1,
+                    price: 75,
+                    bookingNumber: 1001,
+                    userId: null,
+                    bookingDatetime: null,
+                    ticketType: 1,
+                },
+                {
+                    bookingId: 2,
+                    showtimeId: 1,
+                    row: 1,
+                    col: 2,
+                    price: 75,
+                    bookingNumber: 1001,
+                    userId: null,
+                    bookingDatetime: null,
+                    ticketType: 1,
+                },
+                {
+                    bookingId: 3,
+                    showtimeId: 1,
+                    row: 1,
+                    col: 3,
+                    price: 75,
+                    bookingNumber: 1001,
+                    userId: null,
+                    bookingDatetime: null,
+                    ticketType: 1,
+                },
+                {
+                    bookingId: 4,
+                    showtimeId: 1,
+                    row: 2,
+                    col: 1,
+                    price: 75,
+                    bookingNumber: 1002,
+                    userId: null,
+                    bookingDatetime: null,
+                    ticketType: 1,
+                },
+                {
+                    bookingId: 5,
+                    showtimeId: 2,
+                    row: 3,
+                    col: 5,
+                    price: 75,
+                    bookingNumber: 1003,
+                    userId: null,
+                    bookingDatetime: null,
+                    ticketType: 1,
+                },
+                {
+                    bookingId: 6,
+                    showtimeId: 2,
+                    row: 3,
+                    col: 6,
+                    price: 75,
+                    bookingNumber: 1003,
+                    userId: null,
+                    bookingDatetime: null,
+                    ticketType: 1,
+                },
+            ]
+
         }
     },
  computed:{
- showtimes() {
-      return this.$store.state.showtimes;
-      
- }, 
-  movies() {
-      return this.$store.state.movies;
-    }    
+
+     sortShowtimes() {
+
+         return "dude"
+
+     },
+    /* 
+    showtimes() {
+        return this.$store.state.showtimes;
+        
+    }, 
+    movies() {
+        return this.$store.state.movies;
+        }
+    */
 },
 
 created(){
-    this.$store.dispatch("getMovies");
-    this.$store.dispatch("getShowTimes")
-    this.$store.dispatch("pullShowtimes")
+    //this.$store.dispatch("getMovies");
+    //this.$store.dispatch("getShowTimes")
+    //this.$store.dispatch("pullShowtimes")
+    console.log("Creating mypage")
+    console.log(this.getuniquebookings())
+    //this.groups = this.createBookingGroups()
+    //this.user.email = firebase.auth().currentUser.email
+    //console.log(firebase.auth().currentUser.email)
+    //console.log(this.user.email)
     
 
 },
 methods:{
+
+    createBookingGroups: function(){
+
+        let bookingNumbers = this.getuniquebookings()
+
+        let groups = {}
+
+        for (let booking in bookingNumbers){
+
+            //console.log(this.bookings.filter(ticket => ticket.bookingNumber == bookingNumbers[booking]))
+
+            groups[bookingNumbers[booking]] = this.bookings.filter(ticket => ticket.bookingNumber == bookingNumbers[booking].bookingnumber)
+            
+        }
+
+        return groups
+
+    },
+
+    getuniquebookings: function(){
+
+        //let bookingids = this.showtimes.map( show => { return show.bookingNumber })
+        let uniquebookigns = []
+        let templist = []
+        //console.log(templ)
+
+        for (let id in this.bookings){
+
+            //console.log("ID is " + id)
+
+            
+
+            if (uniquebookigns.includes(this.bookings[id].bookingNumber) == false){
+
+                console.log(this.bookings.filter(ticket => ticket.bookingNumber == this.bookings[id].bookingNumber).map(
+                    ticket => { return {row: ticket.row, col: ticket.col}}
+                ))
+
+                uniquebookigns.push(this.bookings[id].bookingNumber)
+                templist.push({bookingnumber: this.bookings[id].bookingNumber,
+                             showtimeId: this.bookings[id].showtimeId,
+                             })
+            }
+        }
+        return templist//this.showtimes.map( show => { return show.bookingNumber })
+    },
     setDateWithIndex: function(x){
         // Getting required values
         let today = new Date()

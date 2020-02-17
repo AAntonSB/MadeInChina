@@ -64,13 +64,10 @@ export default {
   computed: {
     movie() {
       // TODO use getter for this this.$route.query.movieId
-      //return this.$store.getters.getMovieByID(this.$route.query.movieId)
-
       return this.$store.getters.getMovieByID(this.$route.query.movieId)
     },
     /*
     movie2() {
-
       return this.$store.getters.getMovieByID(this.$route.query.movieId)
     },
     */
@@ -79,9 +76,9 @@ export default {
     consoleLog(trailer){
       console.log(trailer.toString());
     },
-    publishMovie() {
+    /*publishMovie() {
       this.$store.dispatch("publishMovie");
-    },
+    },*/
 
     toggleTrailer() {
       this.trailerVisible = !this.trailerVisible;
@@ -106,7 +103,7 @@ export default {
   created() {
     console.log(this.$route.query.movieId);
     window.addEventListener("keydown", this.handleKeyPress);
-    this.$store.dispatch("getMovie", this.$route.query.movieId); // vi borde inte använda denna, kör på computed gettern ist
+    //this.$store.dispatch("getMovie", this.$route.query.movieId); // vi borde inte använda denna, kör på computed gettern ist
   },
   destroyed() {
     window.removeEventListener("keydown", this.handleKeyPress);

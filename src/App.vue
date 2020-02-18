@@ -22,7 +22,7 @@
           </div>
 
 
-           <router-link to="/"><img src="@/assets/filmvisarna.png"></router-link>
+           <router-link to="/"><img id="logo" src="@/assets/filmvisarna.png"></router-link>
 
          <!-- <router-link to="/"><i class="material-icons logo-icon">movie_filter</i></router-link> -->
 
@@ -104,11 +104,8 @@ nav {
   color: #42b983;
 }
 
-.logo-icon{
-  display: flex;
-  align-self: center;
-  justify-content: center;
-  font-size: 50px !important;
+#logo{
+  margin-top: 5px;
 }
 
 #rightMenu{

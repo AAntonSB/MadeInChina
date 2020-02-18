@@ -2,7 +2,7 @@
 <div class="row">
        <!-- <section v-for="movie in movies" v-bind:key="movie.title"> -->
     <div v-if="currenttickets.length > 0">
-    <h2 font-color="red">Aktuella biljetter</h2>        
+    <h2 class="ticketheader">Aktuella biljetter</h2>        
     <section v-for="show in currenttickets" v-bind:key="show">
     
     <div class="main-body row">
@@ -24,7 +24,7 @@
             
             <h6 class="col s12">{{show.title}} {{show.dateformat}}</h6>
             <h6 class="col s12">>Tid: {{show.timeformat}}  </h6>
-            <h6 v-for="row in show.seats" v-bind:key="row" class="col s12">Rad: {{ row.row }}, stolsnummer {{ row.seats }}</h6>
+            <h6 v-for="row in show.seats" v-bind:key="row" class="col s12">Rad: {{ row.row }}, stolsnummer: {{ row.seats }}</h6>
             <h6>>Bokningsnummer: #{{show.bookingnumber}}</h6>
             <h6>>Pris: {{ show.price }}:-</h6>
             </div>
@@ -34,7 +34,7 @@
     </div>
 
     <div v-if="oldtickets.length > 0">
-    <h2 font-color="red">Tidigare biljetter</h2>        
+    <h2 class="ticketheader">Tidigare biljetter</h2>        
     <section v-for="show in oldtickets" v-bind:key="show">
     
     <div class="main-body row">
@@ -56,7 +56,7 @@
             
             <h6 class="col s12">{{show.title}} {{show.dateformat}}</h6>
             <h6 class="col s12">>Tid: {{show.timeformat}}  </h6>
-            <h6 v-for="row in show.seats" v-bind:key="row" class="col s12">Rad: {{ row.row }}, stolsnummer {{ row.seats }}</h6>
+            <h6 v-for="row in show.seats" v-bind:key="row" class="col s12">Rad: {{ row.row }}, stolsnummer: {{ row.seats }}</h6>
             <h6>>Bokningsnummer: #{{show.bookingnumber}}</h6>
             <h6>>Pris: {{ show.price }}:-</h6>
             </div>
@@ -83,6 +83,12 @@ export default {
             today: new Date(2020, 2, 2),
 
             groups: null,
+
+            fbmovies: null,
+
+            fbbookings: null,
+
+            fbshowtimes: null,
 
             showtimes: [
 
@@ -190,6 +196,8 @@ export default {
         return this.groups.filter(ticket => ticket.startDatetime.getTime() > this.currenttoday.getTime())
 
     },
+
+
     /* 
     showtimes() {
         return this.$store.state.showtimes;
@@ -202,7 +210,7 @@ export default {
 },
 
 created(){
-    //this.$store.dispatch("getMovies");
+    this.$store.dispatch("getMovies");
     //this.$store.dispatch("getShowTimes")
     //this.$store.dispatch("pullShowtimes")
     console.log("Creating mypage")
@@ -212,10 +220,17 @@ created(){
     //console.log(firebase.auth().currentUser.email)
     //console.log(this.user.email)
     this.currenttoday = this.setTodaysDate()
+    this.setfbmovies()
     
 
 },
 methods:{
+
+    setfbmovies: function() {
+
+        this.fbmovies = this.$store.getters.getMovies
+
+    },
 
     setTodaysDate: function(){
 
@@ -321,6 +336,11 @@ methods:{
 *{
     margin: 0;
     padding: 0;
+}
+
+.ticketheader{
+    color:white;
+
 }
 .ticket{
     -webkit-filter: url(#monochrome);

@@ -15,7 +15,7 @@
                         </span>
                         <span id="dateDropdown"  class="my-custom-dropdown">
                             <select id="showtimeSelect" v-on:change="getSelectedShowtimeId()">
-                                <option>Sök via dag</option>
+                                <option id="0">Sök via dag</option>
                                 <option  v-for="showtime in showtimesByMovieId" 
                                   :key="showtime.showtimeId" 
                                   :id="showtime.showtimeId">
@@ -298,7 +298,11 @@ export default {
     },
     getSelectedShowtimeId: function (){
       this.selectedShowtimeId = document.getElementById("showtimeSelect").options[document.getElementById("showtimeSelect").selectedIndex].id;
-      document.getElementById('bookingButton').style.visibility= "visible";
+      if (this.selectedShowtimeId > 0){
+        document.getElementById('bookingButton').style.visibility= "visible";
+      } else {
+        document.getElementById('bookingButton').style.visibility= "hidden";
+      }
     },
     getSelectedMovie: function(){
       this.selectedMovieId = document.getElementById("moviesDropdown").options[document.getElementById("moviesDropdown").selectedIndex].id;

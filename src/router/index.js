@@ -5,6 +5,9 @@ import Movie from '@/views/Movie.vue'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
 import MyPage from '@/views/MyPage'
+import Bookingpage from '@/views/Bookingpage.vue'
+import Omoss from '@/views/Omoss'
+import Showtimes from '@/views/Showtimes'
 import About from '@/views/About'
 
 
@@ -26,6 +29,7 @@ const routes = [
   },
   {
     path: '/movie',
+    name: 'movie',
     component: Movie,
     props(route) {
       return {  movieId: route.query.movieId }
@@ -36,21 +40,38 @@ const routes = [
     name: 'login',
     component: Login
   },
-  {path: '/register',
-  name: 'register',
-  component: Register
-},
-{
-  path: '/mypage',
-  name: 'mypage',
-  component: MyPage,
-  meta: {requiersAuth: true}
-},
-{
-  path: '/about',
-  name: 'about',
-  component: About
-}
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
+  },
+  {
+    path: '/mypage',
+    name: 'mypage',
+    component: MyPage,
+    meta: {requiersAuth: true}
+  },
+  {
+    path: '/bookingpage',
+    component: Bookingpage,
+    name: 'bookingpage',
+    props(route){
+      return { showtimeId: route.query.showtimeId}
+    },
+  },
+  {
+    path: '/omoss',
+    name: 'omoss',
+    component: Omoss,
+    props(route){
+      return { typeId: route.query.typeId}
+    }
+  },
+  {
+    path: '/showtimes',
+    name: 'showtimes',
+    component: Showtimes
+  },
 ]
 
 const router = new VueRouter({

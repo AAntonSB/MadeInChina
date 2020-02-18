@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header>
+    <header class="navbar-fixed">
       <nav>
         <div class="nav-wrapper">
           <button id="show-menu-button" v-on:click="showNavMenu()">
@@ -10,36 +10,28 @@
             <i id="navMenuIcon" class="material-icons menu-button">close</i>
           </button>
 
+          <div id="rightMenu">
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-              <a href="sass.html">About</a>
+              <router-link :to="{path: '/omoss', query: { typeId: 1 }}">Om oss</router-link>
             </li>
             <li>
-              <a href="badges.html">Filmer</a>
-            </li>
-            <li>
-              <a href="collapsible.html">Medlem</a>
+              <router-link :to="{path: '/login', query: { typeId: 1 }}"><i class="material-icons account-icon">account_circle</i></router-link>
             </li>
           </ul>
-
-          <div class="nav-search">
-            <div class="nav-search-btn btn">
-              <i class="material-icons search-icon">search</i>
-            </div>
-            <div class="search-box">
-              <input type="text" class="search-input" placeholder="Search" />
-            </div>
           </div>
 
-          <a href="#">
-            <i class="material-icons account-icon">account_circle</i>
-          </a>
+
+           <router-link to="/"><img id="logo" src="@/assets/filmvisarna.png"></router-link>
+
+         <!-- <router-link to="/"><i class="material-icons logo-icon">movie_filter</i></router-link> -->
+
         </div>
         <div id="mySidenav" class="sidenavmenu">
           <a href="#">
             <i class="material-icons account-icon">account_circle</i>
           </a>
-          <a href="#">About</a>
+          <router-link :to="{path: '/login', query: { typeId: 1 }}"><i class="material-icons account-icon">account_circle</i></router-link>
           <a href="#">Filmer</a>
           <a href="#">Medlem</a>
         </div>
@@ -59,57 +51,8 @@
       <router-view :key="$route.fullPath"></router-view>
     </div>
 
-    <footer>
-      <div class>
-        <div class="row">
-          <div class="col l4">
-            <h5 class="white-text">Om oss</h5>
-            <ul>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Kontakta oss</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Jobba hos oss</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Vår historia</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col l4">
-            <h5 class="white-text">Sociala medier</h5>
-            <ul>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Facebook</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Instagram</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Twitter</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col l4">
-            <h5 class="white-text">Medlemsskap</h5>
-            <ul>
-              <li>
-                <router-link to="/login"><a class="grey-text text-lighten-3" href="#!">Logga in</a></router-link>
-              </li>
-              <li>
-                <router-link to="/register"><a class="grey-text text-lighten-3" href="#!">Bli medlem</a></router-link>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Medlemsförmåner</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-copyright">
-        <div class="container">© 2018 Copyright Text</div>
-      </div>
-    </footer>
+<div id="footerAnchor"> </div>
+    <Footer />
   </div>
 </template>
 
@@ -121,6 +64,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 #app {
   flex-grow: 1;
@@ -140,7 +84,7 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  position: fixed;
+  
   z-index: 5;
   width: 100%;
   margin: 0;
@@ -160,53 +104,29 @@ nav {
   color: #42b983;
 }
 
-.nav-search {
-  position: absolute;
-  align-self: center;
-  box-sizing: border-box;
-  left: 10px;
+#logo{
+  margin-top: 5px;
 }
-.search-box {
-  position: relative;
-  display: inline-block;
-  height: 50px;
-  left: 10px;
-}
- .nav-search-btn{
-  align-self: center;
-  border-radius: 50%;
-  width: 36px;
-  background: rgba(255, 255, 255, 0.2); 
-  padding: 0px;
-  
-}
-.nav-search-btn:hover
-{
-background-image:none;
-background-color:rgba(255, 254, 254, 0.4); 
-} 
 
-.search-icon {
-  position: absolute;
-  bottom: 40%;
-  display: flex;
-  height: 36px !important;
-  width: 36px;
-  position: relative;
-  display: flex;
-  justify-content: center;
+#rightMenu{
+  margin-right: 20px;
 }
 
 .containerapp {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  margin-top: 65px;
 }
 .flexdirectioncolumn {
   display: flex;
   flex-direction: column;
 }
+
+.flexdirectionrow {
+  display: flex;
+  flex-direction: row;
+}
+
 .flexcenter{
   display: flex;
   flex-direction: column;
@@ -370,11 +290,12 @@ button:focus {
 <script>
 import * as firebase from 'firebase'
 import 'firebase/auth'
+import Footer from "@/components/Footer.vue";
 export default {
   computed: {
-    movies() {
+    /*movies() {
       return this.$store.state.movies;
-    }
+    }*/
   },
   created() {
     this.$store.dispatch("getMovies");
@@ -394,9 +315,9 @@ export default {
       }
     },
 
-    publishMovies() {
+    /*publishMovies() {
       this.$store.dispatch("publishMovies");
-    },
+    },*/
     nextImg: function() {
       document.getElementById("gallery").scrollLeft += 200;
     },
@@ -413,6 +334,9 @@ export default {
       document.getElementById("show-menu-button").style.display = "block";
       document.getElementById("close-menu-button").style.visibility = "hidden";
     }
+  },
+  components: {
+    Footer
   }
 };
 </script>

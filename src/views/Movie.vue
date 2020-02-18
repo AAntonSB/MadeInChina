@@ -12,7 +12,18 @@
         <div class="poster-info">
         <p>{{movi.genre.toString()}}</p>
         <p class="time-and-age">{{movi.time}} | {{movi.age}} år</p>
-        <a class="waves-effect waves-light btn-large red book-button">Boka</a>
+       <div class="dropDownMoviePage">
+          <span id="showDateDropdown"  class="my-custom-dropdown">
+              <select id="showtimeSelect" v-on:change="getSelectedShowtimeId()">
+                  <option>Välj dag</option>
+                  <option  v-for="showtime in showtimesByMovieId" 
+                    :key="showtime" 
+                    :id="showtime.showtimeId">
+                    {{getDatum(showtime.startDatetime)}}</option>
+              </select>
+          </span>
+          <router-link v-if="disable" :to="{path: '/bookingpage', query: { showtimeId: selectedShowtimeId }}"><a class="waves-effect waves-light btn-large red book-button">Boka</a></router-link>
+        </div>
       </div>
       </div>
       <div @click="toggleTrailer()" class="overlay" v-if="trailerVisible === true">
@@ -32,21 +43,16 @@
           </div>
         </div>
       </div>
-      <div class="test">
-      <div class="main-info">    
+
+      
+      <div style="width:100%;padding: 10px 50px;">
+      <div class="main-info">
         <p @click="consoleLog(movi.trailer)">{{movi.plot}}</p>
-        <p class="movieInformation"><span style="font-weight: bold;">Regi:</span> {{movi.director.toString()}}</p>
-        <p class="movieInformation"><span style="font-weight: bold;">Skådespelare:</span> {{movi.actors.toString()}}</p>
-        <p class="movieInformation"><span style="font-weight: bold;">Språk:</span> {{movi.language}}</p>
+        <p><span style="font-weight: bold;">Regi:</span> {{movi.director.toString()}}</p>
+        <p><span style="font-weight: bold;">Skådespelare:</span> {{movi.actors.toString()}}</p>
+        <p><span style="font-weight: bold;">Språk:</span> {{movi.language}}</p>
       </div>
       </div>
-      <!-- <div class="Booking collection">
-          <li class="collection-header"><h4>Visningar v.47</h4></li>
-          <a href="#!" class="collection-item black"><p class="white-font">Film tid</p></a>
-          <a href="#!" class="collection-item black white-font"><p class="white-font">Sal 2 17:00</p> <p class="reddd">68 av 68 platser kvar</p></a>
-          <a href="#!" class="collection-item black white-font"><p class="white-font">Film tid</p></a>
-          <a href="#!" class="collection-item black white-font"><p class="white-font">Film tid</p></a>
-      </div> -->
     </section>
   </div>
 </template>
@@ -56,15 +62,37 @@
 export default {
   data() {
     return {
-      trailerVisible: false
+      trailerVisible: false,
+      selectedDate: 0,
+      selectedMovieId: 0,
+      selectedShowtimeId: 0,
+      disable: false
     };
   },
   computed: {
     movie() {
-      return this.$store.state.movie;
-    }
+      // TODO use getter for this this.$route.query.movieId
+      return this.$store.getters.getMovieByID(this.$route.query.movieId)
+    },
+      showtimesByMovieId(){
+        return this.$store.getters.getAllShowtimesByMovieId(this.selectedMovieId)
+    },
+    /*
+    movie2() {
+      return this.$store.getters.getMovieByID(this.$route.query.movieId)
+    },
+    */
   },
   methods: {
+    getSelectedShowtimeId: function (){
+      this.selectedShowtimeId = document.getElementById("showtimeSelect").options[document.getElementById("showtimeSelect").selectedIndex].id;
+      this.disable=true
+      console.log(this.selectedShowtimeId)
+      if(this.selectedShowtimeId == 0){
+        this.disable = false;
+        // document.getElementById('book-button').style.visibility= "visible";
+      }
+    },
     consoleLog(trailer){
       console.log(trailer.toString());
     },
@@ -73,7 +101,7 @@ export default {
     },
     publishMovie() {
       this.$store.dispatch("publishMovie");
-    },
+    },*/
 
     toggleTrailer() {
       this.trailerVisible = !this.trailerVisible;
@@ -82,6 +110,25 @@ export default {
       if (e.keyCode === 27 && this.trailerVisible) {
         this.toggleTrailer();
       }
+    },   
+         getDatum: function(showtimestDT){
+      let days = [
+        'söndag',
+        'måndag',
+        'tisdag',
+        'onsdag',
+        'torsdag',
+        'fredag',
+        'lördag'
+        ]
+      let dayName = days[(showtimestDT.getDay())]
+      let showtimeMinutes=showtimestDT.getMinutes();
+
+      if (showtimeMinutes.toString().length < 2) 
+      {
+        showtimeMinutes = '0' + showtimeMinutes
+      }
+      return (showtimestDT.getDay()+1)+' / '+(showtimestDT.getMonth()+1)+ ' '+showtimestDT.getHours() +':'+showtimeMinutes+' '+dayName;
     }
   },
   watch: {
@@ -93,12 +140,15 @@ export default {
         document.body.style.setProperty("height", "100%")
         document.body.style.setProperty("overflow-y", "auto")
       }
-    }
+    },
+
   },
   created() {
     console.log(this.$route.query.movieId);
+    this.selectedMovieId = this.$route.query.movieId;
+    console.log(this.selectedMovieId + "test");
     window.addEventListener("keydown", this.handleKeyPress);
-    this.$store.dispatch("getMovie", this.$route.query.movieId);
+    //this.$store.dispatch("getMovie", this.$route.query.movieId); // vi borde inte använda denna, kör på computed gettern ist
   },
   destroyed() {
     window.removeEventListener("keydown", this.handleKeyPress);
@@ -106,7 +156,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .img-bg img {
   justify-content: flex-start;
   max-width: 100%;
@@ -135,9 +185,6 @@ export default {
   padding: 10px 50px;
 }
 
-.movieInformation{
-}
-
 .movie-bg-image {
   padding: 0;
   margin: 0;
@@ -148,7 +195,7 @@ export default {
 
 .play-button {
   position: absolute;
-  padding-top: 20%;
+  top:20%;
   z-index: 1;
 }
 i.icon-white {
@@ -167,7 +214,7 @@ i.icon-white {
 }
 .box{
   position: absolute;
-  width: 200px;
+  width: auto;
   top: 40%;
   right:75vw;
   background-color: rgb(0, 0, 0, 0.3);
@@ -224,6 +271,59 @@ i.icon-white {
   padding: 2px;
 }
 
+.my-custom-dropdown {
+  width: 201.77px;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+
+.my-custom-dropdown select {
+    background-color: #C62828;
+    color: #fff;
+    font-size: inherit;
+    padding: .5em;
+    padding-right: 2.5em;
+    margin: 0;
+    border-radius: 3px;
+    text-indent: 0.01px;
+    text-overflow: '';
+    -webkit-appearance: button; /* hide default arrow in chrome OSX */
+    display: block;
+    border: none;
+    border-radius: 2px;
+}
+.my-custom-dropdown::before,
+.my-custom-dropdown::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border: none;
+}
+
+.my-custom-dropdown::before { /*  Custom dropdown arrow cover */
+  width: 2em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+
+.my-custom-dropdown::before {
+  background-color: rgba(0,0,0,.15);
+}
+
+.my-custom-dropdown::after {
+  color: rgba(0,0,0,.4);
+}
+
+.my-custom-dropdown select:focus{
+    outline: none; 
+}
+
+
 @media only screen and (max-width: 950px){
   .box{
     position: relative;
@@ -234,7 +334,10 @@ i.icon-white {
   }
   .main-info{
     max-width: 100%;
- }
+  }
+  .play-button{
+    top: 10%;
+  }
 }
 
 @media only screen and (max-width: 600px)  {

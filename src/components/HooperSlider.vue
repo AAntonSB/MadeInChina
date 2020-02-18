@@ -116,23 +116,14 @@
 
 }
 
-/*
-@media only screen and (max-width: 1100px)  {
-  .hooper-img{
-    height: 90%!important;
-    }  
+.hooper{
+  outline: none !important;
+  outline-style: none !important;
+  -moz-user-select: none; 
+  -webkit-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;
 }
-@media only screen and (max-width: 850px)  {
-  .hooper-img{
-    height: 80%!important;
-    }  
-}
-@media only screen and (max-width: 700px)  {
-  .hooper-img{
-    height: 70%!important;
-    }  
-}
-*/
 
 </style>
  <script>
@@ -150,9 +141,9 @@ export default {
     msg: String
   },
   computed: {
-    movies() {
-      return this.$store.state.movies;
-    }
+    movies() { //ändrad till att använda getter
+        return this.$store.getters.getMovies
+    },
   },
   components: { Hooper,
     Slide,

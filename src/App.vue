@@ -21,14 +21,17 @@
           </ul>
           </div>
 
-         <router-link to="/"><i class="material-icons logo-icon">movie_filter</i></router-link>
+
+           <router-link to="/"><img src="@/assets/filmvisarna.png"></router-link>
+
+         <!-- <router-link to="/"><i class="material-icons logo-icon">movie_filter</i></router-link> -->
 
         </div>
         <div id="mySidenav" class="sidenavmenu">
           <a href="#">
             <i class="material-icons account-icon">account_circle</i>
           </a>
-          <a href="#">About</a>
+          <router-link :to="{path: '/login', query: { typeId: 1 }}"><i class="material-icons account-icon">account_circle</i></router-link>
           <a href="#">Filmer</a>
           <a href="#">Medlem</a>
         </div>

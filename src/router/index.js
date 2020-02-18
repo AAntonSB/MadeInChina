@@ -8,7 +8,6 @@ import MyPage from '@/views/MyPage'
 import Bookingpage from '@/views/Bookingpage.vue'
 import Omoss from '@/views/Omoss'
 import Showtimes from '@/views/Showtimes'
-import About from '@/views/About'
 
 
 import * as firebase from "firebase/app";

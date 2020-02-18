@@ -99,7 +99,7 @@ export default {
         exitLogin(){
       this.$router.go(-1);
     },
-    publishMovie() {
+    /*publishMovie() {
       this.$store.dispatch("publishMovie");
     },*/
 

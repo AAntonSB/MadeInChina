@@ -1,18 +1,19 @@
 <template>
-        <footer>
+  <footer>
       <div class>
         <div class="row">
           <div class="col l4">
-            <h5 class="white-text">Om oss</h5>
+            <h5 class="white-text">
+              <router-link :to="{path: '/omoss', query: { typeId: 1 }}">Om oss</router-link></h5>
             <ul>
               <li>
-                <a class="grey-text text-lighten-3" href="#!">Kontakta oss</a>
+                <router-link :to="{path: '/omoss', query: { typeId: 2 }}">Kontakta oss</router-link>
               </li>
               <li>
-                <a class="grey-text text-lighten-3" href="#!">Jobba hos oss</a>
+                <router-link :to="{path: '/omoss', query: { typeId: 3 }}">Jobba hos oss</router-link>
               </li>
               <li>
-                <a class="grey-text text-lighten-3" href="#!">Vår historia</a>
+                <router-link :to="{path: '/omoss', query: { typeId: 4 }}">Vår historia</router-link>
               </li>
             </ul>
           </div>
@@ -51,3 +52,9 @@
       </div>
     </footer>
 </template>
+
+<style scoped>
+  footer a{
+    color: #fff;
+  }
+</style>

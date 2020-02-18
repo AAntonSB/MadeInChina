@@ -6,6 +6,9 @@ import Login from '@/views/Login'
 import Register from '@/views/Register'
 import MyPage from '@/views/MyPage'
 import Bookingpage from '@/views/Bookingpage.vue'
+import Omoss from '@/views/Omoss'
+import Showtimes from '@/views/Showtimes'
+
 
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -53,8 +56,21 @@ const routes = [
     name: 'bookingpage',
     props(route){
       return { showtimeId: route.query.showtimeId}
+    },
+  },
+  {
+    path: '/omoss',
+    name: 'omoss',
+    component: Omoss,
+    props(route){
+      return { typeId: route.query.typeId}
     }
-  }
+  },
+  {
+    path: '/showtimes',
+    name: 'showtimes',
+    component: Showtimes
+  },
 ]
 
 const router = new VueRouter({

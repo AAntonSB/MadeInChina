@@ -9,6 +9,7 @@ import Bookingpage from '@/views/Bookingpage.vue'
 import Omoss from '@/views/Omoss'
 import Showtimes from '@/views/Showtimes'
 
+
 import * as firebase from "firebase/app";
 import "firebase/auth";
 

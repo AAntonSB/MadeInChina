@@ -42,6 +42,7 @@
           </span>
         </div>
       </div>
+          <div class="exitBox" @click="exitLogin"></div>
     </div>
   </div>
 </template>
@@ -70,6 +71,10 @@ export default {
       } catch (err) {
         this.failedLogin = true;
       }
+    },
+
+    exitLogin(){
+      this.$router.go(-1);
     },
 
     async socialSignin() {
@@ -117,6 +122,13 @@ export default {
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 10;
 }
+.exitBox{
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  position: absolute;
+}
 .modal-content {
   /* background-color: white;
     border-radius: 4px;
@@ -131,6 +143,7 @@ export default {
   padding: 48px 40px 36px;
   width: 450px;
   height: 560px;
+  z-index: 5;
 }
 .terms-of-service {
   margin-top: 5%;

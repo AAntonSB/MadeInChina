@@ -36,7 +36,7 @@ export default new Vuex.Store({
 
     getMovieByID: state => (id) => {
 
-      return state.movies.filter(product => product.id === id)
+      return state.movies.filter(product => product.id == id)
     },
 
     getAllShowtimesByMovieId: state => (movieId) => {
@@ -91,6 +91,9 @@ export default new Vuex.Store({
      },
      setBookingsA(state, data){
       state.bookings = data
+     },
+     setshowtimesA(state, data){
+      state.showtimes = data
      },
      setBookings(state, data){
 
@@ -233,6 +236,26 @@ export default new Vuex.Store({
           let concatedBookings = this.state.bookings.concat(payload.bookings)
 
           commit('setBookingsA', concatedBookings)
+        },
+        async publishShowtimes({commit}, payload){
+
+          for(let document of payload.showtimes){
+            await db.collection('showtimes').add(document)
+          }
+        
+          let concatedShowtimes = this.state.showtimes.concat(payload.showtimes)
+        
+          commit('setShowtimesA', concatedShowtimes)
+        },
+        async publishMovies({commit}, payload){
+
+          for(let document of payload.movies){
+            await db.collection('movies').add(document)
+          }
+        
+          let concatedMovies = this.state.movies.concat(payload.movies)
+        
+          commit('setMovies', concatedMovies)
         }
   },
   modules: {

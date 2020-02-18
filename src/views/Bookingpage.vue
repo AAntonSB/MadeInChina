@@ -459,10 +459,11 @@ export default {
   opacity: 0.5;
 }
 .reservedSeat{
-  background-color: #ff8383;
+  background-color: #ff0000!important;
 }
 .soldSeat{
-  background-color: #e93030;
+  background-color: #db6363;
+  border-color: #d1baba;
   pointer-events: none;
 }
 .btn-small{

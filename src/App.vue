@@ -329,9 +329,9 @@ import 'firebase/auth'
 import Footer from "@/components/Footer.vue";
 export default {
   computed: {
-    movies() {
+    /*movies() {
       return this.$store.state.movies;
-    }
+    }*/
   },
   created() {
     this.$store.dispatch("getMovies");
@@ -351,9 +351,9 @@ export default {
       }
     },
 
-    publishMovies() {
+    /*publishMovies() {
       this.$store.dispatch("publishMovies");
-    },
+    },*/
     nextImg: function() {
       document.getElementById("gallery").scrollLeft += 200;
     },

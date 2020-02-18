@@ -17,13 +17,13 @@
                             <select id="showtimeSelect" v-on:change="getSelectedShowtimeId()">
                                 <option>Sök via dag</option>
                                 <option  v-for="showtime in showtimesByMovieId" 
-                                  :key="showtime" 
+                                  :key="showtime.showtimeId" 
                                   :id="showtime.showtimeId">
-                                  {{getDatum(showtime.startDatetime)}}</option>
+                                  {{getDatum(showtime.startDatetime)}} (salong {{showtime.auditoriumId}})</option>
                             </select>
                         </span>
                         <div id="bookingButton" class="bookingButtonBox">
-                            <router-link :to="{path: '/bookingpage', query: { showtimeId: this.selectedShowtimeId }}">
+                            <router-link :to="{path: '/bookingpage', query: { showtimeId: selectedShowtimeId }}">
                               <button class="waves-effect waves-light book-btn">Boka</button>
                             </router-link>
                         </div>
@@ -239,7 +239,8 @@ export default {
     return {
       selectedDate: 0,
       selectedMovieId: 0,
-      selectedShowtimeId: 0
+      selectedShowtimeId: 0,
+      currentDate: new Date()
     };
   },
   mounted() {
@@ -250,18 +251,18 @@ export default {
         return this.$store.getters.getMovies
     },
     showtimesByMovieId(){
-        return this.$store.getters.getAllShowtimesByMovieId(this.selectedMovieId)
+        return this.$store.getters.getAllShowtimesByMovieId(this.selectedMovieId).filter(showtime => showtime.startDatetime > this.currentDate)
     },
     randommovie: function (){
         //return this.$store.state.movie
         return this.$store.getters.getMovieByID(String(Math.floor(Math.random()*(5-1+1)+1)))
     },
-    dateshowtimes: function (){
+    /*dateshowtimes: function (){
 
       let myday = new Date(2020, 2, 2)
 
       return this.$store.getters.getAllShowtimesByDate(myday)
-    }
+    }*/
     /*
     bookedSeats: function (){
       return this.$store.getters.getBookedSeats(2)
@@ -282,9 +283,9 @@ export default {
     //his.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
   },
   methods: {
-    publishMovies() {
+    /*publishMovies() {
       this.$store.dispatch("publishMovies");
-    },
+    },*/
     showNavMenu: function() {
       document.getElementById("mySidenav").style.width = "200px";
       document.getElementById("close-menu-button").style.visibility = "visible";
@@ -304,6 +305,7 @@ export default {
       if(this.selectedMovieId > 0){
         document.getElementById('dateDropdown').style.visibility= "visible";
       }
+      document.getElementById('bookingButton').style.visibility= "hidden";
     },
     getDatum: function(showtimestDT){
       let days = [
@@ -316,13 +318,8 @@ export default {
         'lördag'
         ]
       let dayName = days[(showtimestDT.getDay())]
-      let showtimeMinutes=showtimestDT.getMinutes();
-
-      if (showtimeMinutes.toString().length < 2) 
-      {
-        showtimeMinutes = '0' + showtimeMinutes
-      }
-      return (showtimestDT.getDay()+1)+' / '+(showtimestDT.getMonth()+1)+ ' '+showtimestDT.getHours() +':'+showtimeMinutes+' '+dayName;
+      let showtimeMinutes=(showtimestDT.getMinutes() < 10 ? '0' : '') +showtimestDT.getMinutes();      
+      return showtimestDT.getDate()+' / '+(showtimestDT.getMonth()+1)+ ' '+showtimestDT.getHours() +':'+showtimeMinutes+' '+dayName;
     }
     },
   components: {

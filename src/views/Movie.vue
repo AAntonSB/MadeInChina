@@ -72,8 +72,6 @@ export default {
   computed: {
     movie() {
       // TODO use getter for this this.$route.query.movieId
-      //return this.$store.getters.getMovieByID(this.$route.query.movieId)
-
       return this.$store.getters.getMovieByID(this.$route.query.movieId)
     },
       showtimesByMovieId(){
@@ -81,7 +79,6 @@ export default {
     },
     /*
     movie2() {
-
       return this.$store.getters.getMovieByID(this.$route.query.movieId)
     },
     */
@@ -99,9 +96,9 @@ export default {
     consoleLog(trailer){
       console.log(trailer.toString());
     },
-    publishMovie() {
+    /*publishMovie() {
       this.$store.dispatch("publishMovie");
-    },
+    },*/
 
     toggleTrailer() {
       this.trailerVisible = !this.trailerVisible;
@@ -148,7 +145,7 @@ export default {
     this.selectedMovieId = this.$route.query.movieId;
     console.log(this.selectedMovieId + "test");
     window.addEventListener("keydown", this.handleKeyPress);
-    this.$store.dispatch("getMovie", this.$route.query.movieId); // vi borde inte använda denna, kör på computed gettern ist
+    //this.$store.dispatch("getMovie", this.$route.query.movieId); // vi borde inte använda denna, kör på computed gettern ist
   },
   destroyed() {
     window.removeEventListener("keydown", this.handleKeyPress);

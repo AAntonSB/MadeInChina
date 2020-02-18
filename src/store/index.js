@@ -20,6 +20,12 @@ export default new Vuex.Store({
       auditoriums: auditoriums,
   },
   getters: {
+
+    getBooked: state => {
+      return state.booked
+
+    },
+
     getMovies: state => { //använd denna hellre än $state.movies
       return state.movies
     },
@@ -30,7 +36,7 @@ export default new Vuex.Store({
 
     getMovieByID: state => (id) => {
 
-      return state.movies.filter(product => product.id === id)
+      return state.movies.filter(product => product.id == id)
     },
 
     getAllShowtimesByMovieId: state => (movieId) => {
@@ -43,8 +49,8 @@ export default new Vuex.Store({
 
     },
     
-    getSingleShowtimeById: state=> (showtimeid) => {
-      return state.showtimes.filter(showtime => showtime.showtimeId == showtimeid)
+    getSingleShowtimeById: state=> (showtimeId) => {
+      return state.showtimes.filter(showtime => showtime.showtimeId == showtimeId)
     },
 
     getShowtimesByMovieId: state => (movieId) => {
@@ -53,6 +59,10 @@ export default new Vuex.Store({
 
     getAuditorium : state => (auditoriumId) => {
       return state.auditoriums.filter(auditorium => auditorium.id == auditoriumId);
+    },
+
+    getAllBookingsByShowtimeId: state => (showtimeId) => {
+      return state.bookings.filter(bookings => bookings.showtimeId == showtimeId)
     },
     /*getAuditoriumIdByShowtimeId : state => (showtimeId) => {
       return state.db.collection("showtimes").where("showtimeId","==",showtimeId).showtimeId
@@ -79,23 +89,25 @@ export default new Vuex.Store({
      setAuditoriums(state, data){
       state.auditoriums = data
      },
-
+     setBookingsA(state, data){
+      state.bookings = data
+     },
+     setshowtimesA(state, data){
+      state.showtimes = data
+     },
      setBookings(state, data){
 
-      let currentshowtime = state.showtimes.find(show => show.showtimeId === data.showtimeId)
+      let tempseatings = {seats: {}, occupiedSeats: data.bookings.length, availableSeats: data.currentauditorium.seats - data.bookings.length}
 
-      console.log(currentshowtime)
 
-      let currentauditorium = state.auditoriums.find(auditorium => auditorium.Id === currentshowtime.auditoriumId)
+      //console.log("number of seats left " + seatsleft)
 
-      let tempseatings = {}
-
-      for (let i = 1; i < currentauditorium.seatsPerRow.length + 1; i++){
-        tempseatings[i] = []
+      for (let i = 1; i < data.currentauditorium.seatsPerRow.length + 1; i++){
+        tempseatings.seats[i] = []
       }
 
       for(let document of data.bookings){
-        tempseatings[document.row].push(document.col)
+        tempseatings.seats[document.row].push(document.col)
       }
 
       state.booked = tempseatings
@@ -125,6 +137,7 @@ export default new Vuex.Store({
      }
   },
   actions: {
+    
       // Bind till våra egna metoder 
         //Get data from firebase
         async getMovies({commit}){   // async = möjlighet att vänta på svar.
@@ -157,7 +170,7 @@ export default new Vuex.Store({
           commit('setShowtimes', data)
           }
         },*/
-        /*async getBookings({commit}){   // async = möjlighet att vänta på svar.
+        async getBookings({commit}){   // async = möjlighet att vänta på svar.
           if (this.state.bookings.length === 0){ // om arrayn state.movies är tom, hämta från databasen, här sparar vi en massa fb reads
             console.log("retrieving bookings from DB")
             let querySnapshot = await db.collection("bookings").get()
@@ -165,9 +178,9 @@ export default new Vuex.Store({
             querySnapshot.forEach((document) => {
             data.push(document.data())
           })
-          commit('setBookings', data)
+          commit('setBookingsA', data)
           }
-        },*/
+        },
         /* pullShowtimes och pullBookings försvann med merge. Jag tog tillbaka den från Joakims version. */
         async pullShowtimes(){
 
@@ -187,8 +200,8 @@ export default new Vuex.Store({
         },
         async pullBookings({commit}, payload){
 
-          console.log("pulling bookings")
-          console.log(payload.showtimeId)
+          console.log("pulling bookings for :" + payload.showtimeId)
+          //console.log(payload)
 
           let querySnapshot = await db.collection("bookings").where("showtimeId","==",payload.showtimeId).get()
 
@@ -198,9 +211,52 @@ export default new Vuex.Store({
             bookingsdata.push(document.data())
           })
 
-          commit('setBookings', {bookings:bookingsdata, showtimeId: payload.showtimeId})
+          let currentshowtime = this.state.showtimes.find(show => show.showtimeId === payload.showtimeId)
+
+          let currentauditorium = null //this.state.auditoriums.find(auditorium => auditorium.Id === currentshowtime.auditoriumId)
+
+          for(let auditorium of this.state.auditoriums){
+            if(auditorium.id == currentshowtime.auditoriumId){
+              currentauditorium = auditorium
+            }
+          }
+
+          commit('setBookings', {bookings:bookingsdata, currentauditorium: currentauditorium})
 
         },
+
+        async publishBookings({commit}, payload){
+          console.log("publishing Bookings")
+          console.log(payload)
+
+          for(let document of payload.bookings){
+            await db.collection('bookings').add(document)
+          }
+
+          let concatedBookings = this.state.bookings.concat(payload.bookings)
+
+          commit('setBookingsA', concatedBookings)
+        },
+        async publishShowtimes({commit}, payload){
+
+          for(let document of payload.showtimes){
+            await db.collection('showtimes').add(document)
+          }
+        
+          let concatedShowtimes = this.state.showtimes.concat(payload.showtimes)
+        
+          commit('setShowtimesA', concatedShowtimes)
+        },
+        async publishMovies({commit}, payload){
+
+          for(let document of payload.movies){
+            await db.collection('movies').add(document)
+          }
+        
+          let concatedMovies = this.state.movies.concat(payload.movies)
+        
+          commit('setMovies', concatedMovies)
+        }
   },
   modules: {
   }

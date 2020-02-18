@@ -68,6 +68,9 @@ export default {
     consoleLog(trailer){
       console.log(trailer.toString());
     },
+        exitLogin(){
+      this.$router.go(-1);
+    },
     publishMovie() {
       this.$store.dispatch("publishMovie");
     },
@@ -231,7 +234,7 @@ i.icon-white {
   }
   .main-info{
     max-width: 100%;
-  }
+ }
 }
 
 @media only screen and (max-width: 600px)  {

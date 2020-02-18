@@ -5,6 +5,8 @@ import Movie from '@/views/Movie.vue'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
 import MyPage from '@/views/MyPage'
+import About from '@/views/About'
+
 
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -44,6 +46,11 @@ const routes = [
   component: MyPage,
   meta: {requiersAuth: true}
 },
+{
+  path: '/about',
+  name: 'about',
+  component: About
+}
 ]
 
 const router = new VueRouter({

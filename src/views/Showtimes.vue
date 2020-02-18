@@ -1,7 +1,8 @@
 <template>
   <div class="about">
     <h1>Add showtimes</h1>
-    <button class="btn-small red" v-on:click="saveShowtimes()" style="width: 300px; margin: 15px;">Import to database</button>
+    <button class="btn-small red" v-on:click="saveMovies()" style="width: 300px; margin: 15px;">Movies import to database</button>
+    <button class="btn-small red" v-on:click="saveShowtimes()" style="width: 300px; margin: 15px;">Showtimes Import to database</button>
   </div>
 </template>
 
@@ -12,6 +13,91 @@ export default {
     };
   },
   methods: {
+    saveMovies(){
+      this.$store.dispatch("publishMovies", {movies:[{ 
+            id: 6, 
+            age: 15, 
+            title: 'Joker', 
+            image: 'https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_UX182_CR0,0,182,268_AL_.jpg',
+            imageOfCarousel: 'https://robbreportedit.files.wordpress.com/2019/10/joker-2019.jpg?w=1000&h=563',
+            trailer: 'zAGVQLHvwOY',
+            videoImage: 'https://uhdwallpapers.org/uploads/converted/19/09/21/joker-4k-poster-1920x1080_666674-mm-90.jpg',
+            director: 'Todd Phillips',
+            actors: {0: 'Joaquin Phoenix', 1: 'Robert De Niro', 2: 'Zazie Beetz', 3: 'Frances Conroy'},
+            genre: {0: 'Drama', 1: 'Thriller'},
+            plot: 'Arthur, en man som möts av grymhet och förakt av samhället. Dagtid arbetar han som clown och på kvällarna försöker han slå igenom som stand-up komiker… men det känns som att skratten alltid är på hans bekostnad. Han är helt ur synk med verkligheten och hans okontrollerbara och opassande skratt, som bara ökar när han försöker behärska det leder till mer hån och även våld.'
+            }]})
+
+      this.$store.dispatch("publishMovies", {movies:[{ 
+            id: 2, 
+            age: 7, 
+            title: 'Frozen 2', 
+            image: 'https://m.media-amazon.com/images/M/MV5BMjA0YjYyZGMtN2U0Ni00YmY4LWJkZTItYTMyMjY3NGYyMTJkXkEyXkFqcGdeQXVyNDg4NjY5OTQ@._V1_UX182_CR0,0,182,268_AL_.jpg',
+            imageOfCarousel: 'https://i0.wp.com/www.adventuresinpoortaste.com/wp-content/uploads/2019/11/frozen-2-header-2.jpg?resize=1000%2C563&ssl=1',
+            trailer: 'Zi4LMpSDccc',
+            videoImage: 'https://wallpapercave.com/wp/wp3968984.jpg',
+            director: 'Chris Buck',
+            actors: {0: 'Kristen Bell', 1: 'Idina Menzel', 2: 'Josh Gad', 3: 'Jonathan Groff'},
+            genre: {0: 'Animerat', 1: 'Äventyr'},
+            plot: 'Varför föddes Elsa med magiska krafter? Svaret hotar hennes kungarike. Tillsammans med Anna, Kristoffer, Olof och Sven ger hon sig ut på en farlig men häpnadsväckande resa. I Frost var Elsa rädd för att hennes krafter var för mycket för världen. I Frost 2 får hon hoppas att de är tillräckliga.'
+            }]})
+
+      this.$store.dispatch("publishMovies", {movies:[{ 
+            id: 3, 
+            age: 7, 
+            title: 'Cats', 
+            image: 'https://m.media-amazon.com/images/M/MV5BNjRlNTY3MTAtOTViMS00ZjE5LTkwZGItMGYwNGQwMjg2NTEwXkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_UX182_CR0,0,182,268_AL_.jpg',
+            imageOfCarousel: 'https://pmcvariety.files.wordpress.com/2019/10/cats-e1574351786496.jpg?crop=0px%2C0px%2C998px%2C562px&resize=1000%2C563',
+            trailer: 'gq50F-IDXDc',
+            videoImage: 'https://www.etonline.com/sites/default/files/styles/video_1920x1080/public/images/2019-07/eto_clip_cats_071819vidpic.png.jpg?itok=of-uGh-7',
+            director: 'Tom Hooper',
+            actors: {0: 'Jennifer Hudson', 1: 'Judi Dench', 2: 'Taylor Swift', 3: 'Robbie Fairchild'},
+            genre: {0: 'Musikal'},
+            plot: 'Filmversion av musikalklassikern av Andrew Lloyd Webber med ikonisk musik, fantastiska skådespelare, dansare i världsklass, spektakulära miljöer, otrolig ny teknologi och alla tänkbara dansstilar.'
+            }]})
+
+      this.$store.dispatch("publishMovies", {movies:[{ 
+            id: 4, 
+            age: 7, 
+            title: 'Spies in disguise', 
+            image: 'https://m.media-amazon.com/images/M/MV5BMDQ4ZTQ3ZGYtODFhNi00NmY2LThlYzItYTNmMDQ0YTczOWE0XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_UX182_CR0,0,182,268_AL_.jpg',
+            imageOfCarousel: 'https://pmcvariety.files.wordpress.com/2019/12/spies-in-disguise.jpg?w=1000&h=563&crop=1',
+            trailer: 'A05s7OM-8Oc',
+            videoImage: 'https://img.reelgood.com/content/movie/767ab5f7-d016-411a-bc0e-3bf7aaae5ccd/backdrop-1920.jpg',
+            director: 'Nick Bruno',
+            actors: {0: 'Rachel Brosnahan', 1: 'Jarrett Bruno', 2: 'Claire Crosby', 3: 'Will Smith'},
+            genre: {0: 'Animerat', 1: 'Action', 2: 'Äventyr', 3: 'Familj'},
+            plot: 'Superspionen Lance Sterling och vetenskapsmannen Walter Beckett är varandras raka motsatser. Lance är charmig och smidig. Walter är… det inte. Men vad Walter saknar i sociala färdigheter väger han upp med smarta uppfinningar som Lance använder under sina episka uppdrag. En oväntad vändning gör dock att Walter och Lance tvingas förlita sig på varandra på ett helt nytt sätt. Om det udda paret inte kan lära sig att samarbeta är hela världen i fara.'
+            }]})
+
+      this.$store.dispatch("publishMovies", {movies:[{ 
+            id: 5, 
+            age: 15, 
+            title: 'Bad boys for life', 
+            image: 'https://m.media-amazon.com/images/M/MV5BMWU0MGYwZWQtMzcwYS00NWVhLTlkZTAtYWVjOTYwZTBhZTBiXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_UX182_CR0,0,182,268_AL_.jpg', 
+            imageOfCarousel: 'https://images-ext-1.discordapp.net/external/rnifkDhdWd47Iw-Jpjr9yKAseZn0vmG3S4q4YC1Fp-M/https/img1.looper.com/img/gallery/the-5-best-and-5-worst-things-in-bad-boys-for-life/intro-1579267525.jpg',
+            trailer: 'jKCj3XuPG8M',
+            videoImage: 'https://images-ext-1.discordapp.net/external/rnifkDhdWd47Iw-Jpjr9yKAseZn0vmG3S4q4YC1Fp-M/https/img1.looper.com/img/gallery/the-5-best-and-5-worst-things-in-bad-boys-for-life/intro-1579267525.jpg',
+            director: 'Adil El Arbi',
+            actors: {0: 'Will Smith', 1: 'Martin Lawrence', 2: 'Vanessa Hudgens', 3: 'Alexander Ludwig', 4: 'Charles Melton'},
+            genre: {0: 'Action', 1: 'Komedi'},
+            plot: 'Poliserna Mike Lowrey och Marcus Burnett är tillbaka en sista gång i "Bad Boys for Life'
+            }]})
+      /*
+      this.$store.dispatch("publishMovies", {movies:[{ 
+            id: , 
+            age: , 
+            title: '', 
+            image: '',
+            imageOfCarousel: '',
+            trailer: '',
+            videoImage: '',
+            director: '',
+            actors: {0: '', 1: '', 2: '', 3: ''},
+            genre: {0: '', 1: ''},
+            plot: ''
+            }]})*/
+    },
     saveShowtimes(){
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 1, auditoriumId: 1, showtimeId: 1, startDatetime: 1581883217}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 1, auditoriumId: 1, showtimeId: 2, startDatetime: 1582578000}]})
@@ -100,33 +186,33 @@ export default {
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 3, auditoriumId: 2, showtimeId: 84, startDatetime: 1584824400}]})
 
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 85, startDatetime: 1582617600}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 86, startDatetime: 1582632000}]})
+      //this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 86, startDatetime: 1582632000}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 87, startDatetime: 1582790400}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 88, startDatetime: 1582804800}]})
+      //this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 88, startDatetime: 1582804800}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 89, startDatetime: 1582963200}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 90, startDatetime: 1582977600}]})
+      //this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 90, startDatetime: 1582977600}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 91, startDatetime: 1583136000}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 92, startDatetime: 1583150400}]})
+      //this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 92, startDatetime: 1583150400}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 93, startDatetime: 1583308800}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 94, startDatetime: 1583323200}]})
+      //this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 94, startDatetime: 1583323200}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 95, startDatetime: 1583481600}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 96, startDatetime: 1583496000}]})
+      //this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 96, startDatetime: 1583496000}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 97, startDatetime: 1583654400}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 98, startDatetime: 1583668800}]})
+      //this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 98, startDatetime: 1583668800}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 99, startDatetime: 1583827200}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 100, startDatetime: 1583841600}]})
+      //this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 100, startDatetime: 1583841600}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 101, startDatetime: 1584000000}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 102, startDatetime: 1584014400}]})
+      //this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 102, startDatetime: 1584014400}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 103, startDatetime: 1584172800}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 104, startDatetime: 1584187200}]})
+      //this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 104, startDatetime: 1584187200}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 105, startDatetime: 1584345600}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 106, startDatetime: 1584360000}]})
+      //this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 106, startDatetime: 1584360000}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 107, startDatetime: 1584518400}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 108, startDatetime: 1584532800}]})
+      //this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 108, startDatetime: 1584532800}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 109, startDatetime: 1584691200}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 110, startDatetime: 1584705600}]})
+     // this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 110, startDatetime: 1584705600}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 111, startDatetime: 1584864000}]})
-      this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 112, startDatetime: 1584878400}]})
+      //this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 1, showtimeId: 112, startDatetime: 1584878400}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 2, showtimeId: 113, startDatetime: 1582642800}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 2, showtimeId: 114, startDatetime: 1582815600}]})
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 2, auditoriumId: 2, showtimeId: 115, startDatetime: 1582988400}]})

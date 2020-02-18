@@ -246,6 +246,16 @@ export default new Vuex.Store({
           let concatedShowtimes = this.state.showtimes.concat(payload.showtimes)
         
           commit('setShowtimesA', concatedShowtimes)
+        },
+        async publishMovies({commit}, payload){
+
+          for(let document of payload.movies){
+            await db.collection('movies').add(document)
+          }
+        
+          let concatedMovies = this.state.movies.concat(payload.movies)
+        
+          commit('setMovies', concatedMovies)
         }
   },
   modules: {

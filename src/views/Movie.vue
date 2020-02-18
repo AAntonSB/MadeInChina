@@ -22,7 +22,7 @@
                     {{getDatum(showtime.startDatetime)}}</option>
               </select>
           </span>
-          <router-link :to="{path: '/bookingpage', query: { showtimeId: selectedShowtimeId }}"><a class="waves-effect waves-light btn-large red book-button">Boka</a></router-link>
+          <router-link v-if="disable" :to="{path: '/bookingpage', query: { showtimeId: selectedShowtimeId }}"><a class="waves-effect waves-light btn-large red book-button">Boka</a></router-link>
         </div>
       </div>
       </div>
@@ -65,7 +65,8 @@ export default {
       trailerVisible: false,
       selectedDate: 0,
       selectedMovieId: 0,
-      selectedShowtimeId: 0
+      selectedShowtimeId: 0,
+      disable: false
     };
   },
   computed: {
@@ -88,7 +89,12 @@ export default {
   methods: {
     getSelectedShowtimeId: function (){
       this.selectedShowtimeId = document.getElementById("showtimeSelect").options[document.getElementById("showtimeSelect").selectedIndex].id;
-      document.getElementById('book-button').style.visibility= "visible";
+      this.disable=true
+      console.log(this.selectedShowtimeId)
+      if(this.selectedShowtimeId == 0){
+        this.disable = false;
+        // document.getElementById('book-button').style.visibility= "visible";
+      }
     },
     consoleLog(trailer){
       console.log(trailer.toString());
@@ -140,7 +146,7 @@ export default {
   created() {
     console.log(this.$route.query.movieId);
     this.selectedMovieId = this.$route.query.movieId;
-    console.log(this.selectedShowtimeId + "test");
+    console.log(this.selectedMovieId + "test");
     window.addEventListener("keydown", this.handleKeyPress);
     this.$store.dispatch("getMovie", this.$route.query.movieId); // vi borde inte använda denna, kör på computed gettern ist
   },
@@ -179,8 +185,6 @@ export default {
   padding: 10px 50px;
 }
 
-
-
 .movie-bg-image {
   padding: 0;
   margin: 0;
@@ -210,7 +214,7 @@ i.icon-white {
 }
 .box{
   position: absolute;
-  width: 200px;
+  width: auto;
   top: 40%;
   right:75vw;
   background-color: rgb(0, 0, 0, 0.3);
@@ -266,13 +270,13 @@ i.icon-white {
   margin:0px;
   padding: 2px;
 }
-.dropDownMoviePage{
-}
+
 .my-custom-dropdown {
+  width: 201.77px;
   position: relative;
   display: inline-block;
   vertical-align: middle;
-  margin: 10px; /* demo only */
+  margin-bottom: 8px;
 }
 
 .my-custom-dropdown select {
@@ -306,13 +310,6 @@ i.icon-white {
   border-radius: 0 3px 3px 0;
 }
 
-.my-custom-dropdown select[disabled] {
-  color: rgba(0,0,0,.3);
-}
-
-.my-custom-dropdown select[disabled]::after {
-  color: rgba(0,0,0,.1);
-}
 
 .my-custom-dropdown::before {
   background-color: rgba(0,0,0,.15);

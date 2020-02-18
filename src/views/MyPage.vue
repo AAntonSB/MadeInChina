@@ -1,13 +1,13 @@
 <template>
 <div class="row">
        <!-- <section v-for="movie in movies" v-bind:key="movie.title"> -->
-           
- <section v-for="show in groups" v-bind:key="show">
+    <div v-if="currenttickets.length > 0">
+    <h2 font-color="red">Aktuella biljetter</h2>        
+    <section v-for="show in currenttickets" v-bind:key="show">
     
     <div class="main-body row">
        <div class="relative">
         
-           
         <!-- <svg class="defs-only">
             <filter id="monochrome" 
             color-interpolation-filters="sRGB"
@@ -24,13 +24,47 @@
             
             <h6 class="col s12">{{show.title}} {{show.dateformat}}</h6>
             <h6 class="col s12">>Tid: {{show.timeformat}}  </h6>
-            <h6 class="col s12">Stolsnummer: rad 4, stol 5</h6>
+            <h6 v-for="row in show.seats" v-bind:key="row" class="col s12">Rad: {{ row.row }}, stolsnummer {{ row.seats }}</h6>
             <h6>>Bokningsnummer: #{{show.bookingnumber}}</h6>
-            <h6>>Pris: 85:-</h6>
+            <h6>>Pris: {{ show.price }}:-</h6>
             </div>
         </div> 
     </div>
     </section>
+    </div>
+
+    <div v-if="oldtickets.length > 0">
+    <h2 font-color="red">Tidigare biljetter</h2>        
+    <section v-for="show in oldtickets" v-bind:key="show">
+    
+    <div class="main-body row">
+       <div class="relative">
+        
+        <!-- <svg class="defs-only">
+            <filter id="monochrome" 
+            color-interpolation-filters="sRGB"
+            x="0" y="0" height="100%" width="100%">
+            <feColorMatrix type="matrix"
+            values="1.00 0 0 0 0 
+            0.80 0 0 0 0 
+            0.65 0 0 0 0
+            0    0 0 1 0" />
+            </filter>
+        </svg> -->
+       
+            <div class="row">
+            
+            <h6 class="col s12">{{show.title}} {{show.dateformat}}</h6>
+            <h6 class="col s12">>Tid: {{show.timeformat}}  </h6>
+            <h6 v-for="row in show.seats" v-bind:key="row" class="col s12">Rad: {{ row.row }}, stolsnummer {{ row.seats }}</h6>
+            <h6>>Bokningsnummer: #{{show.bookingnumber}}</h6>
+            <h6>>Pris: {{ show.price }}:-</h6>
+            </div>
+        </div> 
+    </div>
+    </section>
+    </div>
+
     </div>
 
 </template>
@@ -43,6 +77,10 @@
 export default {
     data(){
         return{
+
+            currenttoday: null,
+
+            today: new Date(2020, 2, 2),
 
             groups: null,
 
@@ -61,7 +99,7 @@ export default {
                     auditoriumName: "Lilla salongen",
                     movieID: 1002,
                     length: 103,
-                    startDatetime: new Date(2020, 2, 2, 19, 0),
+                    startDatetime: new Date(2020, 2, 3, 19, 0),
                     film: "Frozen 2",
                 },
 
@@ -140,11 +178,18 @@ export default {
     },
  computed:{
 
-     sortShowtimes() {
 
-         return "dude"
+    oldtickets() {
 
-     },
+       return this.groups.filter(ticket => ticket.startDatetime.getTime() < this.currenttoday.getTime())
+
+    },
+    
+    currenttickets() {
+
+        return this.groups.filter(ticket => ticket.startDatetime.getTime() > this.currenttoday.getTime())
+
+    },
     /* 
     showtimes() {
         return this.$store.state.showtimes;
@@ -162,16 +207,30 @@ created(){
     //this.$store.dispatch("pullShowtimes")
     console.log("Creating mypage")
     //console.log(this.getuniquebookings())
-    this.groups = this.getuniquebookings()
+    this.groups = this.getuniquebookings(this.bookings, this.showtimes)
     //this.user.email = firebase.auth().currentUser.email
     //console.log(firebase.auth().currentUser.email)
     //console.log(this.user.email)
+    this.currenttoday = this.setTodaysDate()
     
 
 },
 methods:{
 
-    getuniquebookings: function(){
+    setTodaysDate: function(){
+
+        //let currentdate = new Date()
+        let currentdate = new Date(2020, 2, 2)
+
+        let currentyear = currentdate.getFullYear()
+        let currentmonth = currentdate.getMonth()
+        let currentday = currentdate.getDate()
+
+        return new Date(currentyear, currentmonth, currentday)
+
+    },
+
+    getuniquebookings: function(listofbookings, listofshowtimes){ //, listofshowtimes
 
         let uniquebookings = []
         let templist = []
@@ -186,20 +245,25 @@ methods:{
         'lördag'
         ]
 
-        for (let id in this.bookings){
+        for (let id in listofbookings){
+        //for (let id in this.bookings){    
 
-            if (uniquebookings.includes(this.bookings[id].bookingNumber) == false){
+            //if (uniquebookings.includes(this.bookings[id].bookingNumber) == false){
+            if (uniquebookings.includes(listofbookings[id].bookingNumber) == false){
 
-                uniquebookings.push(this.bookings[id].bookingNumber)
+                uniquebookings.push(listofbookings[id].bookingNumber)
+                //uniquebookings.push(this.bookings[id].bookingNumber)
 
-                let bookedtickets = this.bookings.filter(ticket => ticket.bookingNumber == this.bookings[id].bookingNumber)
+                let bookedtickets = listofbookings.filter(ticket => ticket.bookingNumber == listofbookings[id].bookingNumber)
+                //let bookedtickets = this.bookings.filter(ticket => ticket.bookingNumber == this.bookings[id].bookingNumber)
 
                 let data = {}
 
-                let currentshowtime = this.showtimes.find(show => show.showtimeId == this.bookings[id].showtimeId)
+                let currentshowtime = listofshowtimes.find(show => show.showtimeId == listofbookings[id].showtimeId)
+                //let currentshowtime = this.showtimes.find(show => show.showtimeId == this.bookings[id].showtimeId)
 
-                let month = currentshowtime.startDatetime.getMonth()
-                let day = currentshowtime.startDatetime.getDay()
+                let month = currentshowtime.startDatetime.getMonth() + 1
+                let day = currentshowtime.startDatetime.getDay() + 1
                 let weekday = swedishweek[currentshowtime.startDatetime.getDay()]
                 let hour = "" + currentshowtime.startDatetime.getHours()
                 let minutes = "" + currentshowtime.startDatetime.getMinutes()
@@ -212,23 +276,36 @@ methods:{
                     minutes = "0" + minutes
                 }
 
-                data.bookingnumber = this.bookings[id].bookingNumber
-                data.showtimeId = this.bookings[id].showtimeId
+                data.bookingnumber = listofbookings[id].bookingNumber
+                //data.bookingnumber = this.bookings[id].bookingNumber
+                data.showtimeId = listofbookings[id].showtimeId
+                //data.showtimeId = this.bookings[id].showtimeId
                 data.title = currentshowtime.film
-                data.dateformat = weekday+ " " + day + "/" + month
+                data.startDatetime = currentshowtime.startDatetime
+                data.dateformat = weekday + " " + day + "/" + month
                 data.timeformat = hour + ":" + minutes
 
-                let ticketsprice = bookedtickets.map(ticket => ticket.price).reduce((prev, next) => prev + next)
+                let temptotalprice = 0
+                let seatsperrow = {}
 
-                data.price = ticketsprice
+                for (let ticket in bookedtickets){
 
-                let seats = bookedtickets.map(ticket => { return {row: ticket.row, col: ticket.col}})
+                    temptotalprice += bookedtickets[ticket].price
 
-                data.seats = seats
+                    if (seatsperrow.hasOwnProperty(bookedtickets[ticket].row)){
+
+                        seatsperrow[bookedtickets[ticket].row].seats += " ," + bookedtickets[ticket].col
+                    }else{
+
+                        seatsperrow[bookedtickets[ticket].row] = {row: bookedtickets[ticket].row, seats: ""}
+                        seatsperrow[bookedtickets[ticket].row].seats += bookedtickets[ticket].col
+                    }
+                }
+
+                data.price = temptotalprice
+                data.seats = seatsperrow
 
                 templist.push(data)
-
-
             }
         }
         return templist

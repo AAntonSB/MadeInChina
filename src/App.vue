@@ -29,23 +29,10 @@
 
         </div>
         <div id="mySidenav" class="sidenavmenu">
-          <a href="#">
-            <i class="material-icons account-icon">account_circle</i>
-          </a>
           <router-link :to="{path: '/login', query: { typeId: 1 }}"><i class="material-icons account-icon">account_circle</i></router-link>
-          <a href="#">Filmer</a>
-          <a href="#">Medlem</a>
+          <router-link :to="{path: '/omoss', query: { typeId: 1 }}">Om oss</router-link>
         </div>
       </nav>
-
-      <div id="mySidenav" class="sidenavmenu">
-        <a href="#">
-          <i class="material-icons account-icon">account_circle</i>
-        </a>
-        <a href="#">About</a>
-        <a href="#">Filmer</a>
-        <a href="#">Medlem</a>
-      </div>
     </header>
 
     <div class="containerapp">

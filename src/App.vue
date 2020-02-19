@@ -16,7 +16,10 @@
               <router-link :to="{path: '/omoss', query: { typeId: 1 }}">Om oss</router-link>
             </li>
             <li>
-              <router-link v-if="loggedIn" :to="{path: '/login', query: { typeId: 1 }}"><i class="material-icons account-icon">account_circle</i></router-link>
+              <router-link v-if="!loggedIn" to="/mypage"><i class="material-icons account-icon">account_circle</i></router-link>
+            </li>
+            <li>
+              <router-link v-if="loggedIn" :to="{path: '/login', query: { typeId: 1 }}">Logga in</router-link>
               <i @click="signOut()" v-if="!loggedIn" class="signoutBtn material-icons account-icon">exit_to_app</i>
             </li>
           </ul>

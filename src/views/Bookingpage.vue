@@ -44,7 +44,7 @@
           </div>
         </div>
         <div id="buttons" class="buttonsBox">          
-          <div id="finishedText">Klar med bokningen.</div>
+          <div id="finishedText">Klar med bokningen. <span id="bookingNumber">Bokningsnummer: {{bookingNumber}}</span></div>
           <button id="bookingBtn" class="btn-small red" v-on:click="showScene()">Välj platser</button>
           <button id="changeBtn" class="btn-small grön" v-on:click="showPanel()">Ändra</button>
           <div v-if="allTypesCount > 0" id="ticketsPrice" nowrap>{{allTypesCount}} st ({{ticketsPrice}}kr)</div>
@@ -94,7 +94,8 @@ export default {
       newBooking:[],
       //bookedSeatsCount: 0,
       choosenSeatCount: 0,
-      startDateTime: ''
+      startDateTime: '',
+      bookingNumber: 0
     };
   },
   methods: {
@@ -225,7 +226,7 @@ export default {
         } else {
           email = document.getElementById('emailInput').value;
         }
-        let bookingNumber = this.showtimeId+this.seats[0].substring(0,underscore)+this.seats[0].substring(underscore+1);
+        this.bookingNumber = this.showtimeId+this.seats[0].substring(0,underscore)+this.seats[0].substring(underscore+1);
         //ordinary
         for(let x = 0; x < 3; x++){
           if (x == 0){
@@ -251,8 +252,8 @@ export default {
                   showtimeId: Number(this.showtimeId),
                   ticketType: ticketType.toString(), //ordinary
                   userId: userId,
-                  bookingNumber: Number(bookingNumber),
-                  bookingId: Number(bookingNumber+bookingCount),
+                  bookingNumber: Number(this.bookingNumber),
+                  bookingId: Number(this.bookingNumber+bookingCount),
                   row: Number(seatId.substring(0,underscore)),
                   col: Number(seatId.substring(underscore+1)),
                   price: ticketPris,
@@ -261,8 +262,8 @@ export default {
               }
 
             this.$store.dispatch("publishBookings", {bookings:[{bookingDatetime: null, 
-                                                                bookingId: Number(bookingNumber+bookingCount), 
-                                                                bookingNumber: Number(bookingNumber), 
+                                                                bookingId: Number(this.bookingNumber+bookingCount), 
+                                                                bookingNumber: Number(this.bookingNumber), 
                                                                 col: Number(seatId.substring(underscore+1)), 
                                                                 price: ticketPris, 
                                                                 row: Number(seatId.substring(0,underscore)), 

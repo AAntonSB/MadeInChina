@@ -54,7 +54,7 @@ export default new Vuex.Store({
     },
 
     getShowtimesByMovieId: state => (movieId) => {
-      return state.showtimes.filter(show => show.movieId === movieId)
+      return state.showtimes.filter(show => show.movieId == movieId)
     },
 
     getAuditorium : state => (auditoriumId) => {

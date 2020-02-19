@@ -2,6 +2,7 @@
     <div style="display: flex; flex-wrap: wrap; justify-content: center;" class="">      
       <div class="flexdirectioncolumn  bookingbox">
         <div id="ticketSelectorSection">
+          <span id="infolabel">Datum: {{this.startDateTime}}</span> 
           <div id="bookingPanel">
             <h2>Antal biljetter</h2><label>{{this.auditoriumSize-this.bookedSeatsCount}} kvar av {{this.auditoriumSize}}</label>
             <!-- Ordinary -->
@@ -50,7 +51,8 @@
           <input id="emailInput" type="text" placeholder="Email adress"> 
           <button id="saveBtn" class="btn-small red" v-on:click="saveBooking()">Spara</button>
         </div>        
-        <div id="scenePanel" class="avoid-clicks">       
+        <div id="scenePanel" class="avoid-clicks">
+          <span id="infolabel">Salong {{auditoriumId}}</span>       
           <div class="flexdirectioncolumn" style="margin: 5px 0px;"><div class="scene">BIODUK</div></div>
           <div style="height: 30px;" v-for="rowindex in seatsRow" :key="rowindex">
             <div class="seatsrow">
@@ -91,7 +93,8 @@ export default {
       //bookings:[],
       newBooking:[],
       //bookedSeatsCount: 0,
-      choosenSeatCount: 0
+      choosenSeatCount: 0,
+      startDateTime: ''
     };
   },
   methods: {
@@ -186,6 +189,9 @@ export default {
     setAuditoriumId(){ 
         let singleShowtimeById = this.$store.getters.getSingleShowtimeById(this.$route.query.showtimeId);
         this.auditoriumId = singleShowtimeById[0].auditoriumId;
+        let showtimeDatum = singleShowtimeById[0].startDatetime;
+        let showtimeMinutes=(showtimeDatum.getMinutes() < 10 ? '0' : '') +showtimeDatum.getMinutes();  
+        this.startDateTime = showtimeDatum.getDate()+'/'+(showtimeDatum.getMonth()+1)+ ' '+showtimeDatum.getHours() +':'+showtimeMinutes;
         this.seatsRow = this.$store.getters.getAuditorium(this.auditoriumId)[0].seatsPerRow.length;
         this.auditoriumSize = this.$store.getters.getAuditorium(this.auditoriumId)[0].seats;
     },
@@ -343,6 +349,7 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 .bookingcontainer{
   flex-grow: 1;
@@ -357,8 +364,8 @@ export default {
   justify-content: space-around;
 }
 .bookingbox h2{
-  font-size: 2.36rem;
-  margin: 15px 15px;
+  font-size: 2.06rem;
+  margin: 5px 15px;
 }
 .ticketSection{
   width: 100%;
@@ -449,6 +456,7 @@ export default {
 }
 #scenePanel{
   width: 100%;
+  position: relative;
 }
 .avoid-clicks{
   display: inline-block;
@@ -483,5 +491,16 @@ export default {
   margin: 15px 15px 10px 15px;
   font-weight: bold;
   font-size: 20px;
+}
+#infolabel{
+    position: absolute; 
+    left: 0;
+    font-size: 16px;
+    color: white!important;
+    background: rgba(116, 26, 26, 0.7); 
+    padding: 5px 20px;
+    margin: 5px 0px 0px 5px;
+    border-radius: 3px;
+    opacity: 0.8;
 }
 </style>

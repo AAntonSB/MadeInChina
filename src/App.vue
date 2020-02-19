@@ -24,7 +24,6 @@
 
            <router-link to="/"><img id="logo" src="@/assets/filmvisarna.png"></router-link>
 
-         <!-- <router-link to="/"><i class="material-icons logo-icon">movie_filter</i></router-link> -->
 
         </div>
         <div id="mySidenav" class="sidenavmenu">
@@ -292,11 +291,7 @@ import * as firebase from 'firebase'
 import 'firebase/auth'
 import Footer from "@/components/Footer.vue";
 export default {
-  computed: {
-    /*movies() {
-      return this.$store.state.movies;
-    }*/
-  },
+  
   created() {
     this.$store.dispatch("getMovies");
     firebase.auth().onAuthStateChanged(user => {
@@ -315,9 +310,6 @@ export default {
       }
     },
 
-    /*publishMovies() {
-      this.$store.dispatch("publishMovies");
-    },*/
     nextImg: function() {
       document.getElementById("gallery").scrollLeft += 200;
     },

@@ -1,7 +1,6 @@
 <template>
         <div class="flexdirectioncolumn">
             <!-- Big picture with search -->
-            <!-- Big picture with search -->
             <div class="bigimgmovies" 
                 v-bind:style="{ 'background-image': 'url(' + randommovie[0].videoImage + ')' }"
                 >
@@ -232,7 +231,6 @@ import {
 } from "hooper";
 import "hooper/dist/hooper.css";
 import HooperSlider from "@/components/HooperSlider.vue";
-//import func from '../vue-temp/vue-editor-bridge';
 
 export default {
   data(){
@@ -247,45 +245,21 @@ export default {
 
   },
   computed: {
-    movies() { //ändrad till att använda getter
+    movies() { 
         return this.$store.getters.getMovies
     },
     showtimesByMovieId(){
         return this.$store.getters.getAllShowtimesByMovieId(this.selectedMovieId).filter(showtime => showtime.startDatetime > this.currentDate)
     },
     randommovie: function (){
-        //return this.$store.state.movie
         return this.$store.getters.getMovieByID(String(Math.floor(Math.random()*(5-1+1)+1)))
     },
-    /*dateshowtimes: function (){
-
-      let myday = new Date(2020, 2, 2)
-
-      return this.$store.getters.getAllShowtimesByDate(myday)
-    }*/
-    /*
-    bookedSeats: function (){
-      return this.$store.getters.getBookedSeats(2)
-    }
-    */
   },
   created() {
     this.$store.dispatch("getMovies");
     this.$store.dispatch("pullShowtimes");
-    //store.dispatch('incrementAsync', {
-    //amount: 10
-    
-    /*this.$store.dispatch("publishAuditoriums")
-    this.$store.dispatch("pullShowtimes")
-    this.$store.dispatch("pullBookings", {showtimeId: 1})*/
-    //this.$store.dispatch("publishBookings", {showtimeId: 1})
-    
-    //his.$store.dispatch("getMovie", String(Math.floor(Math.random()*(5-1+1)+1)));
   },
   methods: {
-    /*publishMovies() {
-      this.$store.dispatch("publishMovies");
-    },*/
     showNavMenu: function() {
       document.getElementById("mySidenav").style.width = "200px";
       document.getElementById("close-menu-button").style.visibility = "visible";

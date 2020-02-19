@@ -88,20 +88,7 @@ export default {
             plot: 'Poliserna Mike Lowrey och Marcus Burnett är tillbaka en sista gång i "Bad Boys for Life',
             time: '2 tim 4 min'
             }]})
-      /*
-      this.$store.dispatch("publishMovies", {movies:[{ 
-            id: , 
-            age: , 
-            title: '', 
-            image: '',
-            imageOfCarousel: '',
-            trailer: '',
-            videoImage: '',
-            director: '',
-            actors: ['', '', '', ''],
-            genre: ['', ''],
-            plot: ''
-            }]})*/
+     
     },
     saveShowtimes(){
       this.$store.dispatch("publishShowtimes", {showtimes:[{ movieId: 1, auditoriumId: 1, showtimeId: 1, startDatetime: 1581883217}]})

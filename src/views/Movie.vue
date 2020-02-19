@@ -42,13 +42,6 @@
         <p><span style="font-weight: bold;">Språk:</span> {{movi.language}}</p>
       </div>
       </div>
-      <!-- <div class="Booking collection">
-          <li class="collection-header"><h4>Visningar v.47</h4></li>
-          <a href="#!" class="collection-item black"><p class="white-font">Film tid</p></a>
-          <a href="#!" class="collection-item black white-font"><p class="white-font">Sal 2 17:00</p> <p class="reddd">68 av 68 platser kvar</p></a>
-          <a href="#!" class="collection-item black white-font"><p class="white-font">Film tid</p></a>
-          <a href="#!" class="collection-item black white-font"><p class="white-font">Film tid</p></a>
-      </div> -->
     </section>
   </div>
 </template>
@@ -63,22 +56,16 @@ export default {
   },
   computed: {
     movie() {
-      // TODO use getter for this this.$route.query.movieId
       return this.$store.getters.getMovieByID(this.$route.query.movieId)
     },
-    /*
-    movie2() {
-      return this.$store.getters.getMovieByID(this.$route.query.movieId)
-    },
-    */
   },
   methods: {
     consoleLog(trailer){
       console.log(trailer.toString());
     },
-    /*publishMovie() {
+    publishMovie() {
       this.$store.dispatch("publishMovie");
-    },*/
+    },
 
     toggleTrailer() {
       this.trailerVisible = !this.trailerVisible;
@@ -103,7 +90,7 @@ export default {
   created() {
     console.log(this.$route.query.movieId);
     window.addEventListener("keydown", this.handleKeyPress);
-    //this.$store.dispatch("getMovie", this.$route.query.movieId); // vi borde inte använda denna, kör på computed gettern ist
+    this.$store.dispatch("getMovie", this.$route.query.movieId); 
   },
   destroyed() {
     window.removeEventListener("keydown", this.handleKeyPress);

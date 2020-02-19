@@ -88,9 +88,7 @@ export default {
       allTypesCount: 0,
       seatsRow: 0,
       seats: [],
-      //bookings:[],
       newBooking:[],
-      //bookedSeatsCount: 0,
       choosenSeatCount: 0
     };
   },
@@ -207,7 +205,6 @@ export default {
       let ticketPris = 0;
       let email = null;
       let userId = null;
-      //let userId=0;
       document.getElementById('scenePanel').classList.add('avoid-clicks');
       var user = firebase.auth().currentUser;
 
@@ -265,7 +262,6 @@ export default {
                                                                 userId: userId,
                                                                 email: email}]})
             bookingCount++;
-            //alert(JSON.stringify(this.newBooking));
             console.log(this.newBooking);
             document.getElementById('emailInput').style.display='none';
             document.getElementById('saveBtn').style.display='none';
@@ -319,7 +315,6 @@ export default {
     this.$store.dispatch("pullBookings", {showtimeId: this.$route.query.showtimeId});
     this.$store.dispatch("getBookings");
     //publish bookings have been tested, it takes a payload object with the attribute bookings which is a list of bookings objects
-    //this.$store.dispatch("publishBookings", {bookings:[{bookingDatetime: null, bookingId: 8, bookingNumber: 1004, col: 2, price: 85, row: 3, showtimeId: 1, tickeType: "1", userId: "null"}]})
   },
 };
 </script>

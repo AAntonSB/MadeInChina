@@ -5,7 +5,7 @@
       <div class="modal-content">
         <div class="row">
           <!-- TODO Create a logo picture -->
-          <i class="material-icons large">account_circle</i>
+         <i class="material-icons logo-icon">movie_filter</i>
 
           <h4>Logga in</h4>
           <form action>
@@ -34,10 +34,9 @@
             Logga in med google
           </p>
           <div class="forgotpassword">
-            <!-- <router-link to="">Har du glömt ditt lösenord?</router-link> -->
           </div>
           <span>
-            Behöver du ett ett konto?
+            Behöver du ett konto?
             <router-link to="/register">Registrera dig här</router-link>.
           </span>
         </div>
@@ -98,15 +97,6 @@ export default {
 
 <style scoped>
 .bg-modal {
-  /*display: flex;
-    justify-content: center;
-    align-content: center;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: rgba(0,0,0,0.7);
-    z-index: 10;
-    top: 0; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -118,13 +108,6 @@ export default {
   z-index: 10;
 }
 .modal-content {
-  /* background-color: white;
-    border-radius: 4px;
-    text-align: center;
-    padding: 40px 70px 40px 70px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%); */
   display: flex;
   background-color: white;
   text-align: center;

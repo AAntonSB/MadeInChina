@@ -19,7 +19,7 @@
                   <option  v-for="showtime in showtimesByMovieId" 
                     :key="showtime" 
                     :id="showtime.showtimeId">
-                    {{getDatum(showtime.startDatetime)}}</option>
+                    {{getDatum(showtime.startDatetime)}} (salong {{showtime.auditoriumId}})</option>
               </select>
           </span>
           <router-link v-if="disable" :to="{path: '/bookingpage', query: { showtimeId: selectedShowtimeId }}"><a class="waves-effect waves-light btn-large red book-button">Boka</a></router-link>
@@ -124,13 +124,13 @@ export default {
         'lördag'
         ]
       let dayName = days[(showtimestDT.getDay())]
-      let showtimeMinutes=showtimestDT.getMinutes();
-
+      let showtimeHours=(showtimestDT.getHours() < 10 ? '0' : '') +showtimestDT.getHours();    
+      let showtimeMinutes=(showtimestDT.getMinutes() < 10 ? '0' : '') +showtimestDT.getMinutes();
       if (showtimeMinutes.toString().length < 2) 
       {
         showtimeMinutes = '0' + showtimeMinutes
-      }
-      return (showtimestDT.getDate())+' / '+(showtimestDT.getMonth()+1)+ ' '+showtimestDT.getHours() +':'+showtimeMinutes+' '+dayName;
+      }      
+      return showtimestDT.getDate()+'/'+(showtimestDT.getMonth()+1)+ ' '+showtimeHours +':'+showtimeMinutes+' '+dayName;
     }
   },
   watch: {
@@ -218,7 +218,7 @@ i.icon-white {
   position: absolute;
   width: auto;
   top: 40%;
-  right:75vw;
+  right:65vw;
   background-color: rgb(0, 0, 0, 0.3);
   display: block;
   padding: 30px;
@@ -274,7 +274,7 @@ i.icon-white {
 }
 
 .my-custom-dropdown {
-  width: 201.77px;
+  width: 260px;
   position: relative;
   display: inline-block;
   vertical-align: middle;

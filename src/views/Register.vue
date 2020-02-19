@@ -82,6 +82,7 @@
       <a @click="toggleTermsOfService()" class="btn light-blue tos-button">Jag förstår.</a>
       </div>
     </div>
+    <div class="exitBox" @click="exitLogin"></div>
   </div>
 </template>
 
@@ -137,6 +138,12 @@ export default {
       }
     },
 
+    exitLogin(){
+      console.log(this.$router.go(-1))
+      this.$router.go(-1);
+    },
+
+
     toggleTermsOfService(){
       return this.termsOfService = !this.termsOfService;
     },
@@ -190,9 +197,18 @@ export default {
   padding: 48px 40px 36px;
   max-width: 450px;
   height: 560px;
+  z-index: 1;
 }
 .login-button {
   margin-top: 8%;
+}
+
+.exitBox{
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  position: absolute;
 }
 
 .main-textblock {

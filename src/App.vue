@@ -16,7 +16,8 @@
               <router-link :to="{path: '/omoss', query: { typeId: 1 }}">Om oss</router-link>
             </li>
             <li>
-              <router-link :to="{path: '/login', query: { typeId: 1 }}"><i class="material-icons account-icon">account_circle</i></router-link>
+              <router-link v-if="loggedIn" :to="{path: '/login', query: { typeId: 1 }}"><i class="material-icons account-icon">account_circle</i></router-link>
+              <i @click="signOut()" v-if="!loggedIn" class="signoutBtn material-icons account-icon">exit_to_app</i>
             </li>
           </ul>
           </div>
@@ -167,6 +168,10 @@ footer h5, footer{
   width: 33%;
 }
 
+.signoutBtn{
+  cursor: pointer;
+}
+
 .icon {
   width: 30px;
   height: 30px;
@@ -289,12 +294,20 @@ import * as firebase from 'firebase'
 import 'firebase/auth'
 import Footer from "@/components/Footer.vue";
 export default {
+  data(){
+    return{
+      that: this,
+      userState: () => firebase.auth().onAuthStateChanged,
+      loggedIn: false
+      }
+  },
   computed: {
     /*movies() {
       return this.$store.state.movies;
     }*/
   },
   created() {
+    this.userState = 1;
     this.$store.dispatch("getMovies");
     firebase.auth().onAuthStateChanged(user => {
       this.loggedIn = !!user;
@@ -306,7 +319,7 @@ export default {
       try {
         const data = await firebase.auth().signOut();
         console.log(data);
-        this.$router.replace({ name: "login" });
+        this.$router.replace({ name: "start" });
       } catch (err) {
         console.log(err);
       }
@@ -330,10 +343,26 @@ export default {
       document.getElementById("mySidenav").style.width = "0px";
       document.getElementById("show-menu-button").style.display = "block";
       document.getElementById("close-menu-button").style.visibility = "hidden";
-    }
+    },
+
   },
   components: {
     Footer
+  },
+  watch: {
+    userState(){
+      let that = this;
+ firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    that.loggedIn = false;
+  } else {
+    // No user is signed in.
+        that.loggedIn = true;
+
   }
+});
+    }
+  },
 };
 </script>

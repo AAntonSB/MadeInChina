@@ -96,6 +96,9 @@ export default {
     consoleLog(trailer){
       console.log(trailer.toString());
     },
+        exitLogin(){
+      this.$router.go(-1);
+    },
     /*publishMovie() {
       this.$store.dispatch("publishMovie");
     },*/

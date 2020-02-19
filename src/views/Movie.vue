@@ -19,7 +19,7 @@
                   <option  v-for="showtime in showtimesByMovieId" 
                     :key="showtime" 
                     :id="showtime.showtimeId">
-                    {{getDatum(showtime.startDatetime)}}</option>
+                    {{getDatum(showtime.startDatetime)}} (salong {{showtime.auditoriumId}})</option>
               </select>
           </span>
           <router-link v-if="disable" :to="{path: '/bookingpage', query: { showtimeId: selectedShowtimeId }}"><a class="waves-effect waves-light btn-large red book-button">Boka</a></router-link>
@@ -274,7 +274,7 @@ i.icon-white {
 }
 
 .my-custom-dropdown {
-  width: 201.77px;
+  width: 178px;
   position: relative;
   display: inline-block;
   vertical-align: middle;

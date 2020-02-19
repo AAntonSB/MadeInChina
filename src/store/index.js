@@ -34,7 +34,7 @@ export default new Vuex.Store({
     },
 
     getBookings: state => {
-        return state.placeholderbookings
+        return state.bookings
     },
 
     getMovieByID: state => (id) => {
@@ -103,7 +103,7 @@ export default new Vuex.Store({
       let tempseatings = {seats: {}, occupiedSeats: data.bookings.length, availableSeats: data.currentauditorium.seats - data.bookings.length}
 
 
-      let currentauditorium = state.auditoriums.find(auditorium => auditorium.Id === currentshowtime.auditoriumId)
+      //console.log("number of seats left " + seatsleft)
 
       for (let i = 1; i < data.currentauditorium.seatsPerRow.length + 1; i++){
         tempseatings.seats[i] = []
@@ -196,7 +196,7 @@ export default new Vuex.Store({
           querySnapshot.forEach((document) => {
             showtimesdata.push(document.data())
         })
-        console.log("showtimes!")
+        //console.log("showtimes!")
          //console.log(showtimesdata)
          this.commit('setShowtimes', showtimesdata) //commit data instead of showtimesdata
 

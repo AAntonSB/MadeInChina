@@ -71,115 +71,22 @@
 <script>
 
 //import { functions } from 'firebase'
-//import * as firebase from "firebase/app";
-//import "firebase/auth";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 //import { db} from '@/firebase';
 export default {
     data(){
         return{
 
+            allshowtimes: null,
+
+            alluserbookings: null,
+
             currenttoday: null,
 
-            today: new Date(2020, 2, 2),
+            listoftickets: null,
 
-            groups: null,
-
-            fbmovies: null,
-
-            fbbookings: null,
-
-            fbshowtimes: null,
-
-            showtimes: [
-
-                {   
-                    showtimeId: 1,
-                    auditoriumName: "Stora salongen",
-                    movieID: 1001,
-                    length: 122,
-                    startDatetime: new Date(2020, 2, 2, 19, 0),
-                    film: "Joker",
-                },
-                {   
-                    showtimeId: 2,
-                    auditoriumName: "Lilla salongen",
-                    movieID: 1002,
-                    length: 103,
-                    startDatetime: new Date(2020, 2, 3, 19, 0),
-                    film: "Frozen 2",
-                },
-
-            ],
-
-            bookings: [
-                {
-                    bookingId: 1,
-                    showtimeId: 1,
-                    row: 1,
-                    col: 1,
-                    price: 75,
-                    bookingNumber: 1001,
-                    userId: null,
-                    bookingDatetime: null,
-                    ticketType: 1,
-                },
-                {
-                    bookingId: 2,
-                    showtimeId: 1,
-                    row: 1,
-                    col: 2,
-                    price: 75,
-                    bookingNumber: 1001,
-                    userId: null,
-                    bookingDatetime: null,
-                    ticketType: 1,
-                },
-                {
-                    bookingId: 3,
-                    showtimeId: 1,
-                    row: 1,
-                    col: 3,
-                    price: 75,
-                    bookingNumber: 1001,
-                    userId: null,
-                    bookingDatetime: null,
-                    ticketType: 1,
-                },
-                {
-                    bookingId: 4,
-                    showtimeId: 1,
-                    row: 2,
-                    col: 1,
-                    price: 75,
-                    bookingNumber: 1002,
-                    userId: null,
-                    bookingDatetime: null,
-                    ticketType: 1,
-                },
-                {
-                    bookingId: 5,
-                    showtimeId: 2,
-                    row: 3,
-                    col: 5,
-                    price: 75,
-                    bookingNumber: 1003,
-                    userId: null,
-                    bookingDatetime: null,
-                    ticketType: 1,
-                },
-                {
-                    bookingId: 6,
-                    showtimeId: 2,
-                    row: 3,
-                    col: 6,
-                    price: 75,
-                    bookingNumber: 1003,
-                    userId: null,
-                    bookingDatetime: null,
-                    ticketType: 1,
-                },
-            ]
-
+            allmovies: null,
         }
     },
  computed:{
@@ -187,55 +94,61 @@ export default {
 
     oldtickets() {
 
-       return this.groups.filter(ticket => ticket.startDatetime.getTime() < this.currenttoday.getTime())
+       return this.listoftickets.filter(ticket => ticket.startDatetime.getTime() < this.currenttoday.getTime())
 
     },
     
     currenttickets() {
 
-        return this.groups.filter(ticket => ticket.startDatetime.getTime() > this.currenttoday.getTime())
+        return this.listoftickets.filter(ticket => ticket.startDatetime.getTime() > this.currenttoday.getTime())
 
     },
-
-
-    /* 
-    showtimes() {
-        return this.$store.state.showtimes;
-        
-    }, 
-    movies() {
-        return this.$store.state.movies;
-        }
-    */
 },
 
 created(){
-    this.$store.dispatch("getMovies");
-    //this.$store.dispatch("getShowTimes")
-    //this.$store.dispatch("pullShowtimes")
-    console.log("Creating mypage")
-    //console.log(this.getuniquebookings())
-    this.groups = this.getuniquebookings(this.bookings, this.showtimes)
-    //this.user.email = firebase.auth().currentUser.email
-    //console.log(firebase.auth().currentUser.email)
-    //console.log(this.user.email)
+    //this.$store.dispatch("getMovies")
+    this.$store.dispatch("getBookings")
+    this.$store.dispatch("pullShowtimes")
+
+
     this.currenttoday = this.setTodaysDate()
-    this.setfbmovies()
+    this.setallmovies()
+    this.alluserbookings = this.getUserBookings()
+    this.allshowtimes = this.getShowtimes()
+    this.listoftickets = this.getuniquebookings(this.alluserbookings, this.allshowtimes, this.allmovies)
     
 
 },
 methods:{
 
-    setfbmovies: function() {
+    getShowtimes: function() {
 
-        this.fbmovies = this.$store.getters.getMovies
+        let tempshowtimes = this.$store.getters.getShowTimes
+        
+        return tempshowtimes
+
+    },
+
+    getUserBookings: function() {
+        
+        let allbookings = this.$store.getters.getBookings
+
+        let userbookings = allbookings.filter(booking => booking.userId == firebase.auth().currentUser.uid)
+
+        return userbookings
+
+    },
+
+    setallmovies: function() {
+
+        this.allmovies = this.$store.getters.getMovies
 
     },
 
     setTodaysDate: function(){
 
         //let currentdate = new Date()
-        let currentdate = new Date(2020, 2, 2)
+        let currentdate = new Date(2020, 2, 17)
 
         let currentyear = currentdate.getFullYear()
         let currentmonth = currentdate.getMonth()
@@ -245,7 +158,9 @@ methods:{
 
     },
 
-    getuniquebookings: function(listofbookings, listofshowtimes){ //, listofshowtimes
+    getuniquebookings: function(listofbookings, listofshowtimes, listofmovies){ 
+
+        //console.log(listofshowtimes.find(show => show.showtimeId == 183))
 
         let uniquebookings = []
         let templist = []
@@ -261,24 +176,18 @@ methods:{
         ]
 
         for (let id in listofbookings){
-        //for (let id in this.bookings){    
 
-            //if (uniquebookings.includes(this.bookings[id].bookingNumber) == false){
             if (uniquebookings.includes(listofbookings[id].bookingNumber) == false){
 
                 uniquebookings.push(listofbookings[id].bookingNumber)
-                //uniquebookings.push(this.bookings[id].bookingNumber)
 
                 let bookedtickets = listofbookings.filter(ticket => ticket.bookingNumber == listofbookings[id].bookingNumber)
-                //let bookedtickets = this.bookings.filter(ticket => ticket.bookingNumber == this.bookings[id].bookingNumber)
 
                 let data = {}
-
                 let currentshowtime = listofshowtimes.find(show => show.showtimeId == listofbookings[id].showtimeId)
-                //let currentshowtime = this.showtimes.find(show => show.showtimeId == this.bookings[id].showtimeId)
-
+                let currentmovie = listofmovies.find(film => film.id == currentshowtime.movieId)
                 let month = currentshowtime.startDatetime.getMonth() + 1
-                let day = currentshowtime.startDatetime.getDay() + 1
+                let day = currentshowtime.startDatetime.getDate()
                 let weekday = swedishweek[currentshowtime.startDatetime.getDay()]
                 let hour = "" + currentshowtime.startDatetime.getHours()
                 let minutes = "" + currentshowtime.startDatetime.getMinutes()
@@ -292,10 +201,8 @@ methods:{
                 }
 
                 data.bookingnumber = listofbookings[id].bookingNumber
-                //data.bookingnumber = this.bookings[id].bookingNumber
                 data.showtimeId = listofbookings[id].showtimeId
-                //data.showtimeId = this.bookings[id].showtimeId
-                data.title = currentshowtime.film
+                data.title = currentmovie.title //
                 data.startDatetime = currentshowtime.startDatetime
                 data.dateformat = weekday + " " + day + "/" + month
                 data.timeformat = hour + ":" + minutes

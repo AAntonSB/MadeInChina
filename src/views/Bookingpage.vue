@@ -2,7 +2,7 @@
     <div style="display: flex; flex-wrap: wrap; justify-content: center;" class="">      
       <div class="flexdirectioncolumn  bookingbox">
         <div id="ticketSelectorSection">
-          <span id="infolabel">Datum: {{this.startDateTime}}</span> 
+          <span id="infolabel">{{this.startDateTime}}</span> 
           <div id="bookingPanel">
             <h2>Antal biljetter</h2><label>{{this.auditoriumSize-this.bookedSeatsCount}} kvar av {{this.auditoriumSize}}</label>
             <!-- Ordinary -->
@@ -495,7 +495,6 @@ export default {
 #infolabel{
     position: absolute; 
     left: 0;
-    font-size: 16px;
     color: white!important;
     background: rgba(116, 26, 26, 0.7); 
     padding: 5px 20px;

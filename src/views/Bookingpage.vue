@@ -491,7 +491,6 @@ export default {
   display: none;
   margin: 15px 15px 10px 15px;
   font-weight: bold;
-  font-size: 20px;
 }
 #infolabel{
     position: absolute; 

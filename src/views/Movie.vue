@@ -66,7 +66,8 @@ export default {
       selectedDate: 0,
       selectedMovieId: 0,
       selectedShowtimeId: 0,
-      disable: false
+      disable: false,
+      currentDate: new Date()
     };
   },
   computed: {
@@ -75,7 +76,8 @@ export default {
       return this.$store.getters.getMovieByID(this.$route.query.movieId)
     },
       showtimesByMovieId(){
-        return this.$store.getters.getAllShowtimesByMovieId(this.selectedMovieId)
+        
+        return this.$store.getters.getAllShowtimesByMovieId(this.$route.query.movieId).filter(showtime => showtime.startDatetime > this.currentDate)
     },
     /*
     movie2() {
@@ -128,7 +130,7 @@ export default {
       {
         showtimeMinutes = '0' + showtimeMinutes
       }
-      return (showtimestDT.getDay()+1)+' / '+(showtimestDT.getMonth()+1)+ ' '+showtimestDT.getHours() +':'+showtimeMinutes+' '+dayName;
+      return (showtimestDT.getDate())+' / '+(showtimestDT.getMonth()+1)+ ' '+showtimestDT.getHours() +':'+showtimeMinutes+' '+dayName;
     }
   },
   watch: {

@@ -5,7 +5,7 @@
       <div class="modal-content">
         <div class="row">
           <!-- TODO Create a logo picture -->
-         <i class="material-icons logo-icon">movie_filter</i>
+         <i class="large material-icons logo-icon">account_circle</i>
 
           <h4>Logga in</h4>
           <form action>

@@ -106,9 +106,9 @@ export default {
 },
 
 created(){
-    //this.$store.dispatch("getMovies")
-    //this.$store.dispatch("getBookings")
-    //this.$store.dispatch("pullShowtimes")
+    this.$store.dispatch("getMovies")
+    this.$store.dispatch("getBookings")
+    this.$store.dispatch("pullShowtimes")
 
 
     this.currenttoday = this.setTodaysDate()

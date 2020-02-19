@@ -25,6 +25,7 @@ export default {
             director: 'Todd Phillips',
             actors: ['Joaquin Phoenix', 'Robert De Niro', 'Zazie Beetz', 'Frances Conroy'],
             genre: ['Drama', 'Thriller'],
+            language: 'Engelska',
             plot: 'Arthur, en man som möts av grymhet och förakt av samhället. Dagtid arbetar han som clown och på kvällarna försöker han slå igenom som stand-up komiker… men det känns som att skratten alltid är på hans bekostnad. Han är helt ur synk med verkligheten och hans okontrollerbara och opassande skratt, som bara ökar när han försöker behärska det leder till mer hån och även våld.',
             time: '2 tim 2 min'
             }]})
@@ -40,6 +41,7 @@ export default {
             director: 'Chris Buck',
             actors:['Kristen Bell', 'Idina Menzel', 'Josh Gad', 'Jonathan Groff'],
             genre: ['Animerat', 'Äventyr'],
+            language: 'Svenska',
             plot: 'Varför föddes Elsa med magiska krafter? Svaret hotar hennes kungarike. Tillsammans med Anna, Kristoffer, Olof och Sven ger hon sig ut på en farlig men häpnadsväckande resa. I Frost var Elsa rädd för att hennes krafter var för mycket för världen. I Frost 2 får hon hoppas att de är tillräckliga.',
             time: '1 tim 43 min'
             }]})
@@ -55,6 +57,7 @@ export default {
             director: 'Tom Hooper',
             actors: ['Jennifer Hudson', 'Judi Dench', 'Taylor Swift', 'Robbie Fairchild'],
             genre: ['Musikal'],
+            language: 'Engelska',
             plot: 'Filmversion av musikalklassikern av Andrew Lloyd Webber med ikonisk musik, fantastiska skådespelare, dansare i världsklass, spektakulära miljöer, otrolig ny teknologi och alla tänkbara dansstilar.',
             time: '1 tim 50 min'
             }]})
@@ -70,6 +73,7 @@ export default {
             director: 'Nick Bruno',
             actors: ['Rachel Brosnahan', 'Jarrett Bruno', 'Claire Crosby', 'Will Smith'],
             genre: ['Animerat','Action', 'Äventyr', 'Familj'],
+            language: 'Svenska',
             plot: 'Superspionen Lance Sterling och vetenskapsmannen Walter Beckett är varandras raka motsatser. Lance är charmig och smidig. Walter är… det inte. Men vad Walter saknar i sociala färdigheter väger han upp med smarta uppfinningar som Lance använder under sina episka uppdrag. En oväntad vändning gör dock att Walter och Lance tvingas förlita sig på varandra på ett helt nytt sätt. Om det udda paret inte kan lära sig att samarbeta är hela världen i fara.',
             time: '1 tim 42 min'
             }]})

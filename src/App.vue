@@ -10,56 +10,36 @@
             <i id="navMenuIcon" class="material-icons menu-button">close</i>
           </button>
 
+          <div id="rightMenu">
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-              <a href="sass.html">Om oss</a>
+              <router-link :to="{path: '/omoss', query: { typeId: 1 }}">Om oss</router-link>
             </li>
             <li>
-              <a href="badges.html">Filmer</a>
-            </li>
-            <li>
-              <a href="collapsible.html">Medlem</a>
+              <router-link v-if="loggedIn" :to="{path: '/login', query: { typeId: 1 }}"><i class="material-icons account-icon">account_circle</i></router-link>
+              <i @click="signOut()" v-if="!loggedIn" class="signoutBtn material-icons account-icon">exit_to_app</i>
             </li>
           </ul>
-
-          <div class="nav-search">
-            <div class="nav-search-btn btn">
-              <i class="material-icons search-icon">search</i>
-            </div>
-            <div class="search-box">
-              <input type="text" class="search-input" placeholder="Sök" />
-            </div>
           </div>
-         <router-link to="/"><div style="font-size: 35px">logo</div></router-link>
 
-          <!-- <a href="#">
-            <i class="material-icons account-icon">account_circle</i>
-          </a> -->
+
+           <router-link to="/"><img id="logo" src="@/assets/filmvisarna.png"></router-link>
+
+         <!-- <router-link to="/"><i class="material-icons logo-icon">movie_filter</i></router-link> -->
+
         </div>
         <div id="mySidenav" class="sidenavmenu">
-          <a href="#">
-            <i class="material-icons account-icon">account_circle</i>
-          </a>
-          <a href="#">About</a>
-          <a href="#">Filmer</a>
-          <a href="#">Medlem</a>
+          <router-link :to="{path: '/login', query: { typeId: 1 }}"><i class="material-icons account-icon">account_circle</i></router-link>
+          <router-link :to="{path: '/omoss', query: { typeId: 1 }}">Om oss</router-link>
         </div>
       </nav>
-
-      <div id="mySidenav" class="sidenavmenu">
-        <a href="#">
-          <i class="material-icons account-icon">account_circle</i>
-        </a>
-        <a href="#">About</a>
-        <a href="#">Filmer</a>
-        <a href="#">Medlem</a>
-      </div>
     </header>
 
     <div class="containerapp">
       <router-view :key="$route.fullPath"></router-view>
     </div>
 
+<div id="footerAnchor"> </div>
     <Footer />
   </div>
 </template>
@@ -112,41 +92,12 @@ nav {
   color: #42b983;
 }
 
-.nav-search {
-  position: absolute;
-  align-self: center;
-  box-sizing: border-box;
-  left: 10px;
+#logo{
+  margin-top: 5px;
 }
-.search-box {
-  position: relative;
-  display: inline-block;
-  height: 50px;
-  left: 10px;
-}
- .nav-search-btn{
-  align-self: center;
-  border-radius: 50%;
-  width: 36px;
-  background: rgba(255, 255, 255, 0.2); 
-  padding: 0px;
-  
-}
-.nav-search-btn:hover
-{
-background-image:none;
-background-color:rgba(255, 254, 254, 0.4); 
-} 
 
-.search-icon {
-  position: absolute;
-  bottom: 40%;
-  display: flex;
-  height: 36px !important;
-  width: 36px;
-  position: relative;
-  display: flex;
-  justify-content: center;
+#rightMenu{
+  margin-right: 20px;
 }
 
 .containerapp {
@@ -205,6 +156,10 @@ footer h5, footer{
 }
 .row .col {
   width: 33%;
+}
+
+.signoutBtn{
+  cursor: pointer;
 }
 
 .icon {
@@ -329,12 +284,20 @@ import * as firebase from 'firebase'
 import 'firebase/auth'
 import Footer from "@/components/Footer.vue";
 export default {
+  data(){
+    return{
+      that: this,
+      userState: () => firebase.auth().onAuthStateChanged,
+      loggedIn: false
+      }
+  },
   computed: {
     /*movies() {
       return this.$store.state.movies;
     }*/
   },
   created() {
+    this.userState = 1;
     this.$store.dispatch("getMovies");
     firebase.auth().onAuthStateChanged(user => {
       this.loggedIn = !!user;
@@ -346,7 +309,7 @@ export default {
       try {
         const data = await firebase.auth().signOut();
         console.log(data);
-        this.$router.replace({ name: "login" });
+        this.$router.replace({ name: "start" });
       } catch (err) {
         console.log(err);
       }
@@ -370,10 +333,26 @@ export default {
       document.getElementById("mySidenav").style.width = "0px";
       document.getElementById("show-menu-button").style.display = "block";
       document.getElementById("close-menu-button").style.visibility = "hidden";
-    }
+    },
+
   },
   components: {
     Footer
+  },
+  watch: {
+    userState(){
+      let that = this;
+ firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    that.loggedIn = false;
+  } else {
+    // No user is signed in.
+        that.loggedIn = true;
+
   }
+});
+    }
+  },
 };
 </script>

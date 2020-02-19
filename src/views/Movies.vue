@@ -82,7 +82,7 @@
 
 .bigimgmovies{
     background-color: #000;
-    height: 550px;
+    height: 80vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

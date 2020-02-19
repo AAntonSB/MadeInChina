@@ -124,13 +124,13 @@ export default {
         'lördag'
         ]
       let dayName = days[(showtimestDT.getDay())]
-      let showtimeMinutes=showtimestDT.getMinutes();
-
+      let showtimeHours=(showtimestDT.getHours() < 10 ? '0' : '') +showtimestDT.getHours();    
+      let showtimeMinutes=(showtimestDT.getMinutes() < 10 ? '0' : '') +showtimestDT.getMinutes();
       if (showtimeMinutes.toString().length < 2) 
       {
         showtimeMinutes = '0' + showtimeMinutes
-      }
-      return (showtimestDT.getDate())+' / '+(showtimestDT.getMonth()+1)+ ' '+showtimestDT.getHours() +':'+showtimeMinutes+' '+dayName;
+      }      
+      return showtimestDT.getDate()+'/'+(showtimestDT.getMonth()+1)+ ' '+showtimeHours +':'+showtimeMinutes+' '+dayName;
     }
   },
   watch: {
@@ -218,7 +218,7 @@ i.icon-white {
   position: absolute;
   width: auto;
   top: 40%;
-  right:70vw;
+  right:65vw;
   background-color: rgb(0, 0, 0, 0.3);
   display: block;
   padding: 30px;
@@ -274,7 +274,7 @@ i.icon-white {
 }
 
 .my-custom-dropdown {
-  width: 178px;
+  width: 260px;
   position: relative;
   display: inline-block;
   vertical-align: middle;

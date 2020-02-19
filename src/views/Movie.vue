@@ -218,7 +218,7 @@ i.icon-white {
   position: absolute;
   width: auto;
   top: 40%;
-  right:75vw;
+  right:70vw;
   background-color: rgb(0, 0, 0, 0.3);
   display: block;
   padding: 30px;
